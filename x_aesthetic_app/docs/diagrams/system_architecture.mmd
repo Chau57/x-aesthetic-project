@@ -1,0 +1,19 @@
+flowchart TD
+    A[Camera Preview] --> B[Frame Preprocessor]
+    B --> C[Context Detector: YOLO/TFLite]
+    C --> D[PluginManager Microkernel]
+
+    S[Gyroscope/Accelerometer] --> D
+    D --> E[Composition Plugins]
+    E --> F[Overlay Instructions]
+    F --> G[CustomPainter Live Overlay]
+
+    A --> H[Capture Image]
+    H --> I[Post-capture Analyzer]
+    I --> J[AttributeNet + Aesthetic Pipeline]
+    J --> K[Style Matcher + EMD]
+    K --> L[XAI Mapping Engine]
+    L --> M[Preview Feedback UI]
+
+    M --> N[Hive Local Storage]
+    N --> O[Learning Dashboard]

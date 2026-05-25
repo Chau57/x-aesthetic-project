@@ -1,0 +1,7 @@
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+h5py>=3.8.0
+ultralytics>=8.0.0
+onnx>=1.14.0
+Pillow>=9.0.0
