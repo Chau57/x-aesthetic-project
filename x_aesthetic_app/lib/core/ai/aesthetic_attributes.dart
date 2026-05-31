@@ -10,7 +10,8 @@ class AestheticAttributes {
   Map<String, double> deltaTo(AestheticAttributes target) {
     final keys = {...values.keys, ...target.values.keys};
     return {
-      for (final key in keys) key: (values[key] ?? 0.0) - (target.values[key] ?? 0.0),
+      for (final key in keys)
+        key: (values[key] ?? 0.0) - (target.values[key] ?? 0.0),
     };
   }
 

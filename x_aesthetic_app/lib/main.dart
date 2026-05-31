@@ -1,5 +1,7 @@
-import 'app/bootstrap.dart';
+import 'package:flutter/material.dart';
+import 'app.dart';
 
-Future<void> main() async {
-  await bootstrap();
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const XAestheticApp());
 }

@@ -14,5 +14,6 @@ class PluginOutput {
     this.metrics = const {},
   });
 
-  static PluginOutput empty(String pluginId) => PluginOutput(pluginId: pluginId);
+  static PluginOutput empty(String pluginId) =>
+      PluginOutput(pluginId: pluginId);
 }
