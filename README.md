@@ -51,13 +51,18 @@ x-aesthetic-project/
 │   └── requirements.txt          # Python environment dependencies
 │
 └── x_aesthetic_app/              # MOBILE APPLICATION SYSTEM (FLUTTER)
-    ├── assets/models/            # Compiled assets (yolov8n.tflite, aesthetic_net.tflite)
-    └── lib/                      
-        ├── core/                 # Microkernel layer, Isolate dispatchers, Dart FFI, and Plugin Loader
-        ├── services/ai/          # Async model loading, byte buffer allocation, and image prep
-        ├── domain/               # Core business logic, AestheticResult schemas, and XAI Engine rules
-        ├── data/                 # Hive data storage, type adapters, and immutable repositories
-        └── presentation/         # UI view layers, camera streams, CustomPainter layers, and charts
+    ├── assets/
+    │   ├── models/               # Compiled assets (yolov8n.tflite, aesthetic_net.tflite)
+    │   └── style_configs/        # Reference style config files such as Noir, Vibrant, Minimal
+    ├── docs/                     # Architecture and plugin contract documentation
+    ├── lib/
+    │   ├── app/                  # App bootstrap and shell
+    │   ├── core/                 # Microkernel plugin layer, AI/camera abstractions, common helpers
+    │   ├── services/ai/          # Future async model loading and inference service contracts
+    │   ├── domain/               # Core business entities and repository contracts
+    │   ├── data/                 # Future Hive storage, type adapters, and repositories
+    │   └── presentation/         # Camera, preview, dashboard UI layers
+    └── test/                     # Unit and smoke tests for architecture contracts
 
 ```
 
@@ -92,7 +97,7 @@ To optimize shared server resources, run the feature extraction script first to 
 ```bash
 python scripts/extract_features.py --data_dir /path/to/dataset
 python scripts/train_hypernet.py
-python scripts/export_tflite.py --output_dir ../x_aesthetic_app/assets/models/
+python scripts/export_tflite.py --onnx_path ../x_aesthetic_app/assets/models/aesthetic_pipeline.onnx
 
 ```
 

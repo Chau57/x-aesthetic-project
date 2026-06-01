@@ -4,6 +4,11 @@
 *.log
 *.pyc
 *.swp
+*.DS_Store
+*.iml
+*.pyi
+/.venv/
+./venv/
 .buildlog/
 .history
 
