@@ -1,4 +1,4 @@
-import 'aesthetic_result.dart';
+import 'package:x_aesthetic_app/domain/entities/aesthetic_result.dart';
 
 class PhotoHistoryItem {
   final String imageUrl;

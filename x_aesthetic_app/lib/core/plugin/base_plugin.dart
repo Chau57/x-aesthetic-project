@@ -1,5 +1,5 @@
-import 'plugin_context.dart';
-import 'plugin_output.dart';
+import 'package:x_aesthetic_app/core/plugin/plugin_context.dart';
+import 'package:x_aesthetic_app/core/plugin/plugin_output.dart';
 
 abstract interface class AestheticPlugin {
   String get id;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/camera_enums.dart';
-import '../models/photo_history_item.dart';
-import '../data/mock_data.dart';
-import '../theme/app_colors.dart';
-import '../widgets/score_badge.dart';
-import 'camera_screen.dart';
+import 'package:x_aesthetic_app/domain/entities/camera_enums.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/data/mock_data.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/presentation/widgets/score_badge.dart';
+import 'package:x_aesthetic_app/presentation/screens/camera_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<PhotoHistoryItem> history;

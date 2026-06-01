@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/camera_enums.dart';
-import '../theme/app_colors.dart';
+import 'package:x_aesthetic_app/domain/entities/camera_enums.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
 
 /// A modal bottom sheet that lets the user pick a [CameraAspectRatio].
 class AspectRatioSheet extends StatelessWidget {

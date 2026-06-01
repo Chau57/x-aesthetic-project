@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'app.dart';
+import 'package:x_aesthetic_app/app/bootstrap.dart';
+
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const XAestheticApp());
+  bootstrap();
 }

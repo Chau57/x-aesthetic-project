@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/photo_history_item.dart';
-import 'score_badge.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/presentation/widgets/score_badge.dart';
 
 class RecentPhotoTile extends StatelessWidget {
   final PhotoHistoryItem item;

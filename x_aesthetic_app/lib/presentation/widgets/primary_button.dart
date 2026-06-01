@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
 
-class SecondaryButton extends StatefulWidget {
+class PrimaryButton extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
 
-  const SecondaryButton({
+  const PrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -14,10 +14,10 @@ class SecondaryButton extends StatefulWidget {
   });
 
   @override
-  State<SecondaryButton> createState() => _SecondaryButtonState();
+  State<PrimaryButton> createState() => _PrimaryButtonState();
 }
 
-class _SecondaryButtonState extends State<SecondaryButton> {
+class _PrimaryButtonState extends State<PrimaryButton> {
   double _scale = 1.0;
 
   @override
@@ -34,21 +34,27 @@ class _SecondaryButtonState extends State<SecondaryButton> {
           height: 52,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.primaryGreen,
             borderRadius: BorderRadius.circular(26),
-            border: Border.all(color: AppColors.border, width: 1.5),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x1F2F6B3F),
+                blurRadius: 12,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (widget.icon != null) ...[
-                Icon(widget.icon, color: AppColors.textPrimary, size: 20),
+                Icon(widget.icon, color: Colors.white, size: 20),
                 const SizedBox(width: 8),
               ],
               Text(
                 widget.text,
                 style: const TextStyle(
-                  color: AppColors.textPrimary,
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),

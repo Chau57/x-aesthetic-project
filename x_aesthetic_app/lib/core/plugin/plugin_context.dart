@@ -1,8 +1,8 @@
-import '../../domain/entities/reference_style.dart';
-import '../ai/aesthetic_attributes.dart';
-import '../ai/detection_result.dart';
-import '../camera/camera_frame.dart';
-import '../camera/camera_pose.dart';
+import 'package:x_aesthetic_app/domain/entities/reference_style.dart';
+import 'package:x_aesthetic_app/core/ai/aesthetic_attributes.dart';
+import 'package:x_aesthetic_app/core/ai/detection_result.dart';
+import 'package:x_aesthetic_app/core/camera/camera_frame.dart';
+import 'package:x_aesthetic_app/core/camera/camera_pose.dart';
 
 class PluginContext {
   final PluginPhase phase;

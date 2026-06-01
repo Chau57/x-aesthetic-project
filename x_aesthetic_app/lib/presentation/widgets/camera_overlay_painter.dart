@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../models/overlay_options.dart';
+import 'package:x_aesthetic_app/domain/entities/overlay_options.dart';
 
 class CameraOverlayPainter extends CustomPainter {
   final OverlayOptions options;

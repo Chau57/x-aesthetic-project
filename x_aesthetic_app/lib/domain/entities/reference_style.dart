@@ -1,4 +1,4 @@
-import '../../core/ai/aesthetic_attributes.dart';
+import 'package:x_aesthetic_app/core/ai/aesthetic_attributes.dart';
 
 class ReferenceStyle {
   final String id;

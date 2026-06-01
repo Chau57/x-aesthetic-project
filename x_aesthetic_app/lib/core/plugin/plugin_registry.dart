@@ -1,4 +1,4 @@
-import 'base_plugin.dart';
+import 'package:x_aesthetic_app/core/plugin/base_plugin.dart';
 
 class PluginRegistry {
   final Map<String, AestheticPlugin> _plugins = {};

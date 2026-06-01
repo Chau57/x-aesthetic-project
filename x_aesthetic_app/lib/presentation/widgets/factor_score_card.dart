@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
-import '../models/aesthetic_result.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/domain/entities/aesthetic_result.dart';
 
 class FactorScoreCard extends StatelessWidget {
   final FactorScore factor;

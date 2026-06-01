@@ -1,5 +1,5 @@
-import 'guidance_message.dart';
-import 'overlay_instruction.dart';
+import 'package:x_aesthetic_app/core/plugin/guidance_message.dart';
+import 'package:x_aesthetic_app/core/plugin/overlay_instruction.dart';
 
 class PluginOutput {
   final String pluginId;

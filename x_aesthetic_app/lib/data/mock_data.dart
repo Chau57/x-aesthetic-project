@@ -1,6 +1,6 @@
 import 'dart:ui';
-import '../models/aesthetic_result.dart';
-import '../models/retake_guide.dart';
+import 'package:x_aesthetic_app/domain/entities/aesthetic_result.dart';
+import 'package:x_aesthetic_app/domain/entities/retake_guide.dart';
 
 class MockData {
   static const String sampleImageUrl =

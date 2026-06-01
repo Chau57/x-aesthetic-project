@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/photo_history_item.dart';
-import '../theme/app_colors.dart';
-import '../widgets/score_badge.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/presentation/widgets/score_badge.dart';
 
 class LibraryScreen extends StatelessWidget {
   final List<PhotoHistoryItem> history;

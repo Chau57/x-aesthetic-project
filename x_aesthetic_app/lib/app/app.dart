@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:x_aesthetic_app/domain/entities/camera_enums.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_theme.dart';
+import 'package:x_aesthetic_app/presentation/widgets/app_bottom_nav.dart';
+import 'package:x_aesthetic_app/presentation/screens/home_screen.dart';
+import 'package:x_aesthetic_app/presentation/screens/camera_screen.dart';
+import 'package:x_aesthetic_app/presentation/screens/library_screen.dart';
+import 'package:x_aesthetic_app/presentation/screens/progress_screen.dart';
 
-import '../presentation/camera/camera_screen.dart';
-import '../presentation/dashboard/dashboard_screen.dart';
-import '../presentation/preview/preview_screen.dart';
 
 class XAestheticApp extends StatelessWidget {
   const XAestheticApp({super.key});
@@ -11,57 +16,85 @@ class XAestheticApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'X-Aesthetic',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
-      ),
-      home: const AppShell(),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      home: const XAestheticAppShell(),
     );
   }
 }
 
-class AppShell extends StatefulWidget {
-  const AppShell({super.key});
+class XAestheticAppShell extends StatefulWidget {
+  const XAestheticAppShell({super.key});
 
   @override
-  State<AppShell> createState() => _AppShellState();
+  State<XAestheticAppShell> createState() => _XAestheticAppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
-  int _selectedIndex = 0;
+class _XAestheticAppShellState extends State<XAestheticAppShell> {
+  int _selectedIndex = 0; // Starts at HomeScreen (Trang chủ) as requested
+  final List<PhotoHistoryItem> _history = [];
 
-  static const _screens = <Widget>[
-    CameraScreen(),
-    PreviewScreen(),
-    DashboardScreen(),
-  ];
+  void _savePhoto(PhotoHistoryItem item) {
+    setState(() {
+      _history.add(item);
+      _selectedIndex =
+          3; // Shift to Progress tab so they can review their trending chart updates
+    });
+  }
+
+  void _navigateToCamera() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CameraScreen(
+          mode: CameraMode.normal,
+          history: _history,
+          onSavePhoto: _savePhoto,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screens = <Widget>[
+      // Tab 0: Trang chủ (HomeScreen)
+      HomeScreen(
+        history: _history,
+        onOpenCamera: _navigateToCamera,
+        onSavePhoto: _savePhoto,
+      ),
+
+      // Tab 1: Dummy Placeholder (Camera is opened full-screen)
+      const SizedBox.shrink(),
+
+      // Tab 2: Thư viện (LibraryScreen)
+      LibraryScreen(
+        history: _history,
+        onNavigateToCamera: _navigateToCamera,
+      ),
+
+      // Tab 3: Tiến bộ (ProgressScreen)
+      ProgressScreen(
+        history: _history,
+      ),
+    ];
+
     return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() => _selectedIndex = index);
+      extendBody: true,
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: screens,
+      ),
+      bottomNavigationBar: AppBottomNav(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          if (index == 1) {
+            _navigateToCamera();
+          } else {
+            setState(() => _selectedIndex = index);
+          }
         },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.camera_alt_outlined),
-            selectedIcon: Icon(Icons.camera_alt),
-            label: 'Camera',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.image_search_outlined),
-            selectedIcon: Icon(Icons.image_search),
-            label: 'Preview',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.insights_outlined),
-            selectedIcon: Icon(Icons.insights),
-            label: 'Progress',
-          ),
-        ],
       ),
     );
   }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../models/aesthetic_result.dart';
-import '../models/camera_enums.dart';
-import '../models/photo_history_item.dart';
-import '../theme/app_colors.dart';
-import '../data/mock_data.dart';
-import '../widgets/app_card.dart';
-import '../widgets/score_badge.dart';
-import '../widgets/factor_score_card.dart';
-import '../widgets/primary_button.dart';
-import '../widgets/secondary_button.dart';
-import 'camera_screen.dart';
+import 'package:x_aesthetic_app/domain/entities/aesthetic_result.dart';
+import 'package:x_aesthetic_app/domain/entities/camera_enums.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/data/mock_data.dart';
+import 'package:x_aesthetic_app/presentation/widgets/app_card.dart';
+import 'package:x_aesthetic_app/presentation/widgets/score_badge.dart';
+import 'package:x_aesthetic_app/presentation/widgets/factor_score_card.dart';
+import 'package:x_aesthetic_app/presentation/widgets/primary_button.dart';
+import 'package:x_aesthetic_app/presentation/widgets/secondary_button.dart';
+import 'package:x_aesthetic_app/presentation/screens/camera_screen.dart';
 
 class PreviewResultScreen extends StatelessWidget {
   final String imageUrl;
@@ -183,7 +183,7 @@ class PreviewResultScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: SecondaryButton(
-                      text: 'Chụp lại theo gợi ý',
+                      text: 'Chụp lại',
                       icon: Icons.refresh_rounded,
                       onPressed: () {
                         // Open CameraScreen in retakeGuide mode with ghost outlines

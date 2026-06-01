@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/photo_history_item.dart';
-import '../models/aesthetic_result.dart';
-import '../theme/app_colors.dart';
-import '../widgets/app_card.dart';
-import '../widgets/factor_score_card.dart';
-import '../widgets/progress_chart_painter.dart';
-import '../widgets/recent_photo_tile.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/domain/entities/aesthetic_result.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/presentation/widgets/app_card.dart';
+import 'package:x_aesthetic_app/presentation/widgets/factor_score_card.dart';
+import 'package:x_aesthetic_app/presentation/widgets/progress_chart_painter.dart';
+import 'package:x_aesthetic_app/presentation/widgets/recent_photo_tile.dart';
 
 class ProgressScreen extends StatelessWidget {
   final List<PhotoHistoryItem> history;

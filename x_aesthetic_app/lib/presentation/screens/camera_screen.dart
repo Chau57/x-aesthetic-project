@@ -1,18 +1,18 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import '../models/camera_enums.dart';
-import '../models/overlay_options.dart';
-import '../models/photo_history_item.dart';
-import '../models/retake_guide.dart';
-import '../theme/app_colors.dart';
-import '../data/mock_data.dart';
-import '../widgets/camera_overlay_painter.dart';
-import '../widgets/camera_control_bar.dart';
-import '../widgets/ghost_outline_painter.dart';
-import 'aspect_ratio_sheet.dart';
-import 'overlay_guide_sheet.dart';
-import 'preview_result_screen.dart';
+import 'package:x_aesthetic_app/domain/entities/camera_enums.dart';
+import 'package:x_aesthetic_app/domain/entities/overlay_options.dart';
+import 'package:x_aesthetic_app/domain/entities/photo_history_item.dart';
+import 'package:x_aesthetic_app/domain/entities/retake_guide.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/data/mock_data.dart';
+import 'package:x_aesthetic_app/presentation/widgets/camera_overlay_painter.dart';
+import 'package:x_aesthetic_app/presentation/widgets/camera_control_bar.dart';
+import 'package:x_aesthetic_app/presentation/widgets/ghost_outline_painter.dart';
+import 'package:x_aesthetic_app/presentation/screens/aspect_ratio_sheet.dart';
+import 'package:x_aesthetic_app/presentation/screens/overlay_guide_sheet.dart';
+import 'package:x_aesthetic_app/presentation/screens/preview_result_screen.dart';
 
 /// A unified camera screen that supports [CameraMode.normal] and
 /// [CameraMode.retakeGuide] via the [mode] parameter.

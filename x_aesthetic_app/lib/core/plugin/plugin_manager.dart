@@ -1,7 +1,7 @@
-import 'base_plugin.dart';
-import 'plugin_context.dart';
-import 'plugin_output.dart';
-import 'plugin_registry.dart';
+import 'package:x_aesthetic_app/core/plugin/base_plugin.dart';
+import 'package:x_aesthetic_app/core/plugin/plugin_context.dart';
+import 'package:x_aesthetic_app/core/plugin/plugin_output.dart';
+import 'package:x_aesthetic_app/core/plugin/plugin_registry.dart';
 
 class PluginManager {
   final PluginRegistry registry;

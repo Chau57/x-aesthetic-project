@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/overlay_options.dart';
-import '../theme/app_colors.dart';
-import '../widgets/guide_toggle_tile.dart';
+import 'package:x_aesthetic_app/domain/entities/overlay_options.dart';
+import 'package:x_aesthetic_app/presentation/theme/app_colors.dart';
+import 'package:x_aesthetic_app/presentation/widgets/guide_toggle_tile.dart';
 
 class OverlayGuideSheet extends StatelessWidget {
   final OverlayOptions options;
