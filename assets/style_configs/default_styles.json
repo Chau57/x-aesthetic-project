@@ -1,0 +1,35 @@
+[
+  {
+    "id": "noir",
+    "name": "Noir",
+    "description": "High contrast, low saturation, strong shadow structure.",
+    "targetAttributes": {
+      "lighting": 0.35,
+      "contrast": 0.85,
+      "color_harmony": 0.45,
+      "composition": 0.75
+    }
+  },
+  {
+    "id": "vibrant",
+    "name": "Vibrant",
+    "description": "Bright exposure, vivid color, energetic visual balance.",
+    "targetAttributes": {
+      "lighting": 0.75,
+      "contrast": 0.65,
+      "color_harmony": 0.85,
+      "composition": 0.7
+    }
+  },
+  {
+    "id": "minimal",
+    "name": "Minimal",
+    "description": "Clean negative space, simplified subject, low clutter.",
+    "targetAttributes": {
+      "simplicity": 0.9,
+      "object": 0.35,
+      "symmetry": 0.7,
+      "composition": 0.8
+    }
+  }
+]
