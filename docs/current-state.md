@@ -45,7 +45,7 @@ flowchart LR
 | Hive learning log | **Not started** | — | Documented in architecture only |
 | Repository layer | **Not started** | `lib/domain/repositories/`, `lib/data/repositories/` | `.gitkeep` placeholders |
 | Preview screen | **Legacy stub** | `lib/presentation/preview/preview_screen.dart` | Hardcoded data; not in `app.dart` |
-| iOS camera permission | **Missing** | `ios/Runner/Info.plist` | No `NSCameraUsageDescription` yet |
+| iOS camera permission | **Implemented** | `ios/Runner/Info.plist` | `NSCameraUsageDescription` added |
 
 **Legend:** Implemented = works in app · Partial = infra only · Not started = planned or interface only
 
@@ -89,8 +89,7 @@ Camera Preview
 2. **No live AI** — No `startImageStream` or `AiEngine.detectContext` on preview frames.
 3. **Rule-based scoring only** — Post-capture analysis uses image statistics, not trained models.
 4. **JSON persistence** — `AppGalleryStore` replaces planned Hive storage for now.
-5. **iOS camera blocker** — Missing privacy string in `Info.plist` will prevent camera on iOS devices.
-6. **Settings not persisted** — `CameraUserSettings` reset on app restart.
+5. **Settings not persisted** — `CameraUserSettings` reset on app restart.
 
 ---
 
@@ -104,3 +103,49 @@ Camera Preview
 | Add a guidance rule | [plugin_contract.md](plugin_contract.md) |
 | Understand saved photos | [data-and-persistence.md](data-and-persistence.md) |
 | Match UI to mockups | [ui-design.md](ui-design.md) |
+
+---
+
+## So với plan Excel gốc / Original plan comparison
+
+> Excel status column is no longer reliable. Use [TODO.md](../TODO.md), this file, and source code as the source of truth.
+
+The repo implemented a **rule-based MVP first**. The original Excel plan targeted a stronger **AI/research pipeline** (TFLite, AttributeNet, EMD, XAI, ghost retake, Hive).
+
+### Excel plan mapping
+
+| Excel item | Status | Notes |
+|------------|--------|-------|
+| Software Architecture Skeleton | Done | Flutter structure exists |
+| Core Plugin Interface | Done | `AestheticPlugin` exists |
+| Plugin Loader & Orchestrator | Partial | `PluginManager` not wired into runtime |
+| TFLite Model Integration | Not started | `AiEngine` is interface only |
+| AttributeNet Inference Pipeline | Not started | No 29-attribute inference |
+| EMD & Aesthetic Scoring | Not started | No EMD implementation |
+| XAI Mapping Engine | Partial | Rule-based suggestions; no attribute-delta mapping |
+| Live View & Overlay Canvas | Partial | Static overlays; plugin/AI overlays pending |
+| Comparison & Ghost Frame UI | Partial | Retake exists; ghost frame not implemented |
+| Error Log & Persistence | Partial | JSON gallery; no Hive learning log |
+| Learning Progress Analytics | Partial | Dashboard from saved photos, not event history |
+
+### MVP requirements gap (selected)
+
+| Requirement | Status |
+|-------------|--------|
+| Camera capture + rule-of-thirds grid | Done |
+| Aesthetic report (0–100, 4 factors) | Partial — current scale is 0–10; factors vary by context |
+| `weakestFactor` + structured suggestions | Partial — suggestions exist; contract not stable |
+| Ghost-outline retake | Not started |
+| Subject mask / normalized contour | Not started |
+| Save to app gallery + metadata | Done |
+| Save to system gallery | Partial — app-private only |
+| iOS camera permission | Done — `NSCameraUsageDescription` added; physical QA pending |
+
+### Recommended next priorities
+
+Tracked as checklist items in [TODO.md](../TODO.md):
+
+1. **Stabilize `AestheticReport` contract** — 0–100 scores, 4 fixed factors, `weakestFactor`, `mainSuggestion`, `factorSuggestions` (Phase 3).
+2. **Validate iOS on physical device** — permission prompt + camera preview (Phase 13).
+3. **Wire plugin architecture** — `PluginRegistry` → `PluginManager` → camera overlay renderer (Phase 9).
+4. **Decide AI scope** — course-safe MVP (rule-based + polish) vs research path (TFLite / AttributeNet / EMD).

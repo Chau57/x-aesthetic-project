@@ -6,12 +6,44 @@ Interactive photography assistant built with Flutter. The app guides users while
 
 ## Current Status
 
-The MVP foundation is in place:
+The repo currently contains a functional Flutter MVP foundation.
 
-- **Working:** Camera (preview, HDR, horizon, exposure), photo review with rule-based scoring, app gallery, progress dashboard, plugin infrastructure (contract only).
-- **Pending:** Production aesthetic plugins, TFLite inference, Hive learning log, live AI guidance overlays.
+**Working:**
 
-See [docs/current-state.md](docs/current-state.md) for a detailed implemented vs planned breakdown. Track checklist progress in [TODO.md](TODO.md).
+- App shell with Camera / Gallery / Dashboard tabs
+- Live camera preview and capture flow
+- Software HDR and Android hardware HDR bridge
+- Exposure slider, aspect-ratio crop, horizon indicator, rule-of-thirds grid
+- Post-capture `PhotoReviewScreen`
+- Rule-based photo scoring and Vietnamese suggestions
+- App-private gallery using JSON metadata + local image files
+- Progress dashboard from saved photo evaluations
+- Light/dark theme and shared UI components
+- Plugin infrastructure: contract, registry, manager, context/output models
+- AI DTOs and `AiEngine` interface
+
+**Partial:**
+
+- Plugin microkernel exists but is not wired into the camera runtime
+- Retake flow exists, but ghost-outline retake is not implemented
+- Aesthetic analysis exists, but it does not yet follow the original 0–100 four-factor `AestheticReport` contract
+- Dashboard exists, but is not backed by a Hive learning log
+- Style config JSON exists, but is not loaded at runtime
+
+**Pending:**
+
+- TFLite / AttributeNet integration
+- YOLO or context detection on live preview frames
+- EMD/style-distance scoring
+- XAI mapping engine
+- Production aesthetic plugins
+- Subject mask extraction and normalized contour
+- Ghost outline retake mode
+- Hive persistence and repository layer
+- Optional save/export to system gallery
+- Broader unit/widget/integration tests
+
+See [docs/current-state.md](docs/current-state.md) for implemented vs planned status and Excel plan comparison. Track checklist progress in [TODO.md](TODO.md).
 
 ## Folder Structure
 

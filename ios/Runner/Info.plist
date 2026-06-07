@@ -8,6 +8,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>X Aesthetic App</string>
+	<key>NSCameraUsageDescription</key>
+	<string>X-Aesthetic cần quyền camera để chụp và phân tích bố cục ảnh.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

@@ -47,7 +47,7 @@ flutter run
 flutter run
 ```
 
-**Known blocker:** `ios/Runner/Info.plist` does not yet include `NSCameraUsageDescription`. Camera access will fail on iOS until this is added (tracked in [TODO.md](../TODO.md) Phase 2).
+`NSCameraUsageDescription` is declared in `ios/Runner/Info.plist`. Run on a **physical iOS device** to verify the permission prompt and camera preview (tracked in [TODO.md](../TODO.md) Phase 13).
 
 ### Desktop / emulator without camera
 
