@@ -1,3 +1,6 @@
+# Other
+.cursor/
+
 # Miscellaneous
 *.class
 *.log

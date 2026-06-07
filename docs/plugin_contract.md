@@ -86,3 +86,5 @@ lib/core/plugin/base_plugin.dart
 lib/domain/plugins/rule_of_thirds_plugin.dart
 lib/domain/plugins/horizon_stabilizer_plugin.dart
 ```
+
+> **Note:** `lib/domain/plugins/` is the **planned location** for production plugins. The directory does not exist yet — see [TODO.md](../TODO.md) Phase 7.
