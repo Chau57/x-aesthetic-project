@@ -28,5 +28,5 @@ double horizonLevelErrorDegrees(double rollDegrees) {
 }
 
 double horizonDisplayRotationDegrees(double rollDegrees) {
-  return -horizonLevelErrorDegrees(rollDegrees);
+  return normalizeDegrees180(rollDegrees);
 }

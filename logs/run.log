@@ -8,14 +8,68 @@ If no such version exists, report the issue to the plugin. If necessary, here is
 an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
 
 If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
-Running Gradle task 'assembleDebug'...                             17.7s
+Running Gradle task 'assembleDebug'...                             17.8s
 ✓ Built build/app/outputs/flutter-apk/app-debug.apk
-Installing build/app/outputs/flutter-apk/app-debug.apk...          32.7s
-I/flutter (30800): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
-D/FlutterRenderer(30800): Width is zero. 0,0
+Installing build/app/outputs/flutter-apk/app-debug.apk...          33.8s
+I/FlutterActivityAndFragmentDelegate( 9685): If you are attempting to set --enable-dart-profiling via Intent extras to launch a Flutter component outside of using the Flutter CLI, note that support for setting engine flags on Android via Intent will soon be dropped; see https://github.com/flutter/flutter/issues/180686 for more information on this breaking change. To migrate, set --enable-dart-profiling or any other flags specified via Intent extras on the command line instead or see https://github.com/flutter/flutter/blob/main/docs/engine/Flutter-Android-Engine-Flags.md for alternative methods.
+D/FlutterJNI( 9685): Beginning load of flutter...
+D/FlutterJNI( 9685): flutter (null) was loaded normally!
+I/flutter ( 9685): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+D/FlutterRenderer( 9685): Width is zero. 0,0
 Syncing files to device SM G780F...                             
-I/Choreographer(30800): Skipped 109 frames!  The application may be doing too much work on its main thread.
-Syncing files to device SM G780F...                                146ms
+I/Choreographer( 9685): Skipped 169 frames!  The application may be doing too much work on its main thread.
+I/SurfaceView@798faec( 9685): onWindowVisibilityChanged(0) true io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......I. 0,0-0,0} of ViewRootImpl@6fc5bee[MainActivity]
+D/SurfaceView@798faec( 9685): updateSurface: has no frame
+D/FlutterRenderer( 9685): Width is zero. 0,0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): performTraversals params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION wanim=0x1030001
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   fl=81810100
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   pfl=12020040
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   vsysui=500
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   bhv=DEFAULT
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   fitSides= naviIconColor=0}
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): performTraversals mFirst=true windowShouldResize=true viewVisibilityChanged=false mForceNextWindowRelayout=false params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x1030001
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   fl=81810100
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   pfl=12020040
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   vsysui=500
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   bhv=DEFAULT
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685):   fitSides= naviIconColor=0}
+I/x_aesthetic_app( 9685): Compiler allocated 6148KB to compile void android.view.ViewRootImpl.performTraversals()
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
+I/BLASTBufferQueue( 9685): new BLASTBufferQueue, mName= ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7c7663b800 sc.mNativeObject= 0x7c85b09de0 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
+I/BLASTBufferQueue( 9685): update, w= 1080 h= 2400 mName = ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7c7663b800 sc.mNativeObject= 0x7c85b09de0 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) req=(1080,2400)0 dur=15 res=0x3 s={true 0x7c7667a000} ch=true seqId=0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): mThreadedRenderer.initialize() mSurface={isValid=true 0x7c7667a000} hwInitialized=true
+D/FlutterJNI( 9685): Sending viewport metrics to the engine.
+D/SurfaceView@798faec( 9685): updateSurface: has no frame
+I/SurfaceView@798faec( 9685): windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
+D/SurfaceView@798faec( 9685): updateSurface: has no frame
+D/OpenGLRenderer( 9685): eglCreateWindowSurface
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
+I/SurfaceView@798faec( 9685): Changes: creating=true format=true size=true visible=true alpha=false hint=false mUseAlpha=false visible=true left=true top=true
+I/BLASTBufferQueue( 9685): update, w= 1080 h= 2358 mName = null mNativeObject= 0x7c7663bb00 sc.mNativeObject= 0x7c765b52e0 format= 4 caller= android.view.SurfaceView.createBlastSurfaceControls:1383 android.view.SurfaceView.updateSurface:1079 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 android.view.SurfaceView$$ExternalSyntheticLambda5.onPreDraw:2 android.view.ViewTreeObserver.dispatchOnPreDraw:1121 android.view.ViewRootImpl.performTraversals:4442 
+I/SurfaceView@798faec( 9685): 127466220 Cur surface: Surface(name=null)/@0x245cc5a
+I/SurfaceView@798faec( 9685): pST: sr = Rect(0, 0 - 1080, 2358) sw = 1080 sh = 2358
+D/SurfaceView@798faec( 9685): performSurfaceTransaction RenderWorker position = [0, 0, 1080, 2358] surfaceSize = 1080x2358
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7c85b59400 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c85b59400android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 android.view.SurfaceView$$ExternalSyntheticLambda5.onPreDraw:2 
+I/SurfaceView@798faec( 9685): updateSurface: mVisible = true mSurface.isValid() = true
+I/SurfaceView@798faec( 9685): updateSurface: mSurfaceCreated = false surfaceChanged = true visibleChanged = true
+I/SurfaceView@798faec( 9685): visibleChanged -- surfaceCreated
+I/SurfaceView@798faec( 9685): surfaceCreated 1 #8 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
+I/Gralloc4( 9685): mapper 4.x is not supported
+W/Gralloc3( 9685): mapper 3.x is not supported
+I/gralloc ( 9685): Arm Module v1.0
+W/Gralloc4( 9685): allocator 4.x is not supported
+W/Gralloc3( 9685): allocator 3.x is not supported
+E/GraphicBufferAllocator( 9685): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
+E/AHardwareBuffer( 9685): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
+E/GraphicBufferAllocator( 9685): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
+E/AHardwareBuffer( 9685): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
+I/SurfaceView@798faec( 9685): surfaceChanged -- format=4 w=1080 h=2358
+I/SurfaceView@798faec( 9685): surfaceChanged (1080,2358) 1 #8 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
+I/SurfaceView@798faec( 9685): surfaceRedrawNeeded
+V/SurfaceView@798faec( 9685): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
+Syncing files to device SM G780F...                                156ms
 
 Flutter run key commands.
 r Hot reload. 🔥🔥🔥
@@ -25,828 +79,487 @@ d Detach (terminate "flutter run" but leave application running).
 c Clear the screen
 q Quit (terminate the application on the device).
 
-A Dart VM Service on SM G780F is available at: http://127.0.0.1:44529/Z6rwbLC4qro=/
-The Flutter DevTools debugger and profiler on SM G780F is available at: http://127.0.0.1:44529/Z6rwbLC4qro=/devtools/?uri=ws://127.0.0.1:44529/Z6rwbLC4qro=/ws
-I/SurfaceView@798faec(30800): onWindowVisibilityChanged(0) true io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......I. 0,0-0,0} of ViewRootImpl@6fc5bee[MainActivity]
-D/SurfaceView@798faec(30800): updateSurface: has no frame
-D/FlutterRenderer(30800): Width is zero. 0,0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): performTraversals params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION wanim=0x1030001
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   fl=81810100
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   pfl=12020040
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   vsysui=500
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   bhv=DEFAULT
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   fitSides= naviIconColor=0}
-I/ViewRootImpl@6fc5bee[MainActivity](30800): performTraversals mFirst=true windowShouldResize=true viewVisibilityChanged=false mForceNextWindowRelayout=false params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x1030001
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   fl=81810100
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   pfl=12020040
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   vsysui=500
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   bhv=DEFAULT
-I/ViewRootImpl@6fc5bee[MainActivity](30800):   fitSides= naviIconColor=0}
-I/x_aesthetic_app(30800): Compiler allocated 6148KB to compile void android.view.ViewRootImpl.performTraversals()
-D/InsetsController(30800): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={3.0} cutoutSpec={M 0,0 M 0,10.71963616907435 a 9.280363830925644,9.280363830925644 0 1,0 0,18.56072766185129 a 9.280363830925644,9.280363830925644 0 1,0 0,-18.56072766185129 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=90, center=Point(90, 90)}, RoundedCorner{position=TopRight, radius=90, center=Point(990, 90)}, RoundedCorner{position=BottomRight, radius=90, center=Point(990, 2310)}, RoundedCorner{position=BottomLeft, radius=90, center=Point(90, 2310)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,2358][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][84,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[996,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][1080,122], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,2310][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,0][0,0], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_IME, mFrame=[0,0][0,0], mVisibleFrame=[0,1392][1080,2400], mVisible=false, mInsetsRoundedCornerFrame=false} } host=com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity from=android.view.ViewRootImpl.relayoutWindow:9802
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Resizing android.view.ViewRootImpl@c556eab: frame = [0,0][1080,2400] reportDraw = true forceLayout = false syncSeqId = 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
-I/BLASTBufferQueue(30800): new BLASTBufferQueue, mName= ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7cac1da900 sc.mNativeObject= 0x7d1206b9e0 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
-I/BLASTBufferQueue(30800): update, w= 1080 h= 2400 mName = ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7cac1da900 sc.mNativeObject= 0x7d1206b9e0 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) req=(1080,2400)0 dur=26 res=0x3 s={true 0x7d12047000} ch=true seqId=0
-D/FlutterRenderer(30800): Width is zero. 0,0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mThreadedRenderer.initialize() mSurface={isValid=true 0x7d12047000} hwInitialized=true
-D/FlutterJNI(30800): Sending viewport metrics to the engine.
-D/OpenGLRenderer(30800): eglCreateWindowSurface
-D/SurfaceView@798faec(30800): updateSurface: has no frame
-I/SurfaceView@798faec(30800): windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-D/SurfaceView@798faec(30800): updateSurface: has no frame
-I/ViewRootImpl@6fc5bee[MainActivity](30800): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
-I/SurfaceView@798faec(30800): Changes: creating=true format=true size=true visible=true alpha=false hint=false mUseAlpha=false visible=true left=true top=true
-I/BLASTBufferQueue(30800): update, w= 1080 h= 2358 mName = null mNativeObject= 0x7cac1daf00 sc.mNativeObject= 0x7c79286200 format= 4 caller= android.view.SurfaceView.createBlastSurfaceControls:1383 android.view.SurfaceView.updateSurface:1079 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 android.view.SurfaceView$$ExternalSyntheticLambda5.onPreDraw:2 android.view.ViewTreeObserver.dispatchOnPreDraw:1121 android.view.ViewRootImpl.performTraversals:4442 
-I/SurfaceView@798faec(30800): 127466220 Cur surface: Surface(name=null)/@0x3979e8b
-I/SurfaceView@798faec(30800): pST: sr = Rect(0, 0 - 1080, 2358) sw = 1080 sh = 2358
-D/SurfaceView@798faec(30800): performSurfaceTransaction RenderWorker position = [0, 0, 1080, 2358] surfaceSize = 1080x2358
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7dd4ec1200 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7dd4ec1200android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 android.view.SurfaceView$$ExternalSyntheticLambda5.onPreDraw:2 
-I/SurfaceView@798faec(30800): updateSurface: mVisible = true mSurface.isValid() = true
-I/SurfaceView@798faec(30800): updateSurface: mSurfaceCreated = false surfaceChanged = true visibleChanged = true
-I/SurfaceView@798faec(30800): visibleChanged -- surfaceCreated
-I/SurfaceView@798faec(30800): surfaceCreated 1 #8 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
-I/Gralloc4(30800): mapper 4.x is not supported
-W/Gralloc3(30800): mapper 3.x is not supported
-I/gralloc (30800): Arm Module v1.0
-W/Gralloc4(30800): allocator 4.x is not supported
-W/Gralloc3(30800): allocator 3.x is not supported
-E/GraphicBufferAllocator(30800): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
-E/AHardwareBuffer(30800): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
-E/GraphicBufferAllocator(30800): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
-E/AHardwareBuffer(30800): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
-I/SurfaceView@798faec(30800): surfaceChanged -- format=4 w=1080 h=2358
-I/SurfaceView@798faec(30800): surfaceChanged (1080,2358) 1 #8 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
-I/SurfaceView@798faec(30800): surfaceRedrawNeeded
-V/SurfaceView@798faec(30800): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
-I/ViewRootImpl@6fc5bee[MainActivity](30800): stopped(true) old = false
-I/ViewRootImpl@6fc5bee[MainActivity](30800): WindowStopped on com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity set to true
-I/SurfaceView@798faec(30800): windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): Changes: creating=false format=false size=false visible=true alpha=false hint=false mUseAlpha=false visible=true left=false top=false
-I/SurfaceView@798faec(30800): 127466220 Cur surface: Surface(name=null)/@0x3979e8b
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7d1209d900 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7d1209d900android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 android.view.SurfaceView.surfaceDestroyed:1863 
-I/SurfaceView@798faec(30800): surfaceDestroyed
-I/SurfaceView@798faec(30800): surfaceDestroyed callback.size 1 #1 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
-I/SurfaceView@798faec(30800): updateSurface: mVisible = false mSurface.isValid() = true
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c7655bc00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:1172 android.view.SurfaceView.setWindowStopped:335 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c7655bc00android.view.ViewRootImpl.applyTransactionOnDrawFromReleaseSurfaces:12850 android.view.SurfaceView.applyTransactionOnVriDraw:2046 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:1172 android.view.SurfaceView.setWindowStopped:335 
-V/SurfaceView@798faec(30800): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c7655be00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c7655be00android.view.ViewRootImpl.applyTransactionOnDrawFromReleaseSurfaces:12850 android.view.SurfaceView.applyTransactionOnVriDraw:2046 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
-I/MSHandlerLifeCycle(30800): removeMultiSplitHandler: no exist. decor=DecorView@2daac33[MainActivity]
-I/ViewRootImpl@6fc5bee[MainActivity](30800): stopped(false) old = true
-I/ViewRootImpl@6fc5bee[MainActivity](30800): WindowStopped on com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity set to false
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c793d3e00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c793d3e00android.view.ViewRootImpl.applyTransactionOnDrawFromReleaseSurfaces:12850 android.view.SurfaceView.applyTransactionOnVriDraw:2046 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
-I/MSHandlerLifeCycle(30800): removeMultiSplitHandler: no exist. decor=DecorView@2daac33[MainActivity]
-I/ViewRootImpl@6fc5bee[MainActivity](30800): stopped(false) old = false
-I/MSHandlerLifeCycle(30800): removeMultiSplitHandler: no exist. decor=DecorView@2daac33[MainActivity]
-I/Choreographer(30800): Skipped 30 frames!  The application may be doing too much work on its main thread.
-I/SurfaceView@798faec(30800): onWindowVisibilityChanged(0) false io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c793d3b00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.onWindowVisibilityChanged:371 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c793d3b00android.view.ViewRootImpl.applyTransactionOnDrawFromReleaseSurfaces:12850 android.view.SurfaceView.applyTransactionOnVriDraw:2046 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.onWindowVisibilityChanged:371 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): performTraversals mFirst=false windowShouldResize=false viewVisibilityChanged=true mForceNextWindowRelayout=false params=null
-I/ViewRootImpl@6fc5bee[MainActivity](30800): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
-I/BLASTBufferQueue(30800): new BLASTBufferQueue, mName= ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7c795f0a00 sc.mNativeObject= 0x7c79284360 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
-I/BLASTBufferQueue(30800): update, w= 1080 h= 2400 mName = ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7c795f0a00 sc.mNativeObject= 0x7c79284360 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) req=(1080,2400)0 dur=7 res=0x1 s={true 0x7cabec4800} ch=true seqId=0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mThreadedRenderer.initialize() mSurface={isValid=true 0x7cabec4800} hwInitialized=false
-I/SurfaceView@798faec(30800): windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-D/OpenGLRenderer(30800): setSurface() destroyed EGLSurface
-D/OpenGLRenderer(30800): destroyEglSurface
-I/SurfaceView@798faec(30800): Changes: creating=true format=false size=false visible=true alpha=false hint=false mUseAlpha=false visible=true left=false top=false
-D/OpenGLRenderer(30800): eglCreateWindowSurface
-I/BLASTBufferQueue(30800): update, w= 1080 h= 2358 mName = null mNativeObject= 0x7c794b0800 sc.mNativeObject= 0x7c794ed500 format= 4 caller= android.view.SurfaceView.createBlastSurfaceControls:1383 android.view.SurfaceView.updateSurface:1079 android.view.SurfaceView.setWindowStopped:335 android.view.SurfaceView.surfaceCreated:1853 android.view.ViewRootImpl.notifySurfaceCreated:2820 android.view.ViewRootImpl.performTraversals:4293 
-I/SurfaceView@798faec(30800): 127466220 Cur surface: Surface(name=null)/@0x3979e8b
-I/SurfaceView@798faec(30800): pST: sr = Rect(0, 0 - 1080, 2358) sw = 1080 sh = 2358
-D/SurfaceView@798faec(30800): performSurfaceTransaction RenderWorker position = [0, 0, 1080, 2358] surfaceSize = 1080x2358
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7c76561e00 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c76561e00android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 android.view.SurfaceView.surfaceCreated:1853 
-I/SurfaceView@798faec(30800): updateSurface: mVisible = true mSurface.isValid() = true
-I/SurfaceView@798faec(30800): updateSurface: mSurfaceCreated = false surfaceChanged = true visibleChanged = true
-I/SurfaceView@798faec(30800): visibleChanged -- surfaceCreated
-I/SurfaceView@798faec(30800): surfaceCreated 1 #1 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
-E/GraphicBufferAllocator(30800): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
-E/AHardwareBuffer(30800): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
-E/GraphicBufferAllocator(30800): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 5
-E/AHardwareBuffer(30800): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -5), handle=0x0
-I/SurfaceView@798faec(30800): surfaceChanged -- format=4 w=1080 h=2358
-I/SurfaceView@798faec(30800): surfaceChanged (1080,2358) 1 #1 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ......ID 0,0-1080,2358}
-I/SurfaceView@798faec(30800): surfaceRedrawNeeded
-V/SurfaceView@798faec(30800): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
-I/ViewRootImpl@6fc5bee[MainActivity](30800): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
-I/BLASTBufferQueue(30800): [SurfaceView[com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity]@0#3](f:0,a:0) onFrameAvailable the first frame is available
-D/SensorManager(30800): registerListener :: 1, ICM42632M Accelerometer, 200000, 0, 
-D/QuirkSettingsLoader(30800): QuirkSettings$MetadataHolderService is not found.
-D/CameraX (30800): QuirkSettings from app metadata: null
-D/CameraX (30800): QuirkSettings by default: QuirkSettings{enabledWhenDeviceHasQuirk=true, forceEnabledQuirks=[], forceDisabledQuirks=[]}
-D/DeviceQuirks(30800): camera2 DeviceQuirks = InvalidVideoProfilesQuirk
-D/SensorManager(30800): unregisterListener
-I/CameraManagerGlobal(30800): Connecting to camera service
-D/VendorTagDescriptor(30800): addVendorDescriptor: vendor tag id 14172875900359437128 added
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setup new sync id=0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setting syncFrameCallback
-I/ViewRootImpl@6fc5bee[MainActivity](30800): registerCallbacksForSync syncBuffer=false
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7dd4ec1200 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/CameraManagerGlobal(30800): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.example.x_aesthetic_app API Level 2User Id 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7d1209d900 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c7655bc00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/CameraManagerGlobal(30800): Camera 1 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client com.samsung.android.smartface API Level 2User Id 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c7655be00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/CameraManagerGlobal(30800): Camera 2 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client org.telegram.messenger API Level 1User Id 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c793d3e00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c793d3b00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/CameraManagerGlobal(30800): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.sec.android.app.camera API Level 2User Id 0
-I/CameraManagerGlobal(30800): Camera 21 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
-I/CameraManagerGlobal(30800): Camera 23 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
-I/CameraManagerGlobal(30800): Camera 3 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client org.telegram.messenger API Level 1User Id 0
-I/CameraManagerGlobal(30800): Camera 4 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
-I/CameraManagerGlobal(30800): Camera 50 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c76561e00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Received frameDrawingCallback syncResult=0 frameNum=1.
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setting up sync and frameCommitCallback
-D/SurfaceView@798faec(30800): updateSurfacePosition RenderWorker, frameNr = 1, position = [0, 0, 1080, 2358] surfaceSize = 1080x2358
-I/SurfaceView@798faec(30800): uSP: rtp = Rect(0, 0 - 1080, 2358) rtsw = 1080 rtsh = 2358
-I/SurfaceView@798faec(30800): onSSPAndSRT: pl = 0 pt = 0 sx = 1.0 sy = 1.0
-I/SurfaceView@798faec(30800): aOrMT: ViewRootImpl@6fc5bee[MainActivity] t = android.view.SurfaceControl$Transaction@52028b0 fN = 1 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1537 android.graphics.RenderNode$CompositePositionUpdateListener.positionChanged:373 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mWNT: t=0x7c76561f00 mBlastBufferQueue=0x7c795f0a00 fn= 1 caller= android.view.SurfaceView.applyOrMergeTransaction:1455 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1537 
-D/Camera2CameraCoordinator(30800): Updated concurrent camera map: {0=[1, 3], 1=[0], 3=[0]}
-D/Camera2CameraFactory(30800): Updated available camera list: [] -> [0, 1, 2, 3]
-I/BLASTBufferQueue(30800): [ViewRootImpl@6fc5bee[MainActivity]#2](f:0,a:0) onFrameAvailable the first frame is available
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
-D/OpenGLRenderer(30800): CFMS:: SetUp Pid : 30800    Tid : 30858
-W/Parcel  (30800): Expecting binder but got null!
-I/ViewRootImpl@6fc5bee[MainActivity](30800): onSyncComplete
-I/ViewRootImpl@6fc5bee[MainActivity](30800): setupSync seqId=0 mSyncId=0 fn=1 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): reportDrawFinished seqId=0 mSyncId=-1 fn=1 mSurfaceChangedTransaction=0x7d11e82700
-D/InsetsController(30800): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={3.0} cutoutSpec={M 0,0 M 0,10.71963616907435 a 9.280363830925644,9.280363830925644 0 1,0 0,18.56072766185129 a 9.280363830925644,9.280363830925644 0 1,0 0,-18.56072766185129 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=90, center=Point(90, 90)}, RoundedCorner{position=TopRight, radius=90, center=Point(990, 90)}, RoundedCorner{position=BottomRight, radius=90, center=Point(990, 2310)}, RoundedCorner{position=BottomLeft, radius=90, center=Point(90, 2310)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,2358][1080,2400], mVisible=false, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][84,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[996,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][1080,122], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,2310][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,0][0,0], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_IME, mFrame=[0,0][0,0], mVisibleFrame=[0,1392][1080,2400], mVisible=false, mInsetsRoundedCornerFrame=false} } host=com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:6740
-D/InsetsController(30800): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={3.0} cutoutSpec={M 0,0 M 0,10.71963616907435 a 9.280363830925644,9.280363830925644 0 1,0 0,18.56072766185129 a 9.280363830925644,9.280363830925644 0 1,0 0,-18.56072766185129 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=90, center=Point(90, 90)}, RoundedCorner{position=TopRight, radius=90, center=Point(990, 90)}, RoundedCorner{position=BottomRight, radius=90, center=Point(990, 2310)}, RoundedCorner{position=BottomLeft, radius=90, center=Point(90, 2310)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,2358][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][84,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[996,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][1080,122], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,2310][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,0][0,0], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_IME, mFrame=[0,0][0,0], mVisibleFrame=[0,1392][1080,2400], mVisible=false, mInsetsRoundedCornerFrame=false} } host=com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:6727
-I/ViewRootImpl@6fc5bee[MainActivity](30800): handleResized, msg = 5 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0] parentClippedByDisplayCutout=false} forceNextWindowRelayout=false displayId=0 resizeMode=-1 frameChanged=false displayFrameChanged=false configChanged=false displayChanged=false
-I/ViewRootImpl@6fc5bee[MainActivity](30800): handleResized mSyncSeqId = 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): reportNextDraw android.view.ViewRootImpl.handleResized:2450 android.view.ViewRootImpl.-$$Nest$mhandleResized:0 android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:6728 android.view.ViewRootImpl$ViewRootHandler.handleMessage:6697 android.os.Handler.dispatchMessage:106 
-D/SensorManager(30800): registerListener :: 1, ICM42632M Accelerometer, 200000, 0, 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setup new sync id=1
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setting syncFrameCallback
-I/ViewRootImpl@6fc5bee[MainActivity](30800): registerCallbacksForSync syncBuffer=false
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Received frameDrawingCallback syncResult=0 frameNum=2.
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Setting up sync and frameCommitCallback
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Received frameCommittedCallback lastAttemptedDrawFrameNum=2 didProduceBuffer=false
-I/BLASTBufferQueue(30800): syncNextTransaction, mName= ViewRootImpl@6fc5bee[MainActivity] acquireSingleBuffer= true mNativeObject= 0x7c795f0a00 callback= null caller= android.graphics.BLASTBufferQueue.syncNextTransaction:147 android.view.ViewRootImpl$12.lambda$onFrameDraw$0$android-view-ViewRootImpl$12:13399 android.view.ViewRootImpl$12$$ExternalSyntheticLambda1.onFrameCommit:9 android.view.ThreadedRenderer$1.lambda$onFrameDraw$0:813 android.view.ThreadedRenderer$1$$ExternalSyntheticLambda0.onFrameCommit:2 <bottom of call stack> 
-I/BLASTBufferQueue(30800): [ViewRootImpl@6fc5bee[MainActivity]#2](f:0,a:1) syncNextTransaction callback: 0, acquireSingleBuffer: 1, mTransactionReadyCallback: 0
-I/BLASTBufferQueue(30800): gatherPendingTransactions, mName= ViewRootImpl@6fc5bee[MainActivity] mNativeObject= 0x7c795f0a00 frameNumber= 2 caller= android.view.ViewRootImpl$12.lambda$onFrameDraw$0$android-view-ViewRootImpl$12:13406 android.view.ViewRootImpl$12$$ExternalSyntheticLambda1.onFrameCommit:9 android.view.ThreadedRenderer$1.lambda$onFrameDraw$0:813 android.view.ThreadedRenderer$1$$ExternalSyntheticLambda0.onFrameCommit:2 <bottom of call stack> <bottom of call stack> 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): onSyncComplete
-I/ViewRootImpl@6fc5bee[MainActivity](30800): setupSync seqId=0 mSyncId=1 fn=2 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): reportDrawFinished seqId=0 mSyncId=-1 fn=2 mSurfaceChangedTransaction=0x7d11e82700
-I/SurfaceView@798faec(30800): finishedDrawing
-I/SurfaceView@798faec(30800): finishedDrawing
-D/CameraRepository(30800): Added camera: 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): MSG_WINDOW_FOCUS_CHANGED 1 0
-I/ViewRootImpl@6fc5bee[MainActivity](30800): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0x7cabec4800}
-D/InputMethodManager(30800): startInputInner - Id : 0
-I/InputMethodManager(30800): startInputInner - mService.startInputOrWindowGainedFocus
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-D/FlutterJNI(30800): Sending viewport metrics to the engine.
-I/Camera2CameraInfo(30800): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_FULL
-D/InputMethodManager(30800): startInputInner - Id : 0
-I/CameraManager(30800): registerAvailabilityCallback: Is device callback = false
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-D/CameraRepository(30800): Added camera: 1
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-I/Camera2CameraInfo(30800): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
-I/CameraManager(30800): registerAvailabilityCallback: Is device callback = false
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-D/CameraRepository(30800): Added camera: 2
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-I/Camera2CameraInfo(30800): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
-I/CameraManager(30800): registerAvailabilityCallback: Is device callback = false
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-D/CameraRepository(30800): Added camera: 3
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-I/Camera2CameraInfo(30800): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
-I/CameraManager(30800): registerAvailabilityCallback: Is device callback = false
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraPresencePrvdr(30800): Starting CameraPresenceProvider monitoring.
-I/CameraPresenceSrc(30800): First observer added. Starting monitoring.
-I/Camera2PresenceSrc(30800): Starting system availability monitoring.
-I/CameraManager(30800): registerAvailabilityCallback: Is device callback = false
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 0
-D/CameraValidator(30800): Verifying camera lens facing on r8s, lensFacingInteger: null
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 1
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 2
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 3
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/SensorManager(30800): registerListener :: 1, ICM42632M Accelerometer, 200000, 0, 
-D/DeviceQuirks(30800): video DeviceQuirks = NegativeLatLongSavesIncorrectlyQuirk | MediaCodecDefaultDataSpaceQuirk
-D/Recorder(30800): mRequiredFreeStorageBytes = 50 MB
-D/DeviceQuirks(30800): core DeviceQuirks = SurfaceOrderQuirk | LargeJpegImageQuirk
-D/ResolvedFeatureGroup(30800): resolveFeatureGroup: sessionConfig = androidx.camera.core.LegacySessionConfig@653aa32, lensFacing = 1
-D/CameraUseCaseAdapter(30800): addUseCases: appUseCasesToAdd = [Preview:androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92, ImageCapture:androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83, ImageAnalysis:androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af16], featureGroup = null
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = Preview:androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92
-D/SupportedOutputSizesCollector(30800): useCaseConfig = androidx.camera.core.impl.PreviewConfig@426e383, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240, 256x144, 176x144]
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = ImageCapture:androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83
-D/SupportedOutputSizesCollector(30800): useCaseConfig = androidx.camera.core.impl.ImageCaptureConfig@6ea34df, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240]
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = ImageAnalysis:androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af16
-D/SupportedOutputSizesCollector(30800): useCaseConfig = androidx.camera.core.impl.ImageAnalysisConfig@14ea52c, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240, 256x144, 176x144]
-D/DynamicRangeResolver(30800): Resolved dynamic range for use case androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92 to no compatible HDR dynamic ranges.
-D/DynamicRangeResolver(30800): DynamicRange@a524d8a{encoding=UNSPECIFIED, bitDepth=0}
-D/DynamicRangeResolver(30800): ->
-D/DynamicRangeResolver(30800): DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}
-D/SupportedSurfaceCombination(30800): resolvedDynamicRanges = {androidx.camera.core.impl.ImageAnalysisConfig@14ea52c=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, androidx.camera.core.impl.ImageCaptureConfig@6ea34df=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, androidx.camera.core.impl.PreviewConfig@426e383=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}}
-D/SupportedSurfaceCombination(30800): getSuggestedStreamSpecifications: isPreviewStabilizationOn = false, mIsPreviewStabilizationSupported = false, isFeatureComboInvocation = false
-D/SupportedSurfaceCombination(30800): resolveSpecsByCheckingMethod: checkingMethod = WITHOUT_FEATURE_COMBO
-D/SupportedSurfaceCombination(30800): resolveSpecsBySettings: featureSettings = FeatureSettings{getCameraMode=0, hasVideoCapture=false, getRequiredMaxBitDepth=8, isPreviewStabilizationOn=false, isUltraHdrOn=false, isHighSpeedOn=false, isFeatureComboInvocation=false, requiresFeatureComboQuery=false, getTargetFpsRange=[0, 0], isStrictFpsRequired=false}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-D/CameraQuirks(30800): camera2 CameraQuirks = 
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/SupportedSurfaceCombination(30800): resolveSpecsBySettings: bestSizesAndFps = BestSizesAndMaxFpsForConfigs{bestSizes=[4032x3024, 1440x1080, 1440x1080], bestSizesForStreamUseCase=null, maxFpsForBestSizes=30, maxFpsForStreamUseCase=2147483647, maxFpsForAllSizes=2147483647}
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = Preview:androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92
-D/Preview (30800): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=1440x1080, originalConfiguredResolution=1440x1080, dynamicRange=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@76a230, zslDisabled=false}, secondaryStreamSpec null
-D/DeferrableSurface(30800): Surface created[total_surfaces=1, used_surfaces=0](androidx.camera.core.processing.SurfaceEdge$SettableSurface@90ddea9}
-D/DeferrableSurface(30800): Surface created[total_surfaces=2, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@7bcbc65}
-D/DeferrableSurface(30800): New surface in use[total_surfaces=2, used_surfaces=1](androidx.camera.core.SurfaceRequest$2@7bcbc65}
-D/DeferrableSurface(30800): use count+1, useCount=1 androidx.camera.core.SurfaceRequest$2@7bcbc65
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = ImageCapture:androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83
-D/ImageCapture(30800): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=4032x3024, originalConfiguredResolution=4032x3024, dynamicRange=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@d24e306, zslDisabled=false}, secondaryStreamSpec null
-D/ImageCapture(30800): createPipeline(cameraId: 0, streamSpec: StreamSpec{resolution=4032x3024, originalConfiguredResolution=4032x3024, dynamicRange=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@d24e306, zslDisabled=false})
-D/DeferrableSurface(30800): Surface created[total_surfaces=3, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@284adc7}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/UseCase (30800): applyFeaturesToConfig: mFeatureGroup = null, this = ImageAnalysis:androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af16
-D/ImageAnalysis(30800): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=1440x1080, originalConfiguredResolution=1440x1080, dynamicRange=DynamicRange@d7ebf5{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@8145f63, zslDisabled=false}, secondaryStreamSpec null
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202 ACTIVE
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/DeferrableSurface(30800): Surface created[total_surfaces=4, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@6cf4cde}
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/ImageCapture(30800): onCameraControlReady
-D/Camera2CameraControlImp(30800): setFlashMode: mFlashMode = 2
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143 ACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202 ACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366 INACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use cases [androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143, androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366] now ATTACHED
-D/Camera2CameraControlImp(30800): setActive: isActive = true
-D/UseCaseAttachState(30800): All use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143, androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366] for camera: 0
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Resetting Capture Session
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Skipping Capture Session state check due to current camera state: INITIALIZED and previous session status: false
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Releasing session in state INITIALIZED
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Attempting to force open the camera.
-D/CameraStateRegistry(30800): tryOpenCamera(Camera@ebd4c12[id=0]) [Available Cameras: 1, Already Open: false (Previous state: null)] --> SUCCESS
-D/CameraStateRegistry(30800): Recalculating open cameras:
-D/CameraStateRegistry(30800): Camera                                       State                 
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Camera@c265f37[id=2]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@67bfe2f[id=3]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@dc3b555[id=1]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@ebd4c12[id=0]                         OPENING               
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Open count: 1 (Max allowed: 1)
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Opening camera.
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Transitioning camera internal state: INITIALIZED --> OPENING
-D/CameraStateMachine(30800): New public camera state CameraState{type=OPENING, error=null} from OPENING and null
-D/CameraStateMachine(30800): Publishing new public camera state CameraState{type=OPENING, error=null}
-D/UseCaseAttachState(30800): All use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143, androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366] for camera: 0
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143 ACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202 ACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use case androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366 INACTIVE
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} CameraDevice.onOpened()
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Transitioning camera internal state: OPENING --> OPENED
-D/CameraStateRegistry(30800): Recalculating open cameras:
-D/CameraStateRegistry(30800): Camera                                       State                 
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Camera@c265f37[id=2]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@67bfe2f[id=3]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@dc3b555[id=1]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@ebd4c12[id=0]                         OPEN                  
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Open count: 1 (Max allowed: 1)
-D/CameraStateMachine(30800): New public camera state CameraState{type=OPEN, error=null} from OPEN and null
-D/CameraStateMachine(30800): Publishing new public camera state CameraState{type=OPEN, error=null}
-D/UseCaseAttachState(30800): All use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143, androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366] for camera: 0
-D/StreamUseCaseUtil(30800): populateSurfaceToStreamUseCaseMapping() - streamUseCaseMap = {}
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-D/SyncCaptureSessionBase(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] getSurface done with results: [Surface(name=null)/@0xb6ffd8d, Surface(name=null)/@0x4435dec, Surface(name=null)/@0x7d515b5]
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-D/CaptureSession(30800): Opening capture session.
-I/CameraManagerGlobal(30800): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_OPEN for client com.example.x_aesthetic_app API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraUnavailable: 0
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2CaptureRequestBuilder(30800): template type = 1
-D/Camera2CaptureRequestBuilder(30800): applyAeFpsRange: expectedFrameRateRange = [0, 0]
-D/SyncCaptureSessionImpl(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] start openCaptureSession
-D/DeferrableSurface(30800): use count+1, useCount=2 androidx.camera.core.SurfaceRequest$2@7bcbc65
-D/DeferrableSurface(30800): New surface in use[total_surfaces=4, used_surfaces=2](androidx.camera.core.impl.ImmediateSurface@284adc7}
-D/DeferrableSurface(30800): use count+1, useCount=1 androidx.camera.core.impl.ImmediateSurface@284adc7
-D/DeferrableSurface(30800): New surface in use[total_surfaces=4, used_surfaces=3](androidx.camera.core.impl.ImmediateSurface@6cf4cde}
-D/DeferrableSurface(30800): use count+1, useCount=1 androidx.camera.core.impl.ImmediateSurface@6cf4cde
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/SyncCaptureSessionImpl(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] Session onConfigured()
-D/CaptureSession(30800): Attempting to send capture request onConfigured
-D/CaptureSession(30800): Issuing request for session.
-D/Camera2CaptureRequestBuilder(30800): createCaptureRequest
-D/Camera2CaptureRequestBuilder(30800): applyAeFpsRange: expectedFrameRateRange = [0, 0]
-D/Camera2CaptureRequestBuilder(30800): applyVideoStabilization: mode = null
-D/CaptureSession(30800): CameraCaptureSession.onConfigured() mState=OPENED
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/CaptureSession(30800): Attempting to submit CaptureRequest after setting
-D/CaptureSession(30800): Issuing request for session.
-D/Camera2CaptureRequestBuilder(30800): createCaptureRequest
-D/Camera2CaptureRequestBuilder(30800): applyAeFpsRange: expectedFrameRateRange = [0, 0]
-D/Camera2CaptureRequestBuilder(30800): applyVideoStabilization: mode = null
-D/CaptureSession(30800): CameraCaptureSession.onReady() OPENED
-I/CameraManagerGlobal(30800): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_ACTIVE for client com.example.x_aesthetic_app API Level 2User Id 0
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/CaptureSession(30800): Attempting to submit CaptureRequest after setting
-D/CaptureSession(30800): Issuing request for session.
-D/Camera2CaptureRequestBuilder(30800): createCaptureRequest
-D/Camera2CaptureRequestBuilder(30800): applyAeFpsRange: expectedFrameRateRange = [0, 0]
-D/Camera2CaptureRequestBuilder(30800): applyVideoStabilization: mode = null
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/UseCaseAttachState(30800): Active and attached use case: [androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143] for camera: 0
-D/CaptureSession(30800): Attempting to submit CaptureRequest after setting
-D/CaptureSession(30800): Issuing request for session.
-D/Camera2CaptureRequestBuilder(30800): createCaptureRequest
-D/Camera2CaptureRequestBuilder(30800): applyAeFpsRange: expectedFrameRateRange = [0, 0]
-D/Camera2CaptureRequestBuilder(30800): applyVideoStabilization: mode = null
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/ProfileInstaller(30800): Installing profile for com.example.x_aesthetic_app
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/ViewRootImpl@6fc5bee[MainActivity](30800): MSG_WINDOW_FOCUS_CHANGED 0 0
-D/SensorManager(30800): unregisterListener
-D/DeferrableSurface(30800): surface closed,  useCount=2 closed=true androidx.camera.core.SurfaceRequest$2@7bcbc65
-D/DeferrableSurface(30800): surface closed,  useCount=0 closed=true androidx.camera.core.processing.SurfaceEdge$SettableSurface@90ddea9
-D/DeferrableSurface(30800): Surface terminated[total_surfaces=3, used_surfaces=3](androidx.camera.core.processing.SurfaceEdge$SettableSurface@90ddea9}
-D/DeferrableSurface(30800): use count-1,  useCount=1 closed=true androidx.camera.core.SurfaceRequest$2@7bcbc65
-W/ScreenFlashWrapper(30800): completePendingScreenFlashClear: none pending!
-D/ImageCapture(30800): clearPipeline
-D/DeferrableSurface(30800): surface closed,  useCount=1 closed=true androidx.camera.core.impl.ImmediateSurface@284adc7
-D/DeferrableSurface(30800): surface closed,  useCount=1 closed=true androidx.camera.core.impl.ImmediateSurface@6cf4cde
-W/ScreenFlashWrapper(30800): completePendingScreenFlashClear: none pending!
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Use cases [androidx.camera.core.Preview-b9290494-15fb-475f-8883-5b8ef41dbe92208358143, androidx.camera.core.ImageCapture-509b59f6-8062-4bbe-ace2-26354aad8c83141980202, androidx.camera.core.ImageAnalysis-4e18ea58-5925-4e8f-98fa-16e69fa7af1631557366] now DETACHED for camera
-D/UseCaseAttachState(30800): All use case: [] for camera: 0
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Resetting Capture Session
-D/SyncCaptureSessionImpl(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] Session call close()
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Releasing session in state OPENED
-D/Camera2CameraControlImp(30800): setActive: isActive = false
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) dequeueBuffer: BufferQueue has been abandoned
-D/SensorManager(30800): unregisterListener
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/VideoUsageControl(30800): resetDirectly: mVideoUsage reset!
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Closing camera.
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Transitioning camera internal state: OPENED --> CLOSING
-D/CameraStateRegistry(30800): Recalculating open cameras:
-D/CameraStateRegistry(30800): Camera                                       State                 
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Camera@c265f37[id=2]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@67bfe2f[id=3]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@dc3b555[id=1]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@ebd4c12[id=0]                         CLOSING               
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Open count: 1 (Max allowed: 1)
-D/CameraStateMachine(30800): New public camera state CameraState{type=CLOSING, error=null} from CLOSING and null
-D/CameraStateMachine(30800): Publishing new public camera state CameraState{type=CLOSING, error=null}
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Resetting Capture Session
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Skipping Capture Session state check due to current camera state: CLOSING and previous session status: false
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Releasing session in state CLOSING
-D/SyncCaptureSessionImpl(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] Session call super.close()
-D/UseCaseAttachState(30800): Active and attached use case: [] for camera: 0
-D/CaptureSession(30800): onSessionFinished()
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} closing camera
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) queueBuffer: BufferQueue has been abandoned
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) queueBuffer: BufferQueue has been abandoned
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) cancelBuffer: BufferQueue has been abandoned
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) cancelBuffer: BufferQueue has been abandoned
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) cancelBuffer: BufferQueue has been abandoned
-E/BufferQueueProducer(30800): [ImageReader-1440x1080f22m7-30800-3](id:785000000007,api:4,p:6950,c:30800) cancelBuffer: BufferQueue has been abandoned
-I/CameraManagerGlobal(30800): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_IDLE for client com.example.x_aesthetic_app API Level 2User Id 0
-D/DeferrableSurface(30800): use count-1,  useCount=0 closed=true androidx.camera.core.SurfaceRequest$2@7bcbc65
-D/DeferrableSurface(30800): Surface no longer in use[total_surfaces=3, used_surfaces=2](androidx.camera.core.SurfaceRequest$2@7bcbc65}
-D/DeferrableSurface(30800): Surface terminated[total_surfaces=2, used_surfaces=2](androidx.camera.core.SurfaceRequest$2@7bcbc65}
-D/DeferrableSurface(30800): use count-1,  useCount=0 closed=true androidx.camera.core.impl.ImmediateSurface@284adc7
-D/DeferrableSurface(30800): Surface no longer in use[total_surfaces=2, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@284adc7}
-D/DeferrableSurface(30800): Surface terminated[total_surfaces=1, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@284adc7}
-D/DeferrableSurface(30800): use count-1,  useCount=0 closed=true androidx.camera.core.impl.ImmediateSurface@6cf4cde
-D/DeferrableSurface(30800): Surface no longer in use[total_surfaces=1, used_surfaces=0](androidx.camera.core.impl.ImmediateSurface@6cf4cde}
-D/DeferrableSurface(30800): Surface terminated[total_surfaces=0, used_surfaces=0](androidx.camera.core.impl.ImmediateSurface@6cf4cde}
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} CameraDevice.onClosed()
-D/Camera2CameraImpl(30800): {Camera@ebd4c12[id=0]} Transitioning camera internal state: CLOSING --> INITIALIZED
-D/CameraStateRegistry(30800): Recalculating open cameras:
-D/CameraStateRegistry(30800): Camera                                       State                 
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Camera@c265f37[id=2]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@67bfe2f[id=3]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@dc3b555[id=1]                         UNKNOWN               
-D/CameraStateRegistry(30800): Camera@ebd4c12[id=0]                         CLOSED                
-D/CameraStateRegistry(30800): -------------------------------------------------------------------
-D/CameraStateRegistry(30800): Open count: 0 (Max allowed: 1)
-D/CameraStateMachine(30800): New public camera state CameraState{type=CLOSED, error=null} from CLOSED and null
-D/CameraStateMachine(30800): Publishing new public camera state CameraState{type=CLOSED, error=null}
-D/SyncCaptureSessionImpl(30800): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@155944a] onClosed()
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.example.x_aesthetic_app API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 0
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/ViewRootImpl@6fc5bee[MainActivity](30800): handleAppVisibility mAppVisible = true visible = false
-I/SurfaceView@798faec(30800): onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ........ 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): Changes: creating=false format=false size=false visible=true alpha=false hint=false mUseAlpha=false visible=true left=false top=false
-I/SurfaceView@798faec(30800): 127466220 Cur surface: Surface(name=null)/@0x3979e8b
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7c8f16bd00 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.onWindowVisibilityChanged:371 
-I/ViewRootImpl@6fc5bee[MainActivity](30800): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7c8f16bd00android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.onWindowVisibilityChanged:371 android.view.View.dispatchWindowVisibilityChanged:15943 
-I/SurfaceView@798faec(30800): surfaceDestroyed
-I/SurfaceView@798faec(30800): surfaceDestroyed callback.size 1 #2 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ........ 0,0-1080,2358}
-I/SurfaceView@798faec(30800): updateSurface: mVisible = false mSurface.isValid() = true
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c8f11f800 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:1172 android.view.SurfaceView.onWindowVisibilityChanged:371 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7c8f11f800
-V/SurfaceView@798faec(30800): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
-D/SurfaceView@798faec(30800): windowPositionLost, frameNr = 0
-D/OpenGLRenderer(30800): setSurface called with nullptr
-D/OpenGLRenderer(30800): setSurface() destroyed EGLSurface
-D/OpenGLRenderer(30800): destroyEglSurface
-I/ViewRootImpl@6fc5bee[MainActivity](30800): performTraversals mFirst=false windowShouldResize=false viewVisibilityChanged=true mForceNextWindowRelayout=false params=null
-I/ViewRootImpl@6fc5bee[MainActivity](30800): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) req=(1080,2400)8 dur=7 res=0x2 s={false 0x0} ch=true seqId=0
-I/SurfaceView@798faec(30800): windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ........ 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c8f330600 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setWindowStopped:335 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7c8f330600
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c8f16b600 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7c8f16b600
-I/ViewRootImpl@6fc5bee[MainActivity](30800): stopped(true) old = false
-I/ViewRootImpl@6fc5bee[MainActivity](30800): WindowStopped on com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity set to true
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c8f16b300 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7c8f16b300
-I/MSHandlerLifeCycle(30800): removeMultiSplitHandler: no exist. decor=DecorView@2daac33[MainActivity]
-D/InputTransport(30800): Input channel destroyed: 'ClientS', fd=173
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c8f16b500 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7c8f16b500
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/BpBinder(30800): onLastStrongRef automatically unlinking death recipients: <uncached descriptor>
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_NOT_AVAILABLE
-D/Camera2PresenceSrc(30800): System onCameraUnavailable: 0
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_NOT_AVAILABLE
-D/Camera2PresenceSrc(30800): System onCameraUnavailable: 1
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_NOT_AVAILABLE
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_NOT_AVAILABLE
-E/CameraManagerGlobal(30800): Camera 20 is not available. Ignore physical camera status change
-E/CameraManagerGlobal(30800): Camera 21 is not available. Ignore physical camera status change
-D/Camera2PresenceSrc(30800): System onCameraUnavailable: 2
-D/Camera2PresenceSrc(30800): System onCameraUnavailable: 3
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/CameraManagerGlobal(30800): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_OPEN for client com.sec.android.app.camera API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/CameraManagerGlobal(30800): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_ACTIVE for client com.sec.android.app.camera API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/OpenGLRenderer(30800): setSurface called with nullptr
-D/OpenGLRenderer(30800): trimMemory(TRIM_MEMORY_COMPLETE)::destroyRenderingContext
-D/OpenGLRenderer(30800): RenderThread::destroyRenderingContext()
-D/OpenGLRenderer(30800): RenderThread::setGrContext()
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-W/x_aesthetic_app(30800): Suspending all threads took: 7.270ms
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-I/CameraManagerGlobal(30800): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_IDLE for client com.sec.android.app.camera API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-E/CameraManagerGlobal(30800): Camera 20 is not available. Ignore physical camera status change
-E/CameraManagerGlobal(30800): Camera 21 is not available. Ignore physical camera status change
-E/CameraManagerGlobal(30800): Camera 23 is not available. Ignore physical camera status change
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 0 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 1 status STATUS_PRESENT
-E/CameraManagerGlobal(30800): Camera 20 is not available. Ignore physical camera status change
-E/CameraManagerGlobal(30800): Camera 23 is not available. Ignore physical camera status change
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 2 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): postSingleUpdate device: camera id 3 status STATUS_PRESENT
-I/CameraManagerGlobal(30800): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.sec.android.app.camera API Level 2User Id 0
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 0
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 2
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 3
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAvailable: 1
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/SurfaceView@798faec(30800): updateSurface: surface is not valid
-I/SurfaceView@798faec(30800): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7d13a58700 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
-I/SurfaceView@798faec(30800): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
-I/ViewRootImpl@6fc5bee[MainActivity](30800): from releaseSurfaces t.apply t = 0x7d13a58700
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
-D/Camera2PresenceSrc(30800): System onCameraAccessPrioritiesChanged.
-D/Camera2PresenceSrc(30800): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+A Dart VM Service on SM G780F is available at: http://127.0.0.1:45383/vf-JN7FT_So=/
+The Flutter DevTools debugger and profiler on SM G780F is available at: http://127.0.0.1:45383/vf-JN7FT_So=/devtools/?uri=ws://127.0.0.1:45383/vf-JN7FT_So=/ws
+I/BLASTBufferQueue( 9685): [SurfaceView[com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity]@0#1](f:0,a:0) onFrameAvailable the first frame is available
+D/SensorManager( 9685): registerListener :: 1, ICM42632M Accelerometer, 200000, 0, 
+D/QuirkSettingsLoader( 9685): QuirkSettings$MetadataHolderService is not found.
+D/CameraX ( 9685): QuirkSettings from app metadata: null
+D/CameraX ( 9685): QuirkSettings by default: QuirkSettings{enabledWhenDeviceHasQuirk=true, forceEnabledQuirks=[], forceDisabledQuirks=[]}
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Setup new sync id=0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Setting syncFrameCallback
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): registerCallbacksForSync syncBuffer=false
+D/DeviceQuirks( 9685): camera2 DeviceQuirks = InvalidVideoProfilesQuirk
+D/SurfaceView@798faec( 9685): updateSurfacePosition RenderWorker, frameNr = 1, position = [0, 0, 1080, 2358] surfaceSize = 1080x2358
+I/SurfaceView@798faec( 9685): uSP: rtp = Rect(0, 0 - 1080, 2358) rtsw = 1080 rtsh = 2358
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): mWNT: t=0x7c85b59400 mBlastBufferQueue=0x7c7663b800 fn= 1 caller= android.view.ViewRootImpl.lambda$applyTransactionOnDraw$11$android-view-ViewRootImpl:12865 android.view.ViewRootImpl$$ExternalSyntheticLambda1.onFrameDraw:4 android.graphics.HardwareRenderer$FrameDrawingCallback.onFrameDraw:924 
+I/SurfaceView@798faec( 9685): onSSPAndSRT: pl = 0 pt = 0 sx = 1.0 sy = 1.0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Received frameDrawingCallback syncResult=0 frameNum=1.
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Setting up sync and frameCommitCallback
+I/SurfaceView@798faec( 9685): aOrMT: ViewRootImpl@6fc5bee[MainActivity] t = android.view.SurfaceControl$Transaction@8f86f1 fN = 1 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1537 android.graphics.RenderNode$CompositePositionUpdateListener.positionChanged:373 
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): mWNT: t=0x7c85b59300 mBlastBufferQueue=0x7c7663b800 fn= 1 caller= android.view.SurfaceView.applyOrMergeTransaction:1455 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1537 
+I/CameraManagerGlobal( 9685): Connecting to camera service
+D/VendorTagDescriptor( 9685): addVendorDescriptor: vendor tag id 14172875900359437128 added
+I/CameraManagerGlobal( 9685): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.example.x_aesthetic_app API Level 2User Id 0
+I/CameraManagerGlobal( 9685): Camera 1 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client com.samsung.android.smartface API Level 2User Id 0
+I/CameraManagerGlobal( 9685): Camera 2 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client org.telegram.messenger API Level 1User Id 0
+I/CameraManagerGlobal( 9685): Camera 20 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.sec.android.app.camera API Level 2User Id 0
+I/BLASTBufferQueue( 9685): [ViewRootImpl@6fc5bee[MainActivity]#0](f:0,a:0) onFrameAvailable the first frame is available
+I/CameraManagerGlobal( 9685): Camera 21 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
+I/CameraManagerGlobal( 9685): Camera 23 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
+I/CameraManagerGlobal( 9685): Camera 3 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client org.telegram.messenger API Level 1User Id 0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+I/CameraManagerGlobal( 9685): Camera 4 facing CAMERA_FACING_FRONT state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
+I/CameraManagerGlobal( 9685): Camera 50 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client android.system API Level 2User Id 0
+D/OpenGLRenderer( 9685): CFMS:: SetUp Pid : 9685    Tid : 9843
+D/Camera2CameraCoordinator( 9685): Updated concurrent camera map: {0=[1, 3], 1=[0], 3=[0]}
+W/Parcel  ( 9685): Expecting binder but got null!
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): onSyncComplete
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): setupSync seqId=0 mSyncId=0 fn=1 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
+D/Camera2CameraFactory( 9685): Updated available camera list: [] -> [0, 1, 2, 3]
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): reportDrawFinished seqId=0 mSyncId=-1 fn=1 mSurfaceChangedTransaction=0x7ca2cf0000
+I/SurfaceView@798faec( 9685): finishedDrawing
+D/FlutterJNI( 9685): Sending viewport metrics to the engine.
+D/CameraRepository( 9685): Added camera: 0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): MSG_WINDOW_FOCUS_CHANGED 1 0
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0x7c7667a000}
+D/InputMethodManager( 9685): startInputInner - Id : 0
+I/InputMethodManager( 9685): startInputInner - mService.startInputOrWindowGainedFocus
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+I/Camera2CameraInfo( 9685): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_FULL
+I/CameraManager( 9685): registerAvailabilityCallback: Is device callback = false
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 1 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 2 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 3 status STATUS_PRESENT
+D/CameraRepository( 9685): Added camera: 1
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+I/Camera2CameraInfo( 9685): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
+I/CameraManager( 9685): registerAvailabilityCallback: Is device callback = false
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 1 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 2 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 3 status STATUS_PRESENT
+D/CameraRepository( 9685): Added camera: 2
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+I/Camera2CameraInfo( 9685): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
+I/CameraManager( 9685): registerAvailabilityCallback: Is device callback = false
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 1 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 2 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 3 status STATUS_PRESENT
+D/CameraRepository( 9685): Added camera: 3
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+I/Camera2CameraInfo( 9685): Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
+I/CameraManager( 9685): registerAvailabilityCallback: Is device callback = false
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 1 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 2 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 3 status STATUS_PRESENT
+I/CameraPresencePrvdr( 9685): Starting CameraPresenceProvider monitoring.
+I/CameraPresenceSrc( 9685): First observer added. Starting monitoring.
+I/Camera2PresenceSrc( 9685): Starting system availability monitoring.
+I/CameraManager( 9685): registerAvailabilityCallback: Is device callback = false
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 1 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 2 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 3 status STATUS_PRESENT
+D/CameraValidator( 9685): Verifying camera lens facing on r8s, lensFacingInteger: null
+D/Camera2PresenceSrc( 9685): System onCameraAvailable: 0
+D/Camera2PresenceSrc( 9685): System onCameraAvailable: 1
+D/Camera2PresenceSrc( 9685): System onCameraAvailable: 2
+D/Camera2PresenceSrc( 9685): System onCameraAvailable: 3
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/InputMethodManager( 9685): startInputInner - Id : 0
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/InsetsController( 9685): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={3.0} cutoutSpec={M 0,0 M 0,10.71963616907435 a 9.280363830925644,9.280363830925644 0 1,0 0,18.56072766185129 a 9.280363830925644,9.280363830925644 0 1,0 0,-18.56072766185129 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=90, center=Point(90, 90)}, RoundedCorner{position=TopRight, radius=90, center=Point(990, 90)}, RoundedCorner{position=BottomRight, radius=90, center=Point(990, 2310)}, RoundedCorner{position=BottomLeft, radius=90, center=Point(90, 2310)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,2358][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][84,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[996,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][1080,122], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,2310][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][1080,2400], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][1080,88], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,0][0,0], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_IME, mFrame=[0,0][0,0], mVisible=false, mInsetsRoundedCornerFrame=false} } host=com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:6740
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/FlutterJNI( 9685): Sending viewport metrics to the engine.
+D/SensorManager( 9685): registerListener :: 1, ICM42632M Accelerometer, 200000, 0, 
+D/DeviceQuirks( 9685): video DeviceQuirks = NegativeLatLongSavesIncorrectlyQuirk | MediaCodecDefaultDataSpaceQuirk
+D/Recorder( 9685): mRequiredFreeStorageBytes = 50 MB
+D/DeviceQuirks( 9685): core DeviceQuirks = SurfaceOrderQuirk | LargeJpegImageQuirk
+D/ResolvedFeatureGroup( 9685): resolveFeatureGroup: sessionConfig = androidx.camera.core.LegacySessionConfig@227b9da, lensFacing = 1
+D/CameraUseCaseAdapter( 9685): addUseCases: appUseCasesToAdd = [Preview:androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509, ImageCapture:androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e, ImageAnalysis:androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed], featureGroup = null
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = Preview:androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509
+D/SupportedOutputSizesCollector( 9685): useCaseConfig = androidx.camera.core.impl.PreviewConfig@e26be0b, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240, 256x144, 176x144]
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = ImageCapture:androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e
+D/SupportedOutputSizesCollector( 9685): useCaseConfig = androidx.camera.core.impl.ImageCaptureConfig@d812fe7, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240]
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = ImageAnalysis:androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed
+D/SupportedOutputSizesCollector( 9685): useCaseConfig = androidx.camera.core.impl.ImageAnalysisConfig@43f794, candidateSizes = [4032x3024, 4032x2268, 3024x3024, 3840x2160, 4032x1816, 1920x1440, 2400x1080, 1920x1080, 1920x864, 1440x1080, 1088x1088, 1280x720, 960x720, 720x480, 640x480, 640x360, 352x288, 320x240, 256x144, 176x144]
+D/DynamicRangeResolver( 9685): Resolved dynamic range for use case androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509 to no compatible HDR dynamic ranges.
+D/DynamicRangeResolver( 9685): DynamicRange@653aa32{encoding=UNSPECIFIED, bitDepth=0}
+D/DynamicRangeResolver( 9685): ->
+D/DynamicRangeResolver( 9685): DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}
+D/SupportedSurfaceCombination( 9685): resolvedDynamicRanges = {androidx.camera.core.impl.ImageCaptureConfig@d812fe7=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, androidx.camera.core.impl.ImageAnalysisConfig@43f794=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, androidx.camera.core.impl.PreviewConfig@e26be0b=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}}
+D/SupportedSurfaceCombination( 9685): getSuggestedStreamSpecifications: isPreviewStabilizationOn = false, mIsPreviewStabilizationSupported = false, isFeatureComboInvocation = false
+D/SupportedSurfaceCombination( 9685): resolveSpecsByCheckingMethod: checkingMethod = WITHOUT_FEATURE_COMBO
+D/SupportedSurfaceCombination( 9685): resolveSpecsBySettings: featureSettings = FeatureSettings{getCameraMode=0, hasVideoCapture=false, getRequiredMaxBitDepth=8, isPreviewStabilizationOn=false, isUltraHdrOn=false, isHighSpeedOn=false, isFeatureComboInvocation=false, requiresFeatureComboQuery=false, getTargetFpsRange=[0, 0], isStrictFpsRequired=false}
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+D/CameraQuirks( 9685): camera2 CameraQuirks = 
+D/SupportedSurfaceCombination( 9685): resolveSpecsBySettings: bestSizesAndFps = BestSizesAndMaxFpsForConfigs{bestSizes=[4032x3024, 1440x1080, 1440x1080], bestSizesForStreamUseCase=null, maxFpsForBestSizes=30, maxFpsForStreamUseCase=2147483647, maxFpsForAllSizes=2147483647}
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = Preview:androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509
+D/Preview ( 9685): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=1440x1080, originalConfiguredResolution=1440x1080, dynamicRange=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@a524d8a, zslDisabled=false}, secondaryStreamSpec null
+D/DeferrableSurface( 9685): Surface created[total_surfaces=1, used_surfaces=0](androidx.camera.core.processing.SurfaceEdge$SettableSurface@b673ffb}
+D/DeferrableSurface( 9685): Surface created[total_surfaces=2, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@adfe0d7}
+D/DeferrableSurface( 9685): New surface in use[total_surfaces=2, used_surfaces=1](androidx.camera.core.SurfaceRequest$2@adfe0d7}
+D/DeferrableSurface( 9685): use count+1, useCount=1 androidx.camera.core.SurfaceRequest$2@adfe0d7
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = ImageCapture:androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e
+D/ImageCapture( 9685): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=4032x3024, originalConfiguredResolution=4032x3024, dynamicRange=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@76a230, zslDisabled=false}, secondaryStreamSpec null
+D/ImageCapture( 9685): createPipeline(cameraId: 0, streamSpec: StreamSpec{resolution=4032x3024, originalConfiguredResolution=4032x3024, dynamicRange=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@76a230, zslDisabled=false})
+D/DeferrableSurface( 9685): Surface created[total_surfaces=3, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@90ddea9}
+D/UseCase ( 9685): applyFeaturesToConfig: mFeatureGroup = null, this = ImageAnalysis:androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725 ACTIVE
+D/ImageAnalysis( 9685): onSuggestedStreamSpecUpdated: primaryStreamSpec = StreamSpec{resolution=1440x1080, originalConfiguredResolution=1440x1080, dynamicRange=DynamicRange@2d7b23d{encoding=SDR, bitDepth=8}, sessionType=0, expectedFrameRateRange=[0, 0], implementationOptions=androidx.camera.camera2.impl.Camera2ImplConfig@b7013cf, zslDisabled=false}, secondaryStreamSpec null
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/DeferrableSurface( 9685): Surface created[total_surfaces=4, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@b841deb}
+D/ImageCapture( 9685): onCameraControlReady
+D/Camera2CameraControlImp( 9685): setFlashMode: mFlashMode = 2
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734 ACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725 ACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681 INACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use cases [androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734, androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681] now ATTACHED
+D/Camera2CameraControlImp( 9685): setActive: isActive = true
+D/UseCaseAttachState( 9685): All use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734, androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681] for camera: 0
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Resetting Capture Session
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Skipping Capture Session state check due to current camera state: INITIALIZED and previous session status: false
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Releasing session in state INITIALIZED
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Attempting to force open the camera.
+D/CameraStateRegistry( 9685): tryOpenCamera(Camera@1ef3e6b[id=0]) [Available Cameras: 1, Already Open: false (Previous state: null)] --> SUCCESS
+D/CameraStateRegistry( 9685): Recalculating open cameras:
+D/CameraStateRegistry( 9685): Camera                                       State                 
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Camera@7858e74[id=1]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@1ef3e6b[id=0]                         OPENING               
+D/CameraStateRegistry( 9685): Camera@2524b6a[id=3]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@b822899[id=2]                         UNKNOWN               
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Open count: 1 (Max allowed: 1)
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Opening camera.
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Transitioning camera internal state: INITIALIZED --> OPENING
+D/CameraStateMachine( 9685): New public camera state CameraState{type=OPENING, error=null} from OPENING and null
+D/CameraStateMachine( 9685): Publishing new public camera state CameraState{type=OPENING, error=null}
+D/UseCaseAttachState( 9685): All use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734, androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681] for camera: 0
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
+D/Camera2PresenceSrc( 9685): System onCameraUnavailable: 0
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_NOT_AVAILABLE
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734 ACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+I/CameraManagerGlobal( 9685): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_OPEN for client com.example.x_aesthetic_app API Level 2User Id 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725 ACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use case androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681 INACTIVE
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} CameraDevice.onOpened()
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Transitioning camera internal state: OPENING --> OPENED
+D/CameraStateRegistry( 9685): Recalculating open cameras:
+D/CameraStateRegistry( 9685): Camera                                       State                 
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Camera@7858e74[id=1]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@1ef3e6b[id=0]                         OPEN                  
+D/CameraStateRegistry( 9685): Camera@2524b6a[id=3]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@b822899[id=2]                         UNKNOWN               
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Open count: 1 (Max allowed: 1)
+D/CameraStateMachine( 9685): New public camera state CameraState{type=OPEN, error=null} from OPEN and null
+D/CameraStateMachine( 9685): Publishing new public camera state CameraState{type=OPEN, error=null}
+D/UseCaseAttachState( 9685): All use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734, androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681] for camera: 0
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/StreamUseCaseUtil( 9685): populateSurfaceToStreamUseCaseMapping() - streamUseCaseMap = {}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/SyncCaptureSessionBase( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] getSurface done with results: [Surface(name=null)/@0x83ec419, Surface(name=null)/@0x155944a, Surface(name=null)/@0xfdadfbb]
+D/CaptureSession( 9685): Opening capture session.
+D/Camera2CaptureRequestBuilder( 9685): template type = 1
+D/Camera2CaptureRequestBuilder( 9685): applyAeFpsRange: expectedFrameRateRange = [0, 0]
+D/SyncCaptureSessionImpl( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] start openCaptureSession
+D/DeferrableSurface( 9685): use count+1, useCount=2 androidx.camera.core.SurfaceRequest$2@adfe0d7
+D/DeferrableSurface( 9685): New surface in use[total_surfaces=4, used_surfaces=2](androidx.camera.core.impl.ImmediateSurface@90ddea9}
+D/DeferrableSurface( 9685): use count+1, useCount=1 androidx.camera.core.impl.ImmediateSurface@90ddea9
+D/DeferrableSurface( 9685): New surface in use[total_surfaces=4, used_surfaces=3](androidx.camera.core.impl.ImmediateSurface@b841deb}
+D/DeferrableSurface( 9685): use count+1, useCount=1 androidx.camera.core.impl.ImmediateSurface@b841deb
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/SyncCaptureSessionImpl( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] Session onConfigured()
+D/CaptureSession( 9685): Attempting to send capture request onConfigured
+D/CaptureSession( 9685): Issuing request for session.
+D/Camera2CaptureRequestBuilder( 9685): createCaptureRequest
+D/Camera2CaptureRequestBuilder( 9685): applyAeFpsRange: expectedFrameRateRange = [0, 0]
+D/Camera2CaptureRequestBuilder( 9685): applyVideoStabilization: mode = null
+D/CaptureSession( 9685): CameraCaptureSession.onConfigured() mState=OPENED
+D/CaptureSession( 9685): CameraCaptureSession.onReady() OPENED
+I/CameraManagerGlobal( 9685): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_ACTIVE for client com.example.x_aesthetic_app API Level 2User Id 0
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/CaptureSession( 9685): Attempting to submit CaptureRequest after setting
+D/CaptureSession( 9685): Issuing request for session.
+D/Camera2CaptureRequestBuilder( 9685): createCaptureRequest
+D/Camera2CaptureRequestBuilder( 9685): applyAeFpsRange: expectedFrameRateRange = [0, 0]
+D/Camera2CaptureRequestBuilder( 9685): applyVideoStabilization: mode = null
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/UseCaseAttachState( 9685): Active and attached use case: [androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734] for camera: 0
+D/CaptureSession( 9685): Attempting to submit CaptureRequest after setting
+D/CaptureSession( 9685): Issuing request for session.
+D/Camera2CaptureRequestBuilder( 9685): createCaptureRequest
+D/Camera2CaptureRequestBuilder( 9685): applyAeFpsRange: expectedFrameRateRange = [0, 0]
+D/Camera2CaptureRequestBuilder( 9685): applyVideoStabilization: mode = null
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/ProfileInstaller( 9685): Installing profile for com.example.x_aesthetic_app
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/InputMethodManager( 9685): startInputInner - Id : 0
+I/InputMethodManager( 9685): startInputInner - mService.startInputOrWindowGainedFocus
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+I/ViewRootImpl( 9685): updatePointerIcon pointerType = 1000, calling pid = 9685
+D/InputManager( 9685): setPointerIconType iconId = 1000, callingPid = 9685
+D/SensorManager( 9685): unregisterListener
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): handleAppVisibility mAppVisible = true visible = false
+W/ScreenFlashWrapper( 9685): completePendingScreenFlashClear: none pending!
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Use cases [androidx.camera.core.Preview-59295758-55f4-46d4-82e0-5234f0f07509156401734, androidx.camera.core.ImageCapture-40d6ebf6-66e2-4300-959d-0bf07409474e112869725, androidx.camera.core.ImageAnalysis-b0e0edd4-670f-4f4f-95a1-0754126ff9ed224302681] now DETACHED for camera
+D/UseCaseAttachState( 9685): All use case: [] for camera: 0
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Resetting Capture Session
+D/SyncCaptureSessionImpl( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] Session call close()
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): stopped(true) old = false
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Releasing session in state OPENED
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): WindowStopped on com.example.x_aesthetic_app/com.example.x_aesthetic_app.MainActivity set to true
+D/Camera2CameraControlImp( 9685): setActive: isActive = false
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/SurfaceView@798faec( 9685): windowPositionLost, frameNr = 0
+I/SurfaceView@798faec( 9685): aOrMT: ViewRootImpl@6fc5bee[MainActivity] t = android.view.SurfaceControl$Transaction@f13a31f fN = 0 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionLost:1568 android.graphics.RenderNode$CompositePositionUpdateListener.positionLost:380 
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): mWNT: t=0x7ca2c04c00 mBlastBufferQueue=0x7c7663b800 fn= 0 caller= android.view.SurfaceView.applyOrMergeTransaction:1455 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionLost:1568 
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+D/VideoUsageControl( 9685): resetDirectly: mVideoUsage reset!
+I/SurfaceView@798faec( 9685): windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ........ 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Closing camera.
+I/SurfaceView@798faec( 9685): Changes: creating=false format=false size=false visible=true alpha=false hint=false mUseAlpha=false visible=true left=false top=false
+I/SurfaceView@798faec( 9685): 127466220 Cur surface: Surface(name=null)/@0x245cc5a
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = false t = 0x7d11c69c00 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Transitioning camera internal state: OPENED --> CLOSING
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): applyTransactionOnDraw: mRemoved = false isHardwareEnabled = true t = 0x7d11c69c00android.view.SurfaceView.applyTransactionOnVriDraw:2048 android.view.SurfaceView.performSurfaceTransaction:959 android.view.SurfaceView.updateSurface:1105 android.view.SurfaceView.setWindowStopped:335 android.view.SurfaceView.surfaceDestroyed:1863 
+I/SurfaceView@798faec( 9685): surfaceDestroyed
+I/SurfaceView@798faec( 9685): surfaceDestroyed callback.size 1 #1 io.flutter.embedding.android.FlutterSurfaceView{798faec V.E...... ........ 0,0-1080,2358}
+I/SurfaceView@798faec( 9685): updateSurface: mVisible = false mSurface.isValid() = true
+I/SurfaceView@798faec( 9685): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7ca2cf0300 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:1172 android.view.SurfaceView.setWindowStopped:335 
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): from releaseSurfaces t.apply t = 0x7ca2cf0300
+D/CameraStateRegistry( 9685): Recalculating open cameras:
+D/CameraStateRegistry( 9685): Camera                                       State                 
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Camera@7858e74[id=1]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@1ef3e6b[id=0]                         CLOSING               
+D/CameraStateRegistry( 9685): Camera@2524b6a[id=3]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@b822899[id=2]                         UNKNOWN               
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Open count: 1 (Max allowed: 1)
+D/CameraStateMachine( 9685): New public camera state CameraState{type=CLOSING, error=null} from CLOSING and null
+D/CameraStateMachine( 9685): Publishing new public camera state CameraState{type=CLOSING, error=null}
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Resetting Capture Session
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Skipping Capture Session state check due to current camera state: CLOSING and previous session status: false
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Releasing session in state CLOSING
+D/SyncCaptureSessionImpl( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] Session call super.close()
+D/UseCaseAttachState( 9685): Active and attached use case: [] for camera: 0
+V/SurfaceView@798faec( 9685): Layout: x=0 y=0 w=1080 h=2358, frame=Rect(0, 0 - 1080, 2358)
+D/CaptureSession( 9685): onSessionFinished()
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} closing camera
+D/SurfaceView@798faec( 9685): updateSurface: surface is not valid
+I/SurfaceView@798faec( 9685): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7d1e37a500 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.setVisibility:392 
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): from releaseSurfaces t.apply t = 0x7d1e37a500
+I/MSHandlerLifeCycle( 9685): removeMultiSplitHandler: no exist. decor=DecorView@2daac33[MainActivity]
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+I/SurfaceView@798faec( 9685): onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{798faec G.E...... ......I. 0,0-1080,2358} of ViewRootImpl@6fc5bee[MainActivity]
+D/SurfaceView@798faec( 9685): updateSurface: surface is not valid
+I/SurfaceView@798faec( 9685): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7d11c69b00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.onWindowVisibilityChanged:371 
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): from releaseSurfaces t.apply t = 0x7d11c69b00
+D/OpenGLRenderer( 9685): setSurface called with nullptr
+D/OpenGLRenderer( 9685): setSurface() destroyed EGLSurface
+D/OpenGLRenderer( 9685): destroyEglSurface
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): performTraversals mFirst=false windowShouldResize=false viewVisibilityChanged=true mForceNextWindowRelayout=false params=null
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) req=(1080,2400)8 dur=15 res=0x2 s={false 0x0} ch=false seqId=0
+D/SurfaceView@798faec( 9685): updateSurface: surface is not valid
+I/SurfaceView@798faec( 9685): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7d11c69a00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): from releaseSurfaces t.apply t = 0x7d11c69a00
+E/BufferQueueProducer( 9685): [ImageReader-1440x1080f22m7-9685-3](id:25d500000005,api:4,p:6950,c:9685) cancelBuffer: BufferQueue has been abandoned
+E/BufferQueueProducer( 9685): [ImageReader-1440x1080f22m7-9685-3](id:25d500000005,api:4,p:6950,c:9685) cancelBuffer: BufferQueue has been abandoned
+E/BufferQueueProducer( 9685): [ImageReader-1440x1080f22m7-9685-3](id:25d500000005,api:4,p:6950,c:9685) cancelBuffer: BufferQueue has been abandoned
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+E/BufferQueueProducer( 9685): [ImageReader-1440x1080f22m7-9685-3](id:25d500000005,api:4,p:6950,c:9685) cancelBuffer: BufferQueue has been abandoned
+E/BufferQueueProducer( 9685): [ImageReader-1440x1080f22m7-9685-3](id:25d500000005,api:4,p:6950,c:9685) cancelBuffer: BufferQueue has been abandoned
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): MSG_WINDOW_FOCUS_CHANGED 0 0
+I/CameraManagerGlobal( 9685): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_IDLE for client com.example.x_aesthetic_app API Level 2User Id 0
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/DeferrableSurface( 9685): surface closed,  useCount=2 closed=true androidx.camera.core.SurfaceRequest$2@adfe0d7
+D/DeferrableSurface( 9685): surface closed,  useCount=0 closed=true androidx.camera.core.processing.SurfaceEdge$SettableSurface@b673ffb
+D/DeferrableSurface( 9685): Surface terminated[total_surfaces=3, used_surfaces=3](androidx.camera.core.processing.SurfaceEdge$SettableSurface@b673ffb}
+D/DeferrableSurface( 9685): use count-1,  useCount=1 closed=true androidx.camera.core.SurfaceRequest$2@adfe0d7
+W/ScreenFlashWrapper( 9685): completePendingScreenFlashClear: none pending!
+D/ImageCapture( 9685): clearPipeline
+D/DeferrableSurface( 9685): surface closed,  useCount=1 closed=true androidx.camera.core.impl.ImmediateSurface@90ddea9
+D/DeferrableSurface( 9685): surface closed,  useCount=1 closed=true androidx.camera.core.impl.ImmediateSurface@b841deb
+D/SensorManager( 9685): unregisterListener
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/DeferrableSurface( 9685): use count-1,  useCount=0 closed=true androidx.camera.core.SurfaceRequest$2@adfe0d7
+D/DeferrableSurface( 9685): Surface no longer in use[total_surfaces=3, used_surfaces=2](androidx.camera.core.SurfaceRequest$2@adfe0d7}
+D/DeferrableSurface( 9685): Surface terminated[total_surfaces=2, used_surfaces=2](androidx.camera.core.SurfaceRequest$2@adfe0d7}
+D/DeferrableSurface( 9685): use count-1,  useCount=0 closed=true androidx.camera.core.impl.ImmediateSurface@90ddea9
+D/DeferrableSurface( 9685): Surface no longer in use[total_surfaces=2, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@90ddea9}
+D/DeferrableSurface( 9685): Surface terminated[total_surfaces=1, used_surfaces=1](androidx.camera.core.impl.ImmediateSurface@90ddea9}
+D/DeferrableSurface( 9685): use count-1,  useCount=0 closed=true androidx.camera.core.impl.ImmediateSurface@b841deb
+D/DeferrableSurface( 9685): Surface no longer in use[total_surfaces=1, used_surfaces=0](androidx.camera.core.impl.ImmediateSurface@b841deb}
+D/DeferrableSurface( 9685): Surface terminated[total_surfaces=0, used_surfaces=0](androidx.camera.core.impl.ImmediateSurface@b841deb}
+W/x_aesthetic_app( 9685): Long monitor contention with owner CameraX-core_camera_0 (10162) at void android.hardware.camera2.impl.CameraDeviceImpl.close()(CameraDeviceImpl.java:1463) waiters=0 in void android.hardware.camera2.impl.CameraDeviceImpl$CameraDeviceCallbacks.onResultReceived(android.hardware.camera2.impl.CameraMetadataNative, android.hardware.camera2.impl.CaptureResultExtras, android.hardware.camera2.impl.PhysicalCaptureResultInfo[]) for 396ms
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} CameraDevice.onClosed()
+D/Camera2CameraImpl( 9685): {Camera@1ef3e6b[id=0]} Transitioning camera internal state: CLOSING --> INITIALIZED
+D/CameraStateRegistry( 9685): Recalculating open cameras:
+D/CameraStateRegistry( 9685): Camera                                       State                 
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Camera@7858e74[id=1]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@1ef3e6b[id=0]                         CLOSED                
+D/CameraStateRegistry( 9685): Camera@2524b6a[id=3]                         UNKNOWN               
+D/CameraStateRegistry( 9685): Camera@b822899[id=2]                         UNKNOWN               
+D/CameraStateRegistry( 9685): -------------------------------------------------------------------
+D/CameraStateRegistry( 9685): Open count: 0 (Max allowed: 1)
+D/CameraStateMachine( 9685): New public camera state CameraState{type=CLOSED, error=null} from CLOSED and null
+D/CameraStateMachine( 9685): Publishing new public camera state CameraState{type=CLOSED, error=null}
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+D/SyncCaptureSessionImpl( 9685): [androidx.camera.camera2.internal.SynchronizedCaptureSessionImpl@98e5831] onClosed()
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+D/Camera2PresenceSrc( 9685): System onCameraAvailable: 0
+I/CameraManagerGlobal( 9685): postSingleUpdate device: camera id 0 status STATUS_PRESENT
+I/CameraManagerGlobal( 9685): Camera 0 facing CAMERA_FACING_BACK state now CAMERA_STATE_CLOSED for client com.example.x_aesthetic_app API Level 2User Id 0
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/SurfaceView@798faec( 9685): updateSurface: surface is not valid
+I/SurfaceView@798faec( 9685): releaseSurfaces: viewRoot = ViewRootImpl@6fc5bee[MainActivity]
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: vri = ViewRootImpl@6fc5bee[MainActivity] fRS = true t = 0x7c73f6ad00 android.view.SurfaceView.releaseSurfaces:858 android.view.SurfaceView.updateSurface:998 android.view.SurfaceView.lambda$new$0$android-view-SurfaceView:200 
+I/SurfaceView@798faec( 9685): applyTransactionOnVriDraw: viewRoot.applyTransactionOnDrawFromReleaseSurfaces
+I/ViewRootImpl@6fc5bee[MainActivity]( 9685): from releaseSurfaces t.apply t = 0x7c73f6ad00
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): System onCameraAccessPrioritiesChanged.
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
+D/Camera2PresenceSrc( 9685): [FetchData] Refreshed camera list: CameraIdentifier{cameraIds=0}, CameraIdentifier{cameraIds=1}, CameraIdentifier{cameraIds=2}, CameraIdentifier{cameraIds=3}
 Lost connection to device.

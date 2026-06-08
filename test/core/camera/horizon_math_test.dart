@@ -32,12 +32,12 @@ void main() {
       expect(horizonLevelErrorDegrees(178), closeTo(-2, 0.001));
     });
 
-    test('rotates display line opposite to device roll error', () {
-      expect(horizonDisplayRotationDegrees(10), closeTo(-10, 0.001));
-      expect(horizonDisplayRotationDegrees(-10), closeTo(10, 0.001));
-      expect(horizonDisplayRotationDegrees(95), closeTo(-5, 0.001));
-      expect(horizonDisplayRotationDegrees(-95), closeTo(5, 0.001));
-      expect(horizonDisplayRotationDegrees(178), closeTo(2, 0.001));
+    test('rotates display line to match device roll', () {
+      expect(horizonDisplayRotationDegrees(10), closeTo(10, 0.001));
+      expect(horizonDisplayRotationDegrees(-10), closeTo(-10, 0.001));
+      expect(horizonDisplayRotationDegrees(95), closeTo(95, 0.001));
+      expect(horizonDisplayRotationDegrees(-95), closeTo(-95, 0.001));
+      expect(horizonDisplayRotationDegrees(178), closeTo(178, 0.001));
     });
   });
 }
