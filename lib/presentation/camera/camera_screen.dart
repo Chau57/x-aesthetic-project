@@ -350,10 +350,25 @@ class _CameraScreenState extends State<CameraScreen>
         _errorMessage = null;
       });
       if (_activeMode == _XiaomiCameraMode.pro) {
-        _proCameraBridge.setHardwareFocus(
-          lensDirection: controller.description.lensDirection,
-          focus: _proFocus,
-        );
+        if (_proFocus != 'Auto') {
+          controller.setFocusMode(FocusMode.locked).then((_) {
+            _proCameraBridge.setHardwareFocus(
+              lensDirection: controller.description.lensDirection,
+              focus: _proFocus,
+            );
+          }).catchError((e) {
+            debugPrint('Failed to lock focus on startup: $e');
+            _proCameraBridge.setHardwareFocus(
+              lensDirection: controller.description.lensDirection,
+              focus: _proFocus,
+            );
+          });
+        } else {
+          _proCameraBridge.setHardwareFocus(
+            lensDirection: controller.description.lensDirection,
+            focus: _proFocus,
+          );
+        }
       }
     } catch (error, stackTrace) {
       debugPrint('Camera open failed: $error\n$stackTrace');
@@ -853,6 +868,9 @@ class _CameraScreenState extends State<CameraScreen>
       return;
     }
     _settingsPanelOpen = false;
+    if (_activeMode == _XiaomiCameraMode.pro && _proFocus != 'Auto') {
+      return;
+    }
     final local = Offset(
       details.localPosition.dx.clamp(0.0, size.width),
       details.localPosition.dy.clamp(0.0, size.height),
@@ -1197,11 +1215,26 @@ class _CameraScreenState extends State<CameraScreen>
       proIso: _proIso,
       onProParamChanged: (param) => setState(() => _selectedProParam = param),
       onProWbChanged: (val) => setState(() => _proWb = val),
-      onProFocusChanged: (val) {
+      onProFocusChanged: (val) async {
+        final wasAuto = _proFocus == 'Auto';
         setState(() => _proFocus = val);
-        if (_cameraController != null && _cameraController!.value.isInitialized) {
-          _proCameraBridge.setHardwareFocus(
-            lensDirection: _cameraController!.description.lensDirection,
+        final controller = _cameraController;
+        if (controller != null && controller.value.isInitialized) {
+          if (val == 'Auto') {
+            try {
+              await controller.setFocusMode(FocusMode.auto);
+            } catch (e) {
+              debugPrint('Failed to set focus mode on controller: $e');
+            }
+          } else if (wasAuto) {
+            try {
+              await controller.setFocusMode(FocusMode.locked);
+            } catch (e) {
+              debugPrint('Failed to set focus mode on controller: $e');
+            }
+          }
+          await _proCameraBridge.setHardwareFocus(
+            lensDirection: controller.description.lensDirection,
             focus: val,
           );
         }
@@ -1210,11 +1243,21 @@ class _CameraScreenState extends State<CameraScreen>
       onProIsoChanged: (val) => setState(() => _proIso = val),
       onExposureChanged: _updateExposureOffset,
       onExposureReset: () => _updateExposureOffset(0),
-      onModeChanged: (mode) {
+      onModeChanged: (mode) async {
         setState(() => _activeMode = mode);
-        if (_cameraController != null && _cameraController!.value.isInitialized) {
-          _proCameraBridge.setHardwareFocus(
-            lensDirection: _cameraController!.description.lensDirection,
+        final controller = _cameraController;
+        if (controller != null && controller.value.isInitialized) {
+          try {
+            if (mode == _XiaomiCameraMode.pro && _proFocus != 'Auto') {
+              await controller.setFocusMode(FocusMode.locked);
+            } else {
+              await controller.setFocusMode(FocusMode.auto);
+            }
+          } catch (e) {
+            debugPrint('Failed to set focus mode on mode change: $e');
+          }
+          await _proCameraBridge.setHardwareFocus(
+            lensDirection: controller.description.lensDirection,
             focus: mode == _XiaomiCameraMode.pro ? _proFocus : 'Auto',
           );
         }
@@ -3217,8 +3260,8 @@ class _CameraPreviewCover extends StatelessWidget {
       child: child,
     );
 
-    // 4. Focus Blur (simulates focus distance and focus plane shifting)
-    if (proFocus != 'Auto') {
+    // 4. Focus Blur (simulates focus distance and focus plane shifting for iOS/fallback; disabled on Android where we use real hardware focus)
+    if (proFocus != 'Auto' && !Platform.isAndroid) {
       var focusVal = double.tryParse(proFocus) ?? 1.0;
       if (focusVal > 1.0) {
         focusVal /= 100.0;

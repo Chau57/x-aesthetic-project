@@ -28,6 +28,9 @@ import android.util.Rational
 
 class MainActivity : FlutterActivity() {
     private val channelName = "x_aesthetic/hardware_hdr"
+    private var cachedInstanceManager: Any? = null
+    private var cachedCameraControl: Any? = null
+    private var cachedLensDirection: String? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -599,55 +602,44 @@ class MainActivity : FlutterActivity() {
     private fun setHardwareFocus(call: MethodCall, result: MethodChannel.Result) {
         val lensDirection = call.argument<String>("lensDirection") ?: "back"
         val focus = call.argument<String>("focus") ?: "Auto"
-        android.util.Log.d("ProCamera", "=== setHardwareFocus called: focus=$focus, lens=$lensDirection ===")
 
         try {
             val engine = flutterEngine
             if (engine == null) {
-                android.util.Log.e("ProCamera", "FlutterEngine is NULL - cannot apply focus")
                 result.success(null)
                 return
             }
-            android.util.Log.d("ProCamera", "FlutterEngine OK, searching for CameraControl...")
-            val cameraControl = findCameraControl(engine)
-            if (cameraControl == null) {
-                android.util.Log.e("ProCamera", "CameraControl is NULL - focus NOT applied! Camera may not be initialized yet.")
-                result.success(null)
-                return
-            }
-            android.util.Log.d("ProCamera", "CameraControl found: ${cameraControl.javaClass.name}")
-
-            val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraId = findCameraId(cameraManager, lensDirection)
-            android.util.Log.d("ProCamera", "Using cameraId=$cameraId")
-            val characteristics = cameraManager.getCameraCharacteristics(cameraId)
 
             if (focus == "Auto") {
-                android.util.Log.d("ProCamera", "Applying AUTO focus mode")
-                applyHardwareAutoFocus(cameraControl)
+                cachedCameraControl = null
+                cachedLensDirection = null
+                val cameraControl = findCameraControl(engine, lensDirection)
+                if (cameraControl != null) {
+                    applyHardwareAutoFocus(cameraControl)
+                }
             } else {
-                val focusVal = focus.toFloatOrNull() ?: 1.0f
-                android.util.Log.d("ProCamera", "Applying MANUAL focus: focusVal=$focusVal")
-                applyHardwareFocus(cameraControl, focusVal, characteristics)
+                val cameraControl = findCameraControl(engine, lensDirection)
+                if (cameraControl != null) {
+                    val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+                    val cameraId = findCameraId(cameraManager, lensDirection)
+                    val characteristics = cameraManager.getCameraCharacteristics(cameraId)
+                    val focusVal = focus.toFloatOrNull() ?: 1.0f
+                    applyHardwareFocus(cameraControl, focusVal, characteristics)
+                }
             }
             result.success(null)
         } catch (e: Exception) {
-            android.util.Log.e("ProCamera", "Error setting hardware focus: ${e.message}", e)
+            android.util.Log.e("ProCamera", "Error setting hardware focus: ${e.message}")
             result.error("focus_error", e.message, null)
         }
     }
 
-    private fun findCameraControl(flutterEngine: FlutterEngine): Any? {
-        try {
-            val pluginClass = Class.forName("io.flutter.plugins.camerax.CameraAndroidCameraxPlugin")
-            android.util.Log.d("ProCamera", "Plugin class found: ${pluginClass.name}")
-            val plugin = flutterEngine.plugins.get(pluginClass as Class<out io.flutter.embedding.engine.plugins.FlutterPlugin>)
-            if (plugin == null) {
-                android.util.Log.e("ProCamera", "CameraAndroidCameraxPlugin not registered in FlutterEngine!")
-                return null
-            }
-            android.util.Log.d("ProCamera", "Plugin instance found: ${plugin.javaClass.name}")
+    private fun findCameraControl(flutterEngine: FlutterEngine, lensDirection: String): Any? {
+        if (cachedLensDirection == lensDirection && cachedCameraControl != null) {
+            return cachedCameraControl
+        }
 
+        try {
             // Helper: collect ALL declared fields from a class and ALL its superclasses
             fun getAllFields(clazz: Class<*>): List<java.lang.reflect.Field> {
                 val result = mutableListOf<java.lang.reflect.Field>()
@@ -667,7 +659,6 @@ class MainActivity : FlutterActivity() {
                     Class.forName("androidx.camera.core.CameraControl").isInstance(obj)
                 } catch (_: Exception) { objClass.name.contains("CameraControl") }
                 if (isCameraControl) {
-                    android.util.Log.d("ProCamera", "    checkObject: CameraControl found: ${objClass.name}")
                     return obj
                 }
                 val isCamera = try {
@@ -681,19 +672,13 @@ class MainActivity : FlutterActivity() {
                     !objClass.name.contains("CameraCharacteristics")
                 }
                 if (isCamera) {
-                    android.util.Log.d("ProCamera", "    checkObject: Camera found: ${objClass.name}, calling getCameraControl()")
                     return try {
-                        val ctrl = objClass.getMethod("getCameraControl").invoke(obj)
-                        android.util.Log.d("ProCamera", "    getCameraControl() = ${ctrl?.javaClass?.name}")
-                        ctrl
+                        objClass.getMethod("getCameraControl").invoke(obj)
                     } catch (e1: Exception) {
                         try {
-                            val ctrl = Class.forName("androidx.camera.core.Camera")
+                            Class.forName("androidx.camera.core.Camera")
                                 .getMethod("getCameraControl").invoke(obj)
-                            android.util.Log.d("ProCamera", "    getCameraControl() via iface = ${ctrl?.javaClass?.name}")
-                            ctrl
                         } catch (e2: Exception) {
-                            android.util.Log.e("ProCamera", "    getCameraControl() failed: ${e2.message}")
                             null
                         }
                     }
@@ -703,13 +688,10 @@ class MainActivity : FlutterActivity() {
 
             // Helper: given an InstanceManager-like object, search its collections for Camera/CameraControl
             fun searchInstanceManager(im: Any): Any? {
-                android.util.Log.d("ProCamera", "  searchInstanceManager: ${im.javaClass.name}")
                 for (f in getAllFields(im.javaClass)) {
                     f.isAccessible = true
                     val value = try { f.get(im) } catch (_: Exception) { null } ?: continue
-                    android.util.Log.d("ProCamera", "    IM field '${f.name}': ${value.javaClass.simpleName}")
                     if (value is Map<*, *>) {
-                        android.util.Log.d("ProCamera", "    Map size=${value.size}")
                         for (entry in value.entries) {
                             val resK = checkObject(entry.key); if (resK != null) return resK
                             val resV = checkObject(entry.value); if (resV != null) return resV
@@ -720,47 +702,58 @@ class MainActivity : FlutterActivity() {
                         try {
                             val size = value.javaClass.getMethod("size").invoke(value) as Int
                             val valueAt = value.javaClass.getMethod("valueAt", Int::class.java)
-                            android.util.Log.d("ProCamera", "    SparseArray size=$size")
                             for (i in 0 until size) {
                                 val res = checkObject(valueAt.invoke(value, i))
                                 if (res != null) return res
                             }
                         } catch (e: Exception) {
-                            android.util.Log.w("ProCamera", "    SparseArray iteration failed: ${e.message}")
+                            // ignore
                         }
                     }
                 }
                 return null
             }
 
-            // Recursively find InstanceManager in object graph up to maxDepth levels
-            val visited = mutableSetOf<Int>() // track by identity hash to avoid cycles
+            val im = cachedInstanceManager
+            if (im != null) {
+                val res = searchInstanceManager(im)
+                if (res != null) {
+                    cachedCameraControl = res
+                    cachedLensDirection = lensDirection
+                    return res
+                }
+            }
+
+            val pluginClass = Class.forName("io.flutter.plugins.camerax.CameraAndroidCameraxPlugin")
+            val plugin = flutterEngine.plugins.get(pluginClass as Class<out io.flutter.embedding.engine.plugins.FlutterPlugin>)
+            if (plugin == null) {
+                android.util.Log.e("ProCamera", "CameraAndroidCameraxPlugin not registered in FlutterEngine!")
+                return null
+            }
+
+            val visited = mutableSetOf<Int>()
             fun findIM(obj: Any, depth: Int = 0): Any? {
                 if (depth > 3) return null
                 val id = System.identityHashCode(obj)
                 if (!visited.add(id)) return null
                 val fields = getAllFields(obj.javaClass)
-                android.util.Log.d("ProCamera", "D$depth [${obj.javaClass.simpleName}] fields: ${fields.map { it.name + ":" + it.type.simpleName }}")
-                // First pass: look for InstanceManager directly
                 for (field in fields) {
                     val typeName = field.type.name
                     val fieldName = field.name.lowercase()
                     if (typeName.contains("InstanceManager") || fieldName == "instancemanager" || fieldName == "pigeoninstancemanager") {
                         field.isAccessible = true
-                        val im = try { field.get(obj) } catch (_: Exception) { null } ?: continue
-                        android.util.Log.d("ProCamera", "D$depth Found InstanceManager '${field.name}': ${im.javaClass.name}")
-                        val result = searchInstanceManager(im)
+                        val imObj = try { field.get(obj) } catch (_: Exception) { null } ?: continue
+                        cachedInstanceManager = imObj
+                        val result = searchInstanceManager(imObj)
                         if (result != null) return result
                     }
                 }
-                // Second pass: recurse into Flutter/CameraX-related fields
                 for (field in fields) {
                     val typeName = field.type.name
                     if (typeName.startsWith("io.flutter") || typeName.startsWith("io.flutter.plugins.camerax") ||
                         typeName.contains("Registrar") || typeName.contains("ProxyApi")) {
                         field.isAccessible = true
                         val value = try { field.get(obj) } catch (_: Exception) { null } ?: continue
-                        android.util.Log.d("ProCamera", "D$depth Recursing into '${field.name}': ${value.javaClass.name}")
                         val result = findIM(value, depth + 1)
                         if (result != null) return result
                     }
@@ -768,12 +761,12 @@ class MainActivity : FlutterActivity() {
                 return null
             }
 
-
-            val instanceManager: Any? = null  // unused sentinel; actual search via findIM below
-
-            // Run the recursive search from the plugin root
             val result = findIM(plugin)
-            if (result != null) return result
+            if (result != null) {
+                cachedCameraControl = result
+                cachedLensDirection = lensDirection
+                return result
+            }
             android.util.Log.e("ProCamera", "CameraControl not found anywhere in plugin graph!")
         } catch (e: Exception) {
             android.util.Log.e("ProCamera", "Failed to find CameraControl: ${e.message}", e)
@@ -781,48 +774,42 @@ class MainActivity : FlutterActivity() {
         return null
     }
 
-
     private fun applyHardwareFocus(cameraControl: Any, focusVal: Float, characteristics: CameraCharacteristics) {
         try {
             val minFocus = characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE) ?: 0.0f
-            // focusVal: 0=infinity(far), 1=closest. Diopter: 0=infinity, minFocus=closest.
-            // focusVal=0 → diopter=0 (infinity), focusVal=1 → diopter=minFocus (closest)
-            val diopter = focusVal * minFocus
+            // focusVal: 0.0 = closest/macro, 1.0 = infinity/far
+            val diopter = if (minFocus > 0.0f) {
+                (1.0f - focusVal) * minFocus
+            } else {
+                0.0f
+            }
             android.util.Log.d("ProCamera", "applyHardwareFocus: focusVal=$focusVal, minFocus=$minFocus, diopter=$diopter")
-            android.util.Log.d("ProCamera", "CameraControl class: ${cameraControl.javaClass.name}")
-            
+
             // Use CaptureRequestOptions.Builder (correct API)
             val optionsBuilderClass = Class.forName("androidx.camera.camera2.interop.CaptureRequestOptions\$Builder")
-            android.util.Log.d("ProCamera", "CaptureRequestOptions.Builder found")
             val optionsBuilder = optionsBuilderClass.getDeclaredConstructor().newInstance()
-            
+
             val setOptionMethod = optionsBuilderClass.getMethod("setCaptureRequestOption", CaptureRequest.Key::class.java, Any::class.java)
-            
-            // Set AF Mode to OFF to prevent autofocus from overriding our value
+
+            // Set AF Mode to OFF
             setOptionMethod.invoke(optionsBuilder, CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
-            android.util.Log.d("ProCamera", "Set CONTROL_AF_MODE = OFF")
-            
+
             // Set Lens Focus Distance
             setOptionMethod.invoke(optionsBuilder, CaptureRequest.LENS_FOCUS_DISTANCE, diopter)
-            android.util.Log.d("ProCamera", "Set LENS_FOCUS_DISTANCE = $diopter")
-            
+
             val buildMethod = optionsBuilderClass.getMethod("build")
             val options = buildMethod.invoke(optionsBuilder)
-            android.util.Log.d("ProCamera", "CaptureRequestOptions built: ${options?.javaClass?.name}")
-            
+
             // Get Camera2CameraControl from CameraControl
             val interopClass = Class.forName("androidx.camera.camera2.interop.Camera2CameraControl")
             val fromMethod = interopClass.getMethod("from", Class.forName("androidx.camera.core.CameraControl"))
-            android.util.Log.d("ProCamera", "Calling Camera2CameraControl.from() on ${cameraControl.javaClass.name}")
             val camera2Control = fromMethod.invoke(null, cameraControl)
-            android.util.Log.d("ProCamera", "camera2Control: ${camera2Control?.javaClass?.name}")
-            
+
             val setOptionsMethod = camera2Control!!.javaClass.getMethod("setCaptureRequestOptions",
                 Class.forName("androidx.camera.camera2.interop.CaptureRequestOptions"))
-            val future = setOptionsMethod.invoke(camera2Control, options)
-            android.util.Log.d("ProCamera", "setCaptureRequestOptions() returned: ${future?.javaClass?.name}")
-            
-            android.util.Log.d("ProCamera", "=== Hardware focus APPLIED: focusVal=$focusVal, diopter=$diopter (AF=OFF) ===")
+            setOptionsMethod.invoke(camera2Control, options)
+
+            android.util.Log.d("ProCamera", "Successfully applied hardware focus: $focusVal (diopter: $diopter)")
         } catch (e: Exception) {
             android.util.Log.e("ProCamera", "Failed to apply hardware focus: ${e.message}", e)
         }
@@ -831,28 +818,28 @@ class MainActivity : FlutterActivity() {
     private fun applyHardwareAutoFocus(cameraControl: Any) {
         try {
             android.util.Log.d("ProCamera", "applyHardwareAutoFocus: restoring CONTINUOUS_PICTURE AF mode")
-            
+
             // Use CaptureRequestOptions.Builder (correct API)
             val optionsBuilderClass = Class.forName("androidx.camera.camera2.interop.CaptureRequestOptions\$Builder")
             val optionsBuilder = optionsBuilderClass.getDeclaredConstructor().newInstance()
-            
+
             val setOptionMethod = optionsBuilderClass.getMethod("setCaptureRequestOption", CaptureRequest.Key::class.java, Any::class.java)
-            
+
             // Set AF Mode to CONTINUOUS_PICTURE
             setOptionMethod.invoke(optionsBuilder, CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-            
+
             val buildMethod = optionsBuilderClass.getMethod("build")
             val options = buildMethod.invoke(optionsBuilder)
-            
+
             val interopClass = Class.forName("androidx.camera.camera2.interop.Camera2CameraControl")
             val fromMethod = interopClass.getMethod("from", Class.forName("androidx.camera.core.CameraControl"))
             val camera2Control = fromMethod.invoke(null, cameraControl)
-            
+
             val setOptionsMethod = camera2Control!!.javaClass.getMethod("setCaptureRequestOptions",
                 Class.forName("androidx.camera.camera2.interop.CaptureRequestOptions"))
             setOptionsMethod.invoke(camera2Control, options)
-            
-            android.util.Log.d("ProCamera", "=== Hardware autofocus RESTORED ===")
+
+            android.util.Log.d("ProCamera", "Successfully restored hardware autofocus")
         } catch (e: Exception) {
             android.util.Log.e("ProCamera", "Failed to restore hardware autofocus: ${e.message}", e)
         }
