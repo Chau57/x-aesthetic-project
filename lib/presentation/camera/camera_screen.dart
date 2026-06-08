@@ -913,7 +913,17 @@ class _CameraScreenState extends State<CameraScreen>
                 colors: [Color(0xDD000000), Colors.transparent],
               ),
             ),
-            child: _buildXiaomiBottomDeck(app, overlay: true),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildXiaomiViewportControls(app),
+                ),
+                const SizedBox(height: 14),
+                _buildXiaomiBottomDeck(app, overlay: true),
+              ],
+            ),
           ),
         ),
         _buildTransientOverlays(),
@@ -959,11 +969,32 @@ class _CameraScreenState extends State<CameraScreen>
                 colors: [Color(0xDD000000), Colors.transparent],
               ),
             ),
-            child: _buildXiaomiBottomDeck(app, overlay: true),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildXiaomiViewportControls(app),
+                ),
+                const SizedBox(height: 14),
+                _buildXiaomiBottomDeck(app, overlay: true),
+              ],
+            ),
           ),
         ),
         _buildTransientOverlays(),
       ],
+    );
+  }
+
+  Widget _buildXiaomiViewportControls(XAestheticController app) {
+    return _XiaomiViewportControls(
+      currentZoom: _currentZoom,
+      minZoom: _minZoomLevel,
+      maxZoom: _maxZoomLevel,
+      evDialOpen: _showExposureDial,
+      onExposureToggle: _toggleExposureDial,
+      onZoomChanged: (value) => unawaited(_setZoomLevel(value)),
     );
   }
 
@@ -982,16 +1013,10 @@ class _CameraScreenState extends State<CameraScreen>
       exposureValue: app.settings.exposureOffset,
       exposureMin: _effectiveExposureRange.start,
       exposureMax: _effectiveExposureRange.end,
-      currentZoom: _currentZoom,
-      minZoom: _minZoomLevel,
-      maxZoom: _maxZoomLevel,
-      evDialOpen: _showExposureDial,
       countdownRemaining: _countdownRemaining,
       onTapUp: _handleViewfinderTap,
       onRetry: () => unawaited(_initializeCamera()),
-      onExposureToggle: _toggleExposureDial,
       onExposureChanged: _updateExposureOffset,
-      onZoomChanged: (value) => unawaited(_setZoomLevel(value)),
     );
   }
 
@@ -1434,16 +1459,10 @@ class _XiaomiCameraViewport extends StatelessWidget {
   final double exposureValue;
   final double exposureMin;
   final double exposureMax;
-  final double currentZoom;
-  final double minZoom;
-  final double maxZoom;
-  final bool evDialOpen;
   final int countdownRemaining;
   final void Function(TapUpDetails details, Size size) onTapUp;
   final VoidCallback onRetry;
-  final VoidCallback onExposureToggle;
   final ValueChanged<double> onExposureChanged;
-  final ValueChanged<double> onZoomChanged;
 
   const _XiaomiCameraViewport({
     required this.controller,
@@ -1456,16 +1475,10 @@ class _XiaomiCameraViewport extends StatelessWidget {
     required this.exposureValue,
     required this.exposureMin,
     required this.exposureMax,
-    required this.currentZoom,
-    required this.minZoom,
-    required this.maxZoom,
-    required this.evDialOpen,
     required this.countdownRemaining,
     required this.onTapUp,
     required this.onRetry,
-    required this.onExposureToggle,
     required this.onExposureChanged,
-    required this.onZoomChanged,
   });
 
   @override
@@ -1574,19 +1587,6 @@ class _XiaomiCameraViewport extends StatelessWidget {
                             ),
                           ),
                         ),
-                      Positioned(
-                        left: 16,
-                        right: 16,
-                        bottom: evDialOpen ? 280 : 180,
-                        child: _XiaomiViewportControls(
-                          currentZoom: currentZoom,
-                          minZoom: minZoom,
-                          maxZoom: maxZoom,
-                          evDialOpen: evDialOpen,
-                          onExposureToggle: onExposureToggle,
-                          onZoomChanged: onZoomChanged,
-                        ),
-                      ),
                     ],
                   ),
                 );
@@ -1782,7 +1782,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final centerPadding =
-        ((screenWidth - 52 - 32) / 2).clamp(0.0, double.maxFinite);
+        ((screenWidth - 156) / 2).clamp(0.0, double.maxFinite);
     final majorColor = widget.isDark
         ? Colors.white.withValues(alpha: 0.55)
         : Colors.black.withValues(alpha: 0.55);
@@ -1792,37 +1792,33 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
     final labelColor = widget.isDark ? Colors.white70 : Colors.black87;
 
     return Container(
-      height: 96,
+      height: 80,
       color: widget.overlay
           ? Colors.black.withValues(alpha: 0.72)
           : (widget.isDark ? Colors.black : const Color(0xFFF2F2F7)),
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           SizedBox(
             width: 52,
-            height: 84,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Transform.translate(
-                offset: const Offset(0, 10),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: widget.onReset,
-                  child: Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: widget.isDark
-                          ? Colors.white.withValues(alpha: 0.08)
-                          : Colors.black.withValues(alpha: 0.05),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.restart_alt_rounded,
-                      color: widget.isDark ? Colors.white : Colors.black,
-                      size: 20,
-                    ),
+            height: 64,
+            child: Center(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: widget.onReset,
+                child: Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: widget.isDark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : Colors.black.withValues(alpha: 0.05),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.restart_alt_rounded,
+                    color: widget.isDark ? Colors.white : Colors.black,
+                    size: 20,
                   ),
                 ),
               ),
@@ -1831,7 +1827,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
           const SizedBox(width: 8),
           Expanded(
             child: SizedBox(
-              height: 84,
+              height: 64,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -1867,7 +1863,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                         return SizedBox(
                           width: _itemWidth,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               if (showLabel)
                                 Text(
@@ -1881,8 +1877,8 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                                   ),
                                 )
                               else
-                                const SizedBox(height: 7),
-                              const SizedBox(height: 4),
+                                const SizedBox(height: 12),
+                              const SizedBox(height: 6),
                               Container(
                                 width: major ? 1.5 : 1.0,
                                 height: major ? 20 : 12,
@@ -1896,7 +1892,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                   ),
                   IgnorePointer(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           widget.value >= 0
@@ -1908,10 +1904,10 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                             fontWeight: FontWeight.w900,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                         Container(
                             width: 2,
-                            height: 28,
+                            height: 24,
                             color: const Color(0xFFFFCC00)),
                       ],
                     ),
