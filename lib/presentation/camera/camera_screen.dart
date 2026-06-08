@@ -764,7 +764,6 @@ class _CameraScreenState extends State<CameraScreen>
     _focusPointTimer?.cancel();
     setState(() {
       _focusPoint = point;
-      _showExposureDial = true;
     });
     _focusPointTimer = Timer(const Duration(milliseconds: 1800), () {
       if (mounted && !_disposed) {
