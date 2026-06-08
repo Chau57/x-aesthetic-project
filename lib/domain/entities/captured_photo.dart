@@ -11,6 +11,10 @@ class CaptureMetadata {
   final double exposureOffset;
   final double horizonAngle;
   final String photoContext;
+  final String? proWb;
+  final String? proFocus;
+  final String? proSpeed;
+  final String? proIso;
 
   const CaptureMetadata({
     required this.cameraLens,
@@ -20,6 +24,10 @@ class CaptureMetadata {
     required this.exposureOffset,
     required this.horizonAngle,
     required this.photoContext,
+    this.proWb,
+    this.proFocus,
+    this.proSpeed,
+    this.proIso,
   });
 
   factory CaptureMetadata.fromSettings({
@@ -30,6 +38,10 @@ class CaptureMetadata {
     required double exposureOffset,
     required double horizonAngle,
     required PhotoContext photoContext,
+    String? proWb,
+    String? proFocus,
+    String? proSpeed,
+    String? proIso,
   }) {
     return CaptureMetadata(
       cameraLens: lensDirection.name,
@@ -39,6 +51,10 @@ class CaptureMetadata {
       exposureOffset: exposureOffset,
       horizonAngle: horizonAngle,
       photoContext: photoContext.name,
+      proWb: proWb,
+      proFocus: proFocus,
+      proSpeed: proSpeed,
+      proIso: proIso,
     );
   }
 
@@ -51,6 +67,10 @@ class CaptureMetadata {
       exposureOffset: (json['exposureOffset'] as num?)?.toDouble() ?? 0,
       horizonAngle: (json['horizonAngle'] as num?)?.toDouble() ?? 0,
       photoContext: json['photoContext'] as String? ?? 'auto',
+      proWb: json['proWb'] as String?,
+      proFocus: json['proFocus'] as String?,
+      proSpeed: json['proSpeed'] as String?,
+      proIso: json['proIso'] as String?,
     );
   }
 
@@ -63,6 +83,10 @@ class CaptureMetadata {
       'exposureOffset': exposureOffset,
       'horizonAngle': horizonAngle,
       'photoContext': photoContext,
+      if (proWb != null) 'proWb': proWb,
+      if (proFocus != null) 'proFocus': proFocus,
+      if (proSpeed != null) 'proSpeed': proSpeed,
+      if (proIso != null) 'proIso': proIso,
     };
   }
 

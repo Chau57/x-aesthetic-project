@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,31 @@ import '../../domain/entities/camera_settings.dart';
 import '../../domain/entities/captured_photo.dart';
 import '../../services/camera/aspect_ratio_processor.dart';
 import '../../services/camera/hardware_hdr_camera_bridge.dart';
+import '../../services/camera/pro_camera_bridge.dart';
 import '../../services/camera/software_hdr_processor.dart';
 import '../shared/x_theme.dart';
 import '../shared/x_widgets.dart';
 
 enum _XiaomiCameraMode { pro, photo }
+
+enum _ProParam { wb, focus, speed, iso, ev }
+
+extension _ProParamLabel on _ProParam {
+  String get label {
+    switch (this) {
+      case _ProParam.wb:
+        return 'WB';
+      case _ProParam.focus:
+        return 'FOCUS';
+      case _ProParam.speed:
+        return 'S';
+      case _ProParam.iso:
+        return 'ISO';
+      case _ProParam.ev:
+        return 'EV';
+    }
+  }
+}
 
 extension _XiaomiCameraModeLabel on _XiaomiCameraMode {
   String get label {
@@ -24,7 +45,7 @@ extension _XiaomiCameraModeLabel on _XiaomiCameraMode {
       case _XiaomiCameraMode.pro:
         return 'Chuyên nghiệp';
       case _XiaomiCameraMode.photo:
-        return 'Nghiệp dư';
+        return 'Thường';
     }
   }
 }
@@ -95,6 +116,14 @@ class _CameraScreenState extends State<CameraScreen>
   _XiaomiCameraMode _activeMode = _XiaomiCameraMode.photo;
   final HardwareHdrCameraBridge _hardwareHdrBridge =
       const HardwareHdrCameraBridge();
+  _ProParam _selectedProParam = _ProParam.ev;
+  String _proWb = 'Auto';
+  String _proFocus = 'Auto';
+  String _proSpeed = 'Auto';
+  String _proIso = 'Auto';
+  final ProCameraBridge _proCameraBridge = const ProCameraBridge();
+  bool _isApplyingExposure = false;
+  double? _pendingExposureValue;
 
   @override
   void initState() {
@@ -320,6 +349,12 @@ class _CameraScreenState extends State<CameraScreen>
         _initializing = false;
         _errorMessage = null;
       });
+      if (_activeMode == _XiaomiCameraMode.pro) {
+        _proCameraBridge.setHardwareFocus(
+          lensDirection: controller.description.lensDirection,
+          focus: _proFocus,
+        );
+      }
     } catch (error, stackTrace) {
       debugPrint('Camera open failed: $error\n$stackTrace');
       await controller.dispose();
@@ -388,7 +423,13 @@ class _CameraScreenState extends State<CameraScreen>
       }
 
       var imagePath = '';
-      if (settings.hdrMode == HdrMode.hardware) {
+      if (_activeMode == _XiaomiCameraMode.pro && Platform.isAndroid) {
+        imagePath = await _captureProPhoto(
+          lensDirection,
+          settings,
+          sessionId: captureSessionId,
+        );
+      } else if (settings.hdrMode == HdrMode.hardware) {
         imagePath = await _captureHardwareHdr(
           lensDirection,
           settings,
@@ -436,6 +477,10 @@ class _CameraScreenState extends State<CameraScreen>
           exposureOffset: settings.exposureOffset,
           horizonAngle: horizonLevelErrorDegrees(_tiltDegrees),
           photoContext: settings.photoContext,
+          proWb: _activeMode == _XiaomiCameraMode.pro ? _proWb : null,
+          proFocus: _activeMode == _XiaomiCameraMode.pro ? _proFocus : null,
+          proSpeed: _activeMode == _XiaomiCameraMode.pro ? _proSpeed : null,
+          proIso: _activeMode == _XiaomiCameraMode.pro ? _proIso : null,
         ),
       );
       widget.onImageCaptured(imagePath);
@@ -529,6 +574,62 @@ class _CameraScreenState extends State<CameraScreen>
       }
       final file = await fallbackController.takePicture();
       return SoftwareHdrProcessor.process(file.path, mode: HdrMode.strong);
+    }
+  }
+
+  Future<String> _captureProPhoto(
+    CameraLensDirection lensDirection,
+    CameraUserSettings settings, {
+    required int sessionId,
+  }) async {
+    try {
+      await _detachAndDisposeCamera(
+        showInitializing: true,
+        invalidateSession: false,
+      );
+      final path = await _proCameraBridge.capture(
+        lensDirection: lensDirection,
+        wb: _proWb,
+        focus: _proFocus,
+        speed: _proSpeed,
+        iso: _proIso,
+        exposureOffset: settings.exposureOffset,
+      );
+      await _restoreCameraAfterNativeCapture(
+        lensDirection,
+        settings,
+        sessionId: sessionId,
+      );
+      return path;
+    } on ProCameraUnavailableException catch (error) {
+      await _restoreCameraAfterNativeCapture(
+        lensDirection,
+        settings,
+        sessionId: sessionId,
+      );
+      if (mounted && !_disposed) {
+        AppSnack.show(context, '${error.message} Đã dùng chụp tự động.');
+      }
+      final fallbackController = _cameraController;
+      if (fallbackController == null ||
+          !fallbackController.value.isInitialized) {
+        rethrow;
+      }
+      final file = await fallbackController.takePicture();
+      return file.path;
+    } catch (error) {
+      await _restoreCameraAfterNativeCapture(
+        lensDirection,
+        settings,
+        sessionId: sessionId,
+      );
+      final fallbackController = _cameraController;
+      if (fallbackController == null ||
+          !fallbackController.value.isInitialized) {
+        rethrow;
+      }
+      final file = await fallbackController.takePicture();
+      return file.path;
     }
   }
 
@@ -778,6 +879,11 @@ class _CameraScreenState extends State<CameraScreen>
     if (controller == null || !controller.value.isInitialized) {
       return;
     }
+    if (_isApplyingExposure) {
+      _pendingExposureValue = value;
+      return;
+    }
+    _isApplyingExposure = true;
     final range = _effectiveExposureRange;
     try {
       await controller.setExposureOffset(
@@ -785,12 +891,22 @@ class _CameraScreenState extends State<CameraScreen>
       );
     } catch (error, stackTrace) {
       debugPrint('Exposure offset apply failed: $error\n$stackTrace');
-      return;
+    } finally {
+      _isApplyingExposure = false;
+      if (_pendingExposureValue != null) {
+        final nextValue = _pendingExposureValue!;
+        _pendingExposureValue = null;
+        scheduleMicrotask(() => _setExposureOffset(nextValue));
+      }
     }
   }
 
   void _toggleExposureDial() {
-    setState(() => _showExposureDial = !_showExposureDial);
+    if (_activeMode == _XiaomiCameraMode.pro) {
+      setState(() => _selectedProParam = _ProParam.ev);
+    } else {
+      setState(() => _showExposureDial = !_showExposureDial);
+    }
   }
 
   void _updateExposureOffset(double value) {
@@ -1016,6 +1132,11 @@ class _CameraScreenState extends State<CameraScreen>
       onTapUp: _handleViewfinderTap,
       onRetry: () => unawaited(_initializeCamera()),
       onExposureChanged: _updateExposureOffset,
+      activeMode: _activeMode,
+      proWb: _proWb,
+      proFocus: _proFocus,
+      proSpeed: _proSpeed,
+      proIso: _proIso,
     );
   }
 
@@ -1069,9 +1190,35 @@ class _CameraScreenState extends State<CameraScreen>
       exposureMax: _effectiveExposureRange.end,
       countdownRemaining: _countdownRemaining,
       latestPath: latestPath,
+      selectedProParam: _selectedProParam,
+      proWb: _proWb,
+      proFocus: _proFocus,
+      proSpeed: _proSpeed,
+      proIso: _proIso,
+      onProParamChanged: (param) => setState(() => _selectedProParam = param),
+      onProWbChanged: (val) => setState(() => _proWb = val),
+      onProFocusChanged: (val) {
+        setState(() => _proFocus = val);
+        if (_cameraController != null && _cameraController!.value.isInitialized) {
+          _proCameraBridge.setHardwareFocus(
+            lensDirection: _cameraController!.description.lensDirection,
+            focus: val,
+          );
+        }
+      },
+      onProSpeedChanged: (val) => setState(() => _proSpeed = val),
+      onProIsoChanged: (val) => setState(() => _proIso = val),
       onExposureChanged: _updateExposureOffset,
       onExposureReset: () => _updateExposureOffset(0),
-      onModeChanged: (mode) => setState(() => _activeMode = mode),
+      onModeChanged: (mode) {
+        setState(() => _activeMode = mode);
+        if (_cameraController != null && _cameraController!.value.isInitialized) {
+          _proCameraBridge.setHardwareFocus(
+            lensDirection: _cameraController!.description.lensDirection,
+            focus: mode == _XiaomiCameraMode.pro ? _proFocus : 'Auto',
+          );
+        }
+      },
       onCapture: _handleShutterPressed,
       onOpenLatestPhoto: () {
         if (latestPath == null) {
@@ -1462,6 +1609,11 @@ class _XiaomiCameraViewport extends StatelessWidget {
   final void Function(TapUpDetails details, Size size) onTapUp;
   final VoidCallback onRetry;
   final ValueChanged<double> onExposureChanged;
+  final _XiaomiCameraMode activeMode;
+  final String proWb;
+  final String proFocus;
+  final String proSpeed;
+  final String proIso;
 
   const _XiaomiCameraViewport({
     required this.controller,
@@ -1478,6 +1630,11 @@ class _XiaomiCameraViewport extends StatelessWidget {
     required this.onTapUp,
     required this.onRetry,
     required this.onExposureChanged,
+    required this.activeMode,
+    required this.proWb,
+    required this.proFocus,
+    required this.proSpeed,
+    required this.proIso,
   });
 
   @override
@@ -1555,7 +1712,14 @@ class _XiaomiCameraViewport extends StatelessWidget {
                         fit: StackFit.expand,
                         children: [
                           controller != null && controller!.value.isInitialized
-                              ? _CameraPreviewCover(controller: controller!)
+                              ? _CameraPreviewCover(
+                                  controller: controller!,
+                                  activeMode: activeMode,
+                                  proWb: proWb,
+                                  proFocus: proFocus,
+                                  proSpeed: proSpeed,
+                                  proIso: proIso,
+                                )
                               : _CameraFallback(
                                   errorMessage: errorMessage,
                                   initializing: initializing,
@@ -1660,6 +1824,16 @@ class _XiaomiBottomDeck extends StatelessWidget {
   final double exposureMax;
   final int countdownRemaining;
   final String? latestPath;
+  final _ProParam selectedProParam;
+  final String proWb;
+  final String proFocus;
+  final String proSpeed;
+  final String proIso;
+  final ValueChanged<_ProParam> onProParamChanged;
+  final ValueChanged<String> onProWbChanged;
+  final ValueChanged<String> onProFocusChanged;
+  final ValueChanged<String> onProSpeedChanged;
+  final ValueChanged<String> onProIsoChanged;
   final ValueChanged<double> onExposureChanged;
   final VoidCallback onExposureReset;
   final ValueChanged<_XiaomiCameraMode> onModeChanged;
@@ -1678,6 +1852,16 @@ class _XiaomiBottomDeck extends StatelessWidget {
     required this.exposureMax,
     required this.countdownRemaining,
     required this.latestPath,
+    required this.selectedProParam,
+    required this.proWb,
+    required this.proFocus,
+    required this.proSpeed,
+    required this.proIso,
+    required this.onProParamChanged,
+    required this.onProWbChanged,
+    required this.onProFocusChanged,
+    required this.onProSpeedChanged,
+    required this.onProIsoChanged,
     required this.onExposureChanged,
     required this.onExposureReset,
     required this.onModeChanged,
@@ -1697,25 +1881,47 @@ class _XiaomiBottomDeck extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (overlay)
-            ClipRect(
-              child: AnimatedSize(
-                duration: const Duration(milliseconds: 230),
-                curve: Curves.easeOutCubic,
-                alignment: Alignment.bottomCenter,
-                child: evDialOpen
-                    ? _XiaomiExposureDial(
-                        value: exposureValue,
-                        min: exposureMin,
-                        max: exposureMax,
-                        isDark: isDark,
-                        overlay: true,
-                        onChanged: onExposureChanged,
-                        onReset: onExposureReset,
-                      )
-                    : const SizedBox(width: double.infinity, height: 0),
+          if (overlay) ...[
+            if (activeMode == _XiaomiCameraMode.pro) ...[
+              ClipRect(
+                child: AnimatedSize(
+                  duration: const Duration(milliseconds: 230),
+                  curve: Curves.easeOutCubic,
+                  alignment: Alignment.bottomCenter,
+                  child: _buildProDial(context, isDark),
+                ),
               ),
-            ),
+              _XiaomiProParamRow(
+                selectedParam: selectedProParam,
+                proWb: proWb,
+                proFocus: proFocus,
+                proSpeed: proSpeed,
+                proIso: proIso,
+                exposureValue: exposureValue,
+                isDark: isDark,
+                onParamSelected: onProParamChanged,
+              ),
+            ] else ...[
+              ClipRect(
+                child: AnimatedSize(
+                  duration: const Duration(milliseconds: 230),
+                  curve: Curves.easeOutCubic,
+                  alignment: Alignment.bottomCenter,
+                  child: evDialOpen
+                      ? _XiaomiExposureDial(
+                          value: exposureValue,
+                          min: exposureMin,
+                          max: exposureMax,
+                          isDark: isDark,
+                          overlay: true,
+                          onChanged: onExposureChanged,
+                          onReset: onExposureReset,
+                        )
+                      : const SizedBox(width: double.infinity, height: 0),
+                ),
+              ),
+            ],
+          ],
           _XiaomiModeScroller(
             activeMode: activeMode,
             isDark: isDark,
@@ -1733,6 +1939,68 @@ class _XiaomiBottomDeck extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildProDial(BuildContext context, bool isDark) {
+    switch (selectedProParam) {
+      case _ProParam.ev:
+        return _XiaomiExposureDial(
+          value: exposureValue,
+          min: exposureMin,
+          max: exposureMax,
+          isDark: isDark,
+          overlay: true,
+          onChanged: onExposureChanged,
+          onReset: onExposureReset,
+        );
+      case _ProParam.wb:
+        return _XiaomiTextDial(
+          options: const ['Auto', '2300K', '3300K', '4300K', '5300K', '6300K', '7300K', '8300K', '9300K', '10000K'],
+          value: proWb,
+          isDark: isDark,
+          overlay: true,
+          onChanged: onProWbChanged,
+          onReset: () => onProWbChanged('Auto'),
+        );
+      case _ProParam.focus:
+        return _XiaomiTextDial(
+          options: const [
+            'Auto', '0.0', '0.05', '0.1', '0.15', '0.2', '0.25', '0.3', '0.35', '0.4',
+            '0.45', '0.5', '0.55', '0.6', '0.65', '0.7', '0.75', '0.8', '0.85', '0.9',
+            '0.95', '1.0'
+          ],
+          value: proFocus,
+          isDark: isDark,
+          overlay: true,
+          onChanged: onProFocusChanged,
+          onReset: () => onProFocusChanged('Auto'),
+        );
+      case _ProParam.speed:
+        return _XiaomiTextDial(
+          options: const [
+            'Auto', '1/12000', '1/8000', '1/6000', '1/4000', '1/3000', '1/2000', '1/1500', '1/1000', '1/750', '1/500',
+            '1/350', '1/250', '1/180', '1/125', '1/90', '1/60', '1/50', '1/45', '1/30', '1/20', '1/15', '1/10', '1/8',
+            '1/6', '1/4', '1/3', '1/2', '1s', '2s', '4s', '8s', '16s', '32s'
+          ],
+          value: proSpeed,
+          isDark: isDark,
+          overlay: true,
+          onChanged: onProSpeedChanged,
+          onReset: () => onProSpeedChanged('Auto'),
+        );
+      case _ProParam.iso:
+        return _XiaomiTextDial(
+          options: const [
+            'Auto', '50', '64', '80', '100', '125', '160', '200', '250', '320', '400',
+            '500', '640', '800', '1000', '1250', '1600', '2000', '2500', '3200'
+          ],
+          value: proIso,
+          isDark: isDark,
+          overlay: true,
+          onChanged: onProIsoChanged,
+          onReset: () => onProIsoChanged('Auto'),
+        );
+    }
   }
 }
 
@@ -1760,14 +2028,17 @@ class _XiaomiExposureDial extends StatefulWidget {
 }
 
 class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
-  static const _step = 0.2;
+  static const _step = 0.1;
   static const _itemWidth = 12.0;
   late final ScrollController _controller;
   bool _dragging = false;
+  double _localValue = 0.0;
+  DateTime _lastOnChangedTime = DateTime.now();
 
   @override
   void initState() {
     super.initState();
+    _localValue = widget.value;
     _controller =
         ScrollController(initialScrollOffset: _valueToOffset(widget.value));
   }
@@ -1780,6 +2051,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
             oldWidget.max != widget.max) &&
         !_dragging &&
         _controller.hasClients) {
+      _localValue = widget.value;
       _controller.animateTo(
         _valueToOffset(widget.value),
         duration: const Duration(milliseconds: 240),
@@ -1808,11 +2080,19 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
         .toDouble();
   }
 
+  void _throttledOnChanged(double newValue) {
+    final now = DateTime.now();
+    if (now.difference(_lastOnChangedTime).inMilliseconds > 80) {
+      widget.onChanged(newValue);
+      _lastOnChangedTime = now;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final centerPadding =
-        ((screenWidth - 156) / 2).clamp(0.0, double.maxFinite);
+        ((screenWidth - 152 - _itemWidth) / 2).clamp(0.0, double.maxFinite);
     final majorColor = widget.isDark
         ? Colors.white.withValues(alpha: 0.55)
         : Colors.black.withValues(alpha: 0.55);
@@ -1863,16 +2143,36 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                 children: [
                   NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
-                      if (notification is ScrollStartNotification) {
-                        setState(() => _dragging = true);
-                      } else if (notification is ScrollEndNotification) {
-                        setState(() => _dragging = false);
-                      }
-                      if (notification is ScrollUpdateNotification &&
-                          notification.dragDetails != null) {
-                        final value = _offsetToValue(_controller.offset);
-                        if (value != widget.value) {
+                      if (notification.depth == 0) {
+                        if (notification is ScrollStartNotification) {
+                          setState(() => _dragging = true);
+                        } else if (notification is ScrollEndNotification) {
+                          setState(() => _dragging = false);
+                          final value = _offsetToValue(_controller.offset);
+                          final targetOffset = _valueToOffset(value);
+                          if ((_controller.offset - targetOffset).abs() > 0.1) {
+                            _controller.animateTo(
+                              targetOffset,
+                              duration: const Duration(milliseconds: 150),
+                              curve: Curves.easeOutCubic,
+                            );
+                          }
+                          setState(() {
+                            _localValue = value;
+                          });
                           widget.onChanged(value);
+                          _lastOnChangedTime = DateTime.now();
+                        } else if (notification is ScrollUpdateNotification) {
+                          final value = _offsetToValue(_controller.offset);
+                          if (value != _localValue) {
+                            setState(() {
+                              _localValue = value;
+                            });
+                          }
+                          if (notification.dragDetails != null &&
+                              value != widget.value) {
+                            _throttledOnChanged(value);
+                          }
                         }
                       }
                       return true;
@@ -1925,9 +2225,9 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          widget.value >= 0
-                              ? '+${widget.value.toStringAsFixed(1)}'
-                              : widget.value.toStringAsFixed(1),
+                          _localValue >= 0
+                              ? '+${_localValue.toStringAsFixed(1)}'
+                              : _localValue.toStringAsFixed(1),
                           style: const TextStyle(
                             color: Color(0xFFFFCC00),
                             fontSize: 13,
@@ -1946,7 +2246,7 @@ class _XiaomiExposureDialState extends State<_XiaomiExposureDial> {
               ),
             ),
           ),
-          const SizedBox(width: 52),
+          const SizedBox(width: 60),
         ],
       ),
     );
@@ -2790,8 +3090,186 @@ class _XiaomiFocusBoxPainter extends CustomPainter {
 
 class _CameraPreviewCover extends StatelessWidget {
   final CameraController controller;
+  final _XiaomiCameraMode activeMode;
+  final String proWb;
+  final String proFocus;
+  final String proSpeed;
+  final String proIso;
 
-  const _CameraPreviewCover({required this.controller});
+  const _CameraPreviewCover({
+    required this.controller,
+    required this.activeMode,
+    required this.proWb,
+    required this.proFocus,
+    required this.proSpeed,
+    required this.proIso,
+  });
+
+  Widget _wrapWithFilters(Widget child) {
+    if (activeMode != _XiaomiCameraMode.pro) {
+      return child;
+    }
+
+    // 1. White Balance Matrix
+    var baseMatrix = <double>[
+      1, 0, 0, 0, 0,
+      0, 1, 0, 0, 0,
+      0, 0, 1, 0, 0,
+      0, 0, 0, 1, 0,
+    ];
+
+    if (proWb.endsWith('K')) {
+      final kelvin = double.tryParse(proWb.replaceAll('K', '')) ?? 5500.0;
+      double t = 0.0;
+      if (kelvin < 5500.0) {
+        t = (kelvin - 5500.0) / (5500.0 - 2300.0); // ranges [-1.0, 0.0]
+      } else {
+        t = (kelvin - 5500.0) / (10000.0 - 5500.0); // ranges [0.0, 1.0]
+      }
+      final rScale = 1.0 + t * 0.25;  // low kelvin (cool) -> 0.75, high kelvin (warm) -> 1.25
+      final gScale = 1.0 + t * 0.08;
+      final bScale = 1.0 - t * 0.25;  // low kelvin (cool) -> 1.25, high kelvin (warm) -> 0.75
+      baseMatrix = [
+        rScale, 0,      0,      0, 0,
+        0,      gScale, 0,      0, 0,
+        0,      0,      bScale, 0, 0,
+        0,      0,      0,      1, 0,
+      ];
+    } else {
+      switch (proWb) {
+        case 'Sunny':
+          baseMatrix = [
+            1.08, 0,    0,    0, 0,
+            0,    1.02, 0,    0, 0,
+            0,    0,    0.90, 0, 0,
+            0,    0,    0,    1, 0,
+          ];
+          break;
+        case 'Cloudy':
+          baseMatrix = [
+            1.14, 0,    0,    0, 0,
+            0,    1.06, 0,    0, 0,
+            0,    0,    0.85, 0, 0,
+            0,    0,    0,    1, 0,
+          ];
+          break;
+        case 'Incandescent':
+          baseMatrix = [
+            0.82, 0,    0,    0, 0,
+            0,    0.90, 0,    0, 0,
+            0,    0,    1.18, 0, 0,
+            0,    0,    0,    1, 0,
+          ];
+          break;
+        case 'Fluorescent':
+          baseMatrix = [
+            0.90, 0,    0,    0, 0,
+            0,    1.08, 0,    0, 0,
+            0,    0,    1.02, 0, 0,
+            0,    0,    0,    1, 0,
+          ];
+          break;
+        default:
+          break;
+      }
+    }
+
+    // 2. ISO Factor (brightness/gain simulation)
+    double isoFactor = 1.0;
+    if (proIso != 'Auto') {
+      final isoVal = double.tryParse(proIso) ?? 200.0;
+      isoFactor = 0.6 + (math.log(isoVal / 50.0) / math.log(3200.0 / 50.0)) * 0.9;
+    }
+
+    // 3. Shutter Speed Factor
+    double speedFactor = 1.0;
+    if (proSpeed != 'Auto') {
+      double seconds = 1.0 / 60.0;
+      if (proSpeed.contains('/')) {
+        final parts = proSpeed.split('/');
+        if (parts.length == 2) {
+          final num = double.tryParse(parts[0]) ?? 1.0;
+          final den = double.tryParse(parts[1].replaceAll('s', '')) ?? 60.0;
+          seconds = num / den;
+        }
+      } else {
+        seconds = double.tryParse(proSpeed.replaceAll('s', '')) ?? (1.0 / 60.0);
+      }
+      if (seconds < 1.0 / 60.0) {
+        // Linear scaling for fast shutter speeds to accurately match actual darker output
+        speedFactor = (seconds / (1.0 / 60.0)).clamp(0.005, 1.0);
+      } else {
+        // Logarithmic scaling for slow shutter speeds to reflect bright long exposure
+        final t = (math.log(seconds / (1.0 / 60.0)) / math.log(32.0 / (1.0 / 60.0))).clamp(0.0, 1.0);
+        speedFactor = 1.0 + t * 2.0;
+      }
+    }
+
+    final brightnessFactor = isoFactor * speedFactor;
+
+    final finalMatrix = List<double>.from(baseMatrix);
+    finalMatrix[0] *= brightnessFactor; // R
+    finalMatrix[6] *= brightnessFactor; // G
+    finalMatrix[12] *= brightnessFactor; // B
+
+    Widget filteredChild = ColorFiltered(
+      colorFilter: ColorFilter.matrix(finalMatrix),
+      child: child,
+    );
+
+    // 4. Focus Blur (simulates focus distance and focus plane shifting)
+    if (proFocus != 'Auto') {
+      var focusVal = double.tryParse(proFocus) ?? 1.0;
+      if (focusVal > 1.0) {
+        focusVal /= 100.0;
+      }
+      
+      // Calculate opacity values for center (subject) and edge (background) blurs
+      double centerOpacity = 0.0;
+      double edgeOpacity = 1.0;
+      
+      if (focusVal < 0.4) {
+        centerOpacity = 1.0;
+      } else if (focusVal < 0.6) {
+        centerOpacity = (0.6 - focusVal) / 0.2;
+      } else if (focusVal >= 0.85) {
+        centerOpacity = ((focusVal - 0.85) / 0.15) * 0.8;
+      }
+      
+      if (focusVal >= 0.8) {
+        edgeOpacity = ((1.0 - focusVal) / 0.2).clamp(0.0, 1.0);
+      }
+      
+      final blurAmount = 3.0 + (1.0 - focusVal) * 1.5;
+      
+      filteredChild = Stack(
+        fit: StackFit.passthrough,
+        children: [
+          // Sharp base layer
+          filteredChild,
+          // Masked blur layer
+          ShaderMask(
+            shaderCallback: (rect) {
+              return RadialGradient(
+                colors: [
+                  Colors.black.withValues(alpha: centerOpacity),
+                  Colors.black.withValues(alpha: edgeOpacity),
+                ],
+                stops: const [0.25, 0.85],
+              ).createShader(rect);
+            },
+            blendMode: BlendMode.dstIn,
+            child: ImageFiltered(
+              imageFilter: ui.ImageFilter.blur(sigmaX: blurAmount, sigmaY: blurAmount),
+              child: filteredChild,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return filteredChild;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -2799,7 +3277,7 @@ class _CameraPreviewCover extends StatelessWidget {
       builder: (context, constraints) {
         final previewSize = controller.value.previewSize;
         if (previewSize == null) {
-          return CameraPreview(controller);
+          return _wrapWithFilters(CameraPreview(controller));
         }
         final previewRatio = previewSize.height / previewSize.width;
         final screenRatio = constraints.maxWidth / constraints.maxHeight;
@@ -2809,7 +3287,7 @@ class _CameraPreviewCover extends StatelessWidget {
         );
         return Transform.scale(
           scale: scale,
-          child: Center(child: CameraPreview(controller)),
+          child: Center(child: _wrapWithFilters(CameraPreview(controller))),
         );
       },
     );
@@ -3080,4 +3558,331 @@ class _MockPortraitPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _MockPortraitPainter oldDelegate) =>
       oldDelegate.isDark != isDark;
+}
+
+class _XiaomiProParamRow extends StatelessWidget {
+  final _ProParam selectedParam;
+  final String proWb;
+  final String proFocus;
+  final String proSpeed;
+  final String proIso;
+  final double exposureValue;
+  final bool isDark;
+  final ValueChanged<_ProParam> onParamSelected;
+
+  const _XiaomiProParamRow({
+    required this.selectedParam,
+    required this.proWb,
+    required this.proFocus,
+    required this.proSpeed,
+    required this.proIso,
+    required this.exposureValue,
+    required this.isDark,
+    required this.onParamSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = isDark ? Colors.white : Colors.black;
+    final activeColor = const Color(0xFFFFCC00);
+
+    Widget paramButton(_ProParam param, String valueText) {
+      final isSelected = selectedParam == param;
+      return Expanded(
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => onParamSelected(param),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                param.label,
+                style: TextStyle(
+                  color: isSelected ? activeColor : textColor.withValues(alpha: 0.55),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                valueText,
+                style: TextStyle(
+                  color: isSelected ? activeColor : textColor,
+                  fontSize: 11,
+                  fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      height: 48,
+      color: isDark ? Colors.black : const Color(0xFFF2F2F7),
+      child: Row(
+        children: [
+          paramButton(_ProParam.wb, proWb),
+          paramButton(_ProParam.focus, proFocus == 'Auto' ? 'AF' : proFocus),
+          paramButton(_ProParam.speed, proSpeed),
+          paramButton(_ProParam.iso, proIso),
+          paramButton(
+            _ProParam.ev,
+            exposureValue >= 0
+                ? '+${exposureValue.toStringAsFixed(1)}'
+                : exposureValue.toStringAsFixed(1),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _XiaomiTextDial extends StatefulWidget {
+  final List<String> options;
+  final String value;
+  final bool isDark;
+  final bool overlay;
+  final ValueChanged<String> onChanged;
+  final VoidCallback onReset;
+
+  const _XiaomiTextDial({
+    required this.options,
+    required this.value,
+    required this.isDark,
+    this.overlay = false,
+    required this.onChanged,
+    required this.onReset,
+  });
+
+  @override
+  State<_XiaomiTextDial> createState() => _XiaomiTextDialState();
+}
+
+class _XiaomiTextDialState extends State<_XiaomiTextDial> {
+  late final ScrollController _controller;
+  bool _dragging = false;
+  int _localSelectedIndex = 0;
+  DateTime _lastOnChangedTime = DateTime.now();
+
+  double get _itemWidth {
+    if (widget.options.length > 30) {
+      return 10.0;
+    } else if (widget.options.length > 20) {
+      return 12.0;
+    } else if (widget.options.length > 12) {
+      return 14.0;
+    }
+    return 20.0;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final initialIndex = widget.options.indexOf(widget.value);
+    _localSelectedIndex = (initialIndex >= 0 ? initialIndex : 0);
+    _controller = ScrollController(
+      initialScrollOffset: _localSelectedIndex * _itemWidth,
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _XiaomiTextDial oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final index = widget.options.indexOf(widget.value);
+    if (index >= 0 && !_dragging && _controller.hasClients) {
+      _localSelectedIndex = index;
+      final targetOffset = index * _itemWidth;
+      if ((_controller.offset - targetOffset).abs() > 1.0) {
+        _controller.animateTo(
+          targetOffset,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  int _offsetToIndex(double offset) {
+    final rawIndex = (offset / _itemWidth).round();
+    return rawIndex.clamp(0, widget.options.length - 1);
+  }
+
+  void _throttledOnChanged(String newValue) {
+    final now = DateTime.now();
+    if (now.difference(_lastOnChangedTime).inMilliseconds > 80) {
+      widget.onChanged(newValue);
+      _lastOnChangedTime = now;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final centerPadding =
+        ((screenWidth - 152 - _itemWidth) / 2).clamp(0.0, double.maxFinite);
+    final majorColor = widget.isDark
+        ? Colors.white.withValues(alpha: 0.55)
+        : Colors.black.withValues(alpha: 0.55);
+    final minorColor = widget.isDark
+        ? Colors.white.withValues(alpha: 0.22)
+        : Colors.black.withValues(alpha: 0.22);
+    final labelColor = widget.isDark ? Colors.white70 : Colors.black87;
+
+    return Container(
+      height: 80,
+      color: widget.overlay
+          ? Colors.black.withValues(alpha: 0.72)
+          : (widget.isDark ? Colors.black : const Color(0xFFF2F2F7)),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 52,
+            height: 64,
+            child: Center(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: widget.onReset,
+                child: Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: widget.isDark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : Colors.black.withValues(alpha: 0.05),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.restart_alt_rounded,
+                    color: widget.isDark ? Colors.white : Colors.black,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: SizedBox(
+              height: 64,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  NotificationListener<ScrollNotification>(
+                    onNotification: (notification) {
+                      if (notification.depth == 0) {
+                        if (notification is ScrollStartNotification) {
+                          setState(() => _dragging = true);
+                        } else if (notification is ScrollEndNotification) {
+                          setState(() => _dragging = false);
+                          final index = _offsetToIndex(_controller.offset);
+                          final targetOffset = index * _itemWidth;
+                          if ((_controller.offset - targetOffset).abs() > 0.1) {
+                            _controller.animateTo(
+                              targetOffset,
+                              duration: const Duration(milliseconds: 150),
+                              curve: Curves.easeOutCubic,
+                            );
+                          }
+                          setState(() {
+                            _localSelectedIndex = index;
+                          });
+                          widget.onChanged(widget.options[index]);
+                          _lastOnChangedTime = DateTime.now();
+                        } else if (notification is ScrollUpdateNotification) {
+                          final index = _offsetToIndex(_controller.offset);
+                          if (index != _localSelectedIndex) {
+                            setState(() {
+                              _localSelectedIndex = index;
+                            });
+                          }
+                          if (notification.dragDetails != null &&
+                              widget.options[index] != widget.value) {
+                            _throttledOnChanged(widget.options[index]);
+                          }
+                        }
+                      }
+                      return true;
+                    },
+                    child: ListView.builder(
+                      controller: _controller,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ClampingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: centerPadding),
+                      itemCount: widget.options.length,
+                      itemBuilder: (context, index) {
+                        final optionVal = widget.options[index];
+                        final isSelected = index == _localSelectedIndex;
+                        return SizedBox(
+                          width: _itemWidth,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                bottom: 6,
+                                left: 0,
+                                right: 0,
+                                height: 24,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: _itemWidth / 2 - 0.75,
+                                      bottom: 0,
+                                      child: Container(
+                                        width: 1.5,
+                                        height: 20,
+                                        color: isSelected ? const Color(0xFFFFCC00) : majorColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  IgnorePointer(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _localSelectedIndex >= 0 && _localSelectedIndex < widget.options.length
+                              ? widget.options[_localSelectedIndex]
+                              : widget.value,
+                          style: const TextStyle(
+                            color: Color(0xFFFFCC00),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Container(
+                          width: 2,
+                          height: 24,
+                          color: const Color(0xFFFFCC00),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 60),
+        ],
+      ),
+    );
+  }
 }

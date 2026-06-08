@@ -652,6 +652,22 @@ class _MetadataChips extends StatelessWidget {
         _MetadataChip(
             icon: Icons.camera_rear_rounded,
             label: data.cameraLens == 'front' ? 'Camera trước' : 'Camera sau'),
+        if (data.proWb != null)
+          _MetadataChip(
+              icon: Icons.wb_sunny_rounded,
+              label: 'WB: ${data.proWb}'),
+        if (data.proFocus != null)
+          _MetadataChip(
+              icon: Icons.filter_center_focus_rounded,
+              label: 'F: ${data.proFocus == 'Auto' ? 'Auto' : (data.proFocus == '100' ? 'Vô cực' : data.proFocus)}'),
+        if (data.proSpeed != null)
+          _MetadataChip(
+              icon: Icons.speed_rounded,
+              label: 'S: ${data.proSpeed}'),
+        if (data.proIso != null)
+          _MetadataChip(
+              icon: Icons.iso_rounded,
+              label: 'ISO: ${data.proIso}'),
       ],
     );
   }

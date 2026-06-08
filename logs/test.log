@@ -1,7 +1,2 @@
 00:00 +0: loading /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart
-00:00 +0: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
-00:00 +1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math reads level axes from accelerometer x/y projection
-00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math measures error from the nearest level hold orientation
-00:00 +3: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math rotates display line to match device roll
-00:01 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +5: All tests passed!
+No tests ran.

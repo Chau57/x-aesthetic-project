@@ -13,6 +13,6 @@ void main() {
     expect(find.text('Chụp'),
         findsNothing); // Bottom navigation ẩn trên màn camera.
     expect(find.text('Phân tích'), findsNothing);
-    expect(find.text('Nghiệp dư'), findsOneWidget);
+    expect(find.text('Thường'), findsOneWidget);
   });
 }
