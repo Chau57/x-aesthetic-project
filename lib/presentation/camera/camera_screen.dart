@@ -1498,101 +1498,132 @@ class _XiaomiCameraViewport extends StatelessWidget {
         }
 
         final viewportSize = _targetSize(availableWidth, availableHeight);
-        return Center(
-          child: Container(
-            width: viewportSize.width,
-            height: viewportSize.height,
-            decoration: isFull
-                ? null
-                : BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.18),
-                      width: 0.8,
-                    ),
-                  ),
-            child: LayoutBuilder(
-              builder: (context, inner) {
-                final size = Size(inner.maxWidth, inner.maxHeight);
-                final focus = focusPoint;
-                final focusX = (focus?.dx ?? 0) * size.width;
-                final focusY = (focus?.dy ?? 0) * size.height;
-                final railLeft = focus == null
-                    ? 0.0
-                    : (focusX > size.width - 96 ? focusX - 70 : focusX + 38);
-                final railTop = focus == null
-                    ? 0.0
-                    : _safeClampDouble(focusY - 54, 10.0, size.height - 118);
-                return ClipRect(
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      controller != null && controller!.value.isInitialized
-                          ? _CameraPreviewCover(controller: controller!)
-                          : _CameraFallback(
-                              errorMessage: errorMessage,
-                              initializing: initializing,
-                              onRetry: onRetry,
+        final double top;
+        final double left;
+        final double width;
+        final double height;
+
+        if (isFull) {
+          top = 0;
+          left = 0;
+          width = availableWidth;
+          height = availableHeight;
+        } else if (settings.aspectRatio == CaptureAspectRatio.square) {
+          // Centered between the top bar (80px) and the Professional/Amateur mode scroller (164px from bottom)
+          top = 80 + (availableHeight - 80 - 164 - viewportSize.height) / 2;
+          left = (availableWidth - viewportSize.width) / 2;
+          width = viewportSize.width;
+          height = viewportSize.height;
+        } else {
+          // ratio34 and ratio916: flush with the top bar (80px) downwards
+          top = 80;
+          left = (availableWidth - viewportSize.width) / 2;
+          width = viewportSize.width;
+          height = viewportSize.height;
+        }
+
+        return Stack(
+          children: [
+            Positioned(
+              top: top,
+              left: left,
+              width: width,
+              height: height,
+              child: Container(
+                decoration: isFull
+                    ? const BoxDecoration(color: Colors.black)
+                    : BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.18),
+                          width: 0.8,
+                        ),
+                      ),
+                child: LayoutBuilder(
+                  builder: (context, inner) {
+                    final size = Size(inner.maxWidth, inner.maxHeight);
+                    final focus = focusPoint;
+                    final focusX = (focus?.dx ?? 0) * size.width;
+                    final focusY = (focus?.dy ?? 0) * size.height;
+                    final railLeft = focus == null
+                        ? 0.0
+                        : (focusX > size.width - 96 ? focusX - 70 : focusX + 38);
+                    final railTop = focus == null
+                        ? 0.0
+                        : _safeClampDouble(focusY - 54, 10.0, size.height - 118);
+                    return ClipRect(
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          controller != null && controller!.value.isInitialized
+                              ? _CameraPreviewCover(controller: controller!)
+                              : _CameraFallback(
+                                  errorMessage: errorMessage,
+                                  initializing: initializing,
+                                  onRetry: onRetry,
+                                ),
+                          Positioned.fill(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTapUp: (details) => onTapUp(details, size),
                             ),
-                      Positioned.fill(
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTapUp: (details) => onTapUp(details, size),
-                        ),
-                      ),
-                      IgnorePointer(
-                        child: CustomPaint(
-                          painter: _XiaomiOverlayPainter(
-                            showGrid: settings.showGrid,
-                            showSubjectOutline: settings.showSubjectOutline,
                           ),
-                        ),
-                      ),
-                      if (settings.showHorizon)
-                        IgnorePointer(
-                          child:
-                              _XiaomiHorizonIndicator(tiltDegrees: tiltDegrees),
-                        ),
-                      if (focus != null)
-                        Positioned(
-                          left: focusX - 40,
-                          top: focusY - 40,
-                          child: const IgnorePointer(child: _XiaomiFocusBox()),
-                        ),
-                      if (focus != null)
-                        Positioned(
-                          left:
-                              _safeClampDouble(railLeft, 4.0, size.width - 44),
-                          top: railTop,
-                          child: _FocusExposureRail(
-                            color: const Color(0xFFFFCC00),
-                            value: exposureValue,
-                            min: exposureMin,
-                            max: exposureMax,
-                            onChanged: onExposureChanged,
-                          ),
-                        ),
-                      if (countdownRemaining > 0)
-                        IgnorePointer(
-                          child: Center(
-                            child: Text(
-                              '$countdownRemaining',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 88,
-                                fontWeight: FontWeight.w900,
-                                shadows: [
-                                  Shadow(color: Colors.black54, blurRadius: 16)
-                                ],
+                          IgnorePointer(
+                            child: CustomPaint(
+                              painter: _XiaomiOverlayPainter(
+                                showGrid: settings.showGrid,
+                                showSubjectOutline: settings.showSubjectOutline,
                               ),
                             ),
                           ),
-                        ),
-                    ],
-                  ),
-                );
-              },
+                          if (settings.showHorizon)
+                            IgnorePointer(
+                              child:
+                                  _XiaomiHorizonIndicator(tiltDegrees: tiltDegrees),
+                            ),
+                          if (focus != null)
+                            Positioned(
+                              left: focusX - 40,
+                              top: focusY - 40,
+                              child: const IgnorePointer(child: _XiaomiFocusBox()),
+                            ),
+                          if (focus != null)
+                            Positioned(
+                              left:
+                                  _safeClampDouble(railLeft, 4.0, size.width - 44),
+                              top: railTop,
+                              child: _FocusExposureRail(
+                                color: const Color(0xFFFFCC00),
+                                value: exposureValue,
+                                min: exposureMin,
+                                max: exposureMax,
+                                onChanged: onExposureChanged,
+                              ),
+                            ),
+                          if (countdownRemaining > 0)
+                            IgnorePointer(
+                              child: Center(
+                                child: Text(
+                                  '$countdownRemaining',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 88,
+                                    fontWeight: FontWeight.w900,
+                                    shadows: [
+                                      Shadow(color: Colors.black54, blurRadius: 16)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+          ],
         );
       },
     );
