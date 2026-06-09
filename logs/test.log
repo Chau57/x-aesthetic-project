@@ -1,85 +1,251 @@
 00:00 +0: loading /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart
-00:00 +0: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math reads level axes from accelerometer x/y projection
-00:00 +1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
-00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
+00:00 +0: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
+00:00 +1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math reads level axes from accelerometer x/y projection
+00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math measures error from the nearest level hold orientation
 00:00 +3: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math rotates display line to match device roll
 00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
 Initializing OrtEnv...
 Loading session options...
-00:02 +5: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +5: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
-Creating OrtSession from file...
-00:02 +6: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +7: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +8: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+00:02 +4 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +4 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model [E]
+  Invalid argument(s): Failed to load dynamic library 'libonnxruntime.so.1.22.0': libonnxruntime.so.1.22.0: cannot open shared object file: No such file or directory
+  dart:ffi                                                 new DynamicLibrary.open
+  package:onnxruntime_v2/src/bindings/bindings.dart 23:27  _dylib.<fn>
+  package:onnxruntime_v2/src/bindings/bindings.dart 27:2   _dylib
+  package:onnxruntime_v2/src/bindings/bindings.dart        _dylib
+  package:onnxruntime_v2/src/bindings/bindings.dart 30:48  onnxRuntimeBinding
+  package:onnxruntime_v2/src/bindings/bindings.dart        onnxRuntimeBinding
+  package:onnxruntime_v2/src/ort_env.dart 22:18            new OrtEnv._
+  package:onnxruntime_v2/src/ort_env.dart 11:42            OrtEnv._instance
+  package:onnxruntime_v2/src/ort_env.dart                  OrtEnv._instance
+  package:onnxruntime_v2/src/ort_env.dart 13:33            OrtEnv.instance
+  package:onnxruntime_v2/src/ort_session.dart 515:30       OrtSessionOptions._create
+  package:onnxruntime_v2/src/ort_session.dart 510:5        new OrtSessionOptions
+  test/onnx_test.dart 12:28                                main.<fn>
+  
+00:02 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+AI Coach Viewport: Rendering layout. aiAdvice = 'null', showSuggestionFrame = false
+00:02 +6 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +7 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 Initializing LocalAiEngine...
-00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
-OrtSession successfully initialized!
-Inputs: [input]
-Outputs: [output]
-00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+00:02 +9 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +9 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 AI Coach Loader: init() called. _initialized = false
 AI Coach Loader: Resolved Categories Path: models/categories_places365.txt (Exists: true)
 AI Coach Loader: Resolved Gemma Path: models/google_gemma-3-1b-it-Q3_K_M.gguf (Exists: true)
 AI Coach Loader: Resolved ResNet Path: models/resnet18_places365.onnx (Exists: true)
-00:02 +10: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +10: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 AI Coach Loader: Loaded 365 category labels successfully.
-AI Coach Loader: Pre-loading libraries on Linux desktop host...
-00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
-AI Coach Loader: Linux FFI paths set to /home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib
+AI Coach Loader: Pre-loading libraries on Linux desktop host from /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/scratch/build_llama_linux/bin...
+AI Coach Loader: Linux FFI paths set to /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/scratch/build_llama_linux/bin
 AI Coach Loader: Initializing Gemma-3 LlamaParent with command: path=models/google_gemma-3-1b-it-Q3_K_M.gguf
 AI Coach Loader: Awaiting parent.init()...
-00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-Shell: CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
-Shell: modelPath: models/google_gemma-3-1b-it-Q3_K_M.gguf
-Shell: libraryPath: /home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib/libllama.so
-00:03 +12: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
-AI Coach Loader: Gemma-3 initialized successfully. _llamaParent = Instance of 'LlamaParent'
-AI Coach Loader: Initializing ResNet18 Places365 ONNX from path: models/resnet18_places365.onnx
-AI Coach Loader: ResNet18 Places365 ONNX initialized successfully. _onnxSession = Instance of 'OrtSession'
-AI Coach Loader: init() finished. _initialized = true, _llamaParent is null: false, _onnxSession is null: false
+00:03 +10 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+AI Coach Viewport: Rendering layout. aiAdvice = 'null', showSuggestionFrame = false
+00:03 +10 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+AI Coach Loader: Error initializing LlamaParent: LlamaException: Error loading model: LlamaException: Failed to initialize Llama (Invalid argument(s): Failed to lookup symbol 'mtmd_llama_model_default_params_ptr': /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/scratch/build_llama_linux/bin/libllama.so: undefined symbol: mtmd_llama_model_default_params_ptr)
+AI Coach Loader: Stack trace:
+dart:async/future_impl.dart 21:26                                _interceptError
+dart:async/future_impl.dart 52:23                                _interceptUserError
+dart:async/future_impl.dart 82:26                                _Completer.completeError
+package:llama_cpp_dart/src/isolate_parent.dart 112:30            LlamaParent._onData
+package:stack_trace/src/stack_zone_specification.dart 127:36     StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+package:stack_trace/src/stack_zone_specification.dart 207:15     StackZoneSpecification._run
+package:stack_trace/src/stack_zone_specification.dart 127:24     StackZoneSpecification._registerUnaryCallback.<fn>
+dart:async/zone_root.dart 48:47                                  _rootRunUnary
+dart:async/zone.dart 733:19                                      _CustomZone.runUnary
+dart:async/zone.dart 633:7                                       _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 573:14                               _DelayedData.perform
+dart:async/stream_impl.dart 678:11                               _PendingEvents.handleNext
+dart:async/stream_impl.dart 649:7                                _PendingEvents.schedule.<fn>
+package:stack_trace/src/stack_zone_specification.dart 207:15     StackZoneSpecification._run
+package:stack_trace/src/stack_zone_specification.dart 114:48     StackZoneSpecification._registerCallback.<fn>
+dart:async/zone_root.dart 27:47                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone.dart 625:7                                       _CustomZone.runGuarded
+dart:async/zone.dart 666:23                                      _CustomZone.bindCallbackGuarded.<fn>
+package:stack_trace/src/stack_zone_specification.dart 207:15     StackZoneSpecification._run
+package:stack_trace/src/stack_zone_specification.dart 114:48     StackZoneSpecification._registerCallback.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone.dart 625:7                                       _CustomZone.runGuarded
+dart:async/zone.dart 666:23                                      _CustomZone.bindCallbackGuarded.<fn>
+dart:async/schedule_microtask.dart 40:35                         _microtaskLoop
+dart:async/schedule_microtask.dart 49:5                          _startMicrotaskLoop
+===== asynchronous gap ===========================
+dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
+dart:async/stream_impl.dart 164:17                               _BufferingStreamSubscription._registerDataHandler
+dart:async/stream_impl.dart 136:17                               new _BufferingStreamSubscription.zoned
+dart:async/stream_impl.dart 125:12                               new _BufferingStreamSubscription
+dart:async/stream_controller.dart 878:7                          new _ControllerSubscription
+dart:async/broadcast_stream_controller.dart 32:7                 new _BroadcastSubscription
+dart:async/broadcast_stream_controller.dart 210:24               _BroadcastStreamController._subscribe
+dart:async/stream_controller.dart 854:20                         _ControllerStream._createSubscription
+dart:async/stream_impl.dart 516:42                               _StreamImpl.listen
+package:llama_cpp_dart/src/isolate_parent.dart 79:36             LlamaParent.init
+===== asynchronous gap ===========================
+dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
+package:llama_cpp_dart/src/isolate_parent.dart 78:5              LlamaParent.init
+package:x_aesthetic_app/services/ai/local_ai_engine.dart 181:20  LocalAiEngine.init
+===== asynchronous gap ===========================
+dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
+package:x_aesthetic_app/services/ai/local_ai_engine.dart 79:28   LocalAiEngine.init
+test/local_ai_engine_test.dart 11:14                             main.<fn>
+package:test_api/src/backend/declarer.dart 253:25                Declarer.test.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
+package:test_api/src/backend/declarer.dart 252:15                Declarer.test.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone_api.dart 166:6                                   _runZoned
+dart:async/zone_api.dart 92:10                                   runZoned
+package:test_api/src/backend/declarer.dart 250:17                Declarer.test.<fn>
+package:test_api/src/backend/invoker.dart 318:17                 Invoker._waitForOutstandingCallbacks.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone_api.dart 166:6                                   _runZoned
+dart:async/zone_api.dart 92:10                                   runZoned
+package:test_api/src/backend/invoker.dart 314:5                  Invoker._waitForOutstandingCallbacks
+package:test_api/src/backend/invoker.dart 457:21                 Invoker._onRun.<fn>.<fn>.<fn>
+===== asynchronous gap ===========================
+dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
+package:test_api/src/backend/invoker.dart 455:15                 Invoker._onRun.<fn>.<fn>.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone_api.dart 166:6                                   _runZoned
+dart:async/zone_api.dart 92:10                                   runZoned
+package:test_api/src/backend/invoker.dart 445:11                 Invoker._onRun.<fn>.<fn>
+package:test_api/src/backend/invoker.dart 500:15                 Invoker._guardIfGuarded
+package:test_api/src/backend/invoker.dart 444:9                  Invoker._onRun.<fn>
+package:stack_trace/src/chain.dart 97:24                         Chain.capture.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone_api.dart 166:6                                   _runZoned
+dart:async/zone_api.dart 92:10                                   runZoned
+package:stack_trace/src/chain.dart 95:12                         Chain.capture
+package:test_api/src/backend/invoker.dart 442:11                 Invoker._onRun
+package:test_api/src/backend/live_test_controller.dart 161:11    LiveTestController.run
+package:test_api/src/backend/remote_listener.dart 323:16         RemoteListener._runLiveTest.<fn>
+dart:async/zone_root.dart 35:13                                  _rootRun
+dart:async/zone.dart 726:19                                      _CustomZone.run
+dart:async/zone_api.dart 166:6                                   _runZoned
+dart:async/zone_api.dart 92:10                                   runZoned
+package:test_api/src/backend/remote_listener.dart 322:5          RemoteListener._runLiveTest
+package:test_api/src/backend/remote_listener.dart 263:7          RemoteListener._serializeTest.<fn>
+dart:async/zone_root.dart 48:47                                  _rootRunUnary
+dart:async/zone.dart 733:19                                      _CustomZone.runUnary
+dart:async/zone.dart 633:7                                       _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:async/zone_root.dart 56:13                                  _rootRunUnary
+dart:async/zone.dart 733:19                                      _CustomZone.runUnary
+dart:async/zone.dart 633:7                                       _CustomZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:async/stream_controller.dart 898:13                         _StreamSinkWrapper.add
+package:stream_channel/src/guarantee_channel.dart 125:12         _GuaranteeSink.add
+package:stream_channel/src/multi_channel.dart 159:31             new _MultiChannel.<fn>
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:_internal/async_cast.dart 95:11                             CastStreamSubscription._onData
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:async/stream_controller.dart 898:13                         _StreamSinkWrapper.add
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_pipe.dart 154:11                               _ForwardingStreamSubscription._add
+dart:async/stream_pipe.dart 252:10                               _MapStream._handleData
+dart:async/stream_pipe.dart 184:13                               _ForwardingStreamSubscription._handleData
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:_http/websocket_impl.dart 1252:27                           new _WebSocketImpl._fromSocket.<fn>
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_transformers.dart 67:11                        _SinkTransformerStreamSubscription._add
+dart:async/stream_transformers.dart 13:11                        _EventSinkWrapper.add
+dart:_http/websocket_impl.dart 348:23                            _WebSocketProtocolTransformer._messageFrameEnd
+dart:_http/websocket_impl.dart 238:46                            _WebSocketProtocolTransformer.add
+dart:async/stream_transformers.dart 115:24                       _SinkTransformerStreamSubscription._handleData
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:io-patch/socket_patch.dart 2874:41                          _Socket._onData
+dart:async/zone.dart 891:10                                      _RootZone.runUnaryGuarded
+dart:async/stream_impl.dart 381:11                               _BufferingStreamSubscription._sendData
+dart:async/stream_impl.dart 312:7                                _BufferingStreamSubscription._add
+dart:async/stream_controller.dart 798:19                         _SyncStreamControllerDispatch._sendData
+dart:async/stream_controller.dart 663:7                          _StreamController._add
+dart:async/stream_controller.dart 618:5                          _StreamController.add
+dart:io-patch/socket_patch.dart 2312:31                          new _RawSocket.<fn>
+dart:io-patch/socket_patch.dart 1647:14                          _NativeSocket.issueReadEvent.issue
+dart:async/schedule_microtask.dart 40:35                         _microtaskLoop
+dart:async/schedule_microtask.dart 49:5                          _startMicrotaskLoop
+
+AI Coach Loader: Error initializing OrtSession: Invalid argument(s): Failed to load dynamic library 'libonnxruntime.so.1.22.0': libonnxruntime.so.1.22.0: cannot open shared object file: No such file or directory
+AI Coach Loader: Stack trace:
+#0      _open (dart:ffi-patch/ffi_dynamic_library_patch.dart:11:43)
+#1      new DynamicLibrary.open (dart:ffi-patch/ffi_dynamic_library_patch.dart:22:12)
+#2      _dylib.<anonymous closure> (package:onnxruntime_v2/src/bindings/bindings.dart:23:27)
+#3      _dylib (package:onnxruntime_v2/src/bindings/bindings.dart:27:2)
+#4      _dylib (package:onnxruntime_v2/src/bindings/bindings.dart)
+#5      onnxRuntimeBinding (package:onnxruntime_v2/src/bindings/bindings.dart:30:48)
+#6      onnxRuntimeBinding (package:onnxruntime_v2/src/bindings/bindings.dart)
+#7      new OrtEnv._ (package:onnxruntime_v2/src/ort_env.dart:22:18)
+#8      OrtEnv._instance (package:onnxruntime_v2/src/ort_env.dart:11:42)
+#9      OrtEnv._instance (package:onnxruntime_v2/src/ort_env.dart)
+#10     OrtEnv.instance (package:onnxruntime_v2/src/ort_env.dart:13:33)
+#11     OrtSessionOptions._create (package:onnxruntime_v2/src/ort_session.dart:515:30)
+#12     new OrtSessionOptions (package:onnxruntime_v2/src/ort_session.dart:510:5)
+#13     LocalAiEngine.init (package:x_aesthetic_app/services/ai/local_ai_engine.dart:193:30)
+<asynchronous suspension>
+#14     main.<anonymous closure> (file:///home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart:11:5)
+<asynchronous suspension>
+#15     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+<asynchronous suspension>
+#16     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#17     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+AI Coach Loader: init() finished. _initialized = true, _llamaParent is null: true, _onnxSession is null: true
 LocalAiEngine initialized successfully!
 Creating dummy image...
 Classifying image...
-ResNet18 classification output category: elevator shaft
+ResNet18 classification output category: general scene
 Generating advice from Gemma-3...
-AI Coach Generator: generateAdvice() called. _llamaParent is null: false, _isGenerating = false
-AI Coach Generator: Starting generation for: category=elevator shaft, brightness=0.45, blurVariance=250
-AI Coach Generator: Subscribing to LlamaParent stream...
-AI Coach Generator: Subscribing to LlamaParent completions stream...
-AI Coach Generator: Sending prompt to LlamaParent. Prompt size: 390 chars.
-AI Coach Generator: Prompt sent successfully. Assigned Prompt ID: 1781011362147
-AI Coach Generator: Received token #1: 'Hãy'
-AI Coach Generator: Received token #2: ' chụp'
-AI Coach Generator: Received token #3: ' ảnh'
-AI Coach Generator: Received token #4: ' nhanh'
-AI Coach Generator: Received token #5: ','
-AI Coach Generator: Received token #6: ' tinh'
-AI Coach Generator: Received token #7: ' tế'
-AI Coach Generator: Received token #8: ' và'
-AI Coach Generator: Received token #9: ' chuyên'
-AI Coach Generator: Received token #10: ' nghiệp'
-AI Coach Generator: Received token #11: ' trong'
-AI Coach Generator: Received token #12: ' thang'
-AI Coach Generator: Received token #13: ' đo'
-AI Coach Generator: Received token #14: ' sáng'
-AI Coach Generator: Received token #15: ' tối'
-AI Coach Generator: Received token #16: ' để'
-AI Coach Generator: Received token #17: ' tạo'
-AI Coach Generator: Received token #18: ' ra'
-AI Coach Generator: Received token #19: ' một'
-AI Coach Generator: Received token #20: ' bức'
-AI Coach Generator: Received token #21: ' tranh'
-AI Coach Generator: Received token #22: ' ấn'
-AI Coach Generator: Received token #23: ' tượng'
-AI Coach Generator: Received token #24: '.'
-AI Coach Generator: Completed successfully. Prompt ID: 1781011362147, Success: true, ErrorDetails: null
-AI Coach Generator: Raw response: 'Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.', Cleaned advice: 'Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.'
-Gemma-3 generated advice: Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.
+AI Coach Generator: generateAdvice() called. _llamaParent is null: true, _isGenerating = false
+AI Coach Generator: Warning - LlamaParent is null! Returning fallback advice.
+Gemma-3 generated advice: Giữ máy ổn định và căn khung hình cân đối.
 Disposing LocalAiEngine...
-00:05 +13: All tests passed!
+00:03 +11 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:03 +12 -1: Some tests failed.
+
+Failing tests:
+  /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model

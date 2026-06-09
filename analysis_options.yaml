@@ -1,5 +1,13 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - build_llama/**
+    - scratch/**
+    - test_ggml_devices.dart
+    - test_llama.dart
+    - test_llama_direct.dart
+
 linter:
   rules:
     prefer_const_constructors: true

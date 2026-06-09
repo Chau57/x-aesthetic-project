@@ -123,12 +123,14 @@ class LocalAiEngine implements AiEngine {
 
     // 2. Pre-load GGML libraries for Llama FFI on Linux desktop host
     if (Platform.isLinux) {
-      final libDir =
-          "/home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib";
+      var libDir = "/home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/scratch/build_llama_linux/bin";
+      if (!Directory(libDir).existsSync()) {
+        libDir = "/home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib";
+      }
       if (Directory(libDir).existsSync()) {
         try {
           print(
-              "AI Coach Loader: Pre-loading libraries on Linux desktop host...");
+              "AI Coach Loader: Pre-loading libraries on Linux desktop host from $libDir...");
           DynamicLibrary.open("$libDir/libggml-base.so");
           DynamicLibrary.open("$libDir/libggml-cpu.so");
           DynamicLibrary.open("$libDir/libggml.so");
@@ -339,13 +341,38 @@ class LocalAiEngine implements AiEngine {
       cancelOnError: true,
     );
 
+    final cleanCategory = category.replaceAll('_', ' ').replaceAll('/', ' ');
+    final vietnameseCategory = _translateCategoryToVietnamese(cleanCategory);
+
+    // Interpret brightness
+    String brightnessDesc;
+    if (brightness < 0.35) {
+      brightnessDesc = "Khung cảnh bị thiếu sáng, hơi tối. Hãy khuyên người dùng nên tìm góc sáng hơn, tăng độ sáng (bù sáng EV) hoặc giữ máy chắc hơn để tránh nhòe hình.";
+    } else if (brightness > 0.65) {
+      brightnessDesc = "Khung cảnh bị thừa sáng, hơi chói. Hãy khuyên người dùng giảm độ sáng (bù sáng EV) hoặc xoay góc chụp để tránh ánh nắng chiếu trực diện.";
+    } else {
+      brightnessDesc = "Ánh sáng đã rất tốt và hài hòa. Hãy hướng dẫn người dùng tập trung vào các kỹ thuật bố cục nghệ thuật.";
+    }
+
+    // Interpret blur/sharpness
+    String blurDesc;
+    if (blurVariance < 15.0) {
+      blurDesc = "Ảnh bị mờ hoặc lấy nét sai (out focus). Hãy khuyên người dùng giữ chắc tay khi bấm chụp hoặc chạm vào màn hình để lấy nét lại vào chủ thể.";
+    } else {
+      blurDesc = "Ảnh có độ chi tiết và sắc nét rất tốt.";
+    }
+
     try {
       final prompt = "<bos><start_of_turn>user\n"
-          "Bạn là trợ lý nhiếp ảnh AI. Hãy viết duy nhất 1 câu lời khuyên chụp ảnh siêu ngắn gọn (dưới 15 từ) bằng tiếng Việt cho:\n"
-          "Bối cảnh: $category\n"
-          "Độ sáng: ${brightness.toStringAsFixed(2)} (0: tối, 1: sáng)\n"
-          "Độ nét: ${blurVariance.toStringAsFixed(0)} (cao là nét, thấp là mờ)\n"
-          "Yêu cầu: Không tiêu đề, không chào hỏi, không định dạng viết đậm, trả lời trực tiếp lời khuyên trong 1 câu ngắn gọn.<end_of_turn>\n"
+          "Bạn là trợ lý nhiếp ảnh AI thông minh. Hãy đưa ra duy nhất 1 câu lời khuyên nhiếp ảnh cực kỳ thực tế, cụ thể và hữu ích (dưới 15 từ) bằng tiếng Việt cho người đang cầm máy chụp hình trong bối cảnh sau:\n"
+          "- Chủ thể/Bối cảnh: $vietnameseCategory\n"
+          "- Trạng thái ánh sáng: $brightnessDesc\n"
+          "- Trạng thái tiêu cự/độ nét: $blurDesc\n\n"
+          "Yêu cầu:\n"
+          "1. Lời khuyên phải mang tính hành động rõ ràng (ví dụ: 'Tăng bù sáng để chủ thể nổi bật hơn', 'Đưa chủ thể sang bên phải theo quy tắc một phần ba', 'Hạ thấp góc máy để lấy trọn chiều sâu bối cảnh', 'Giữ chắc tay để tránh nhòe hình', v.v.).\n"
+          "2. TUYỆT ĐỐI KHÔNG lặp lại các thông số kỹ thuật khô khan như 'độ sáng', 'độ nét', 'chỉ số', hoặc các con số lẻ tẻ vào câu lời khuyên.\n"
+          "3. Lời khuyên phải tự nhiên, chuyên nghiệp như một nhiếp ảnh gia thực thụ chỉ bảo.\n"
+          "4. Trả lời trực tiếp bằng đúng 1 câu lời khuyên, không chào hỏi, không thêm tiêu đề, không in đậm.<end_of_turn>\n"
           "<start_of_turn>model\n";
 
       print(
@@ -358,7 +385,7 @@ class LocalAiEngine implements AiEngine {
       print("AI Coach Generator: Stack trace:\n$stackTrace");
       if (!completer.isCompleted) completer.completeError(e);
       tokenSub.cancel();
-      if (completionSub != null) completionSub.cancel();
+      completionSub.cancel();
       _isGenerating = false;
     }
 
@@ -384,6 +411,53 @@ class LocalAiEngine implements AiEngine {
     cleaned =
         cleaned.replaceAll('**', '').replaceAll('*', '').replaceAll('"', '');
     return cleaned;
+  }
+
+  String _translateCategoryToVietnamese(String category) {
+    final cat = category.toLowerCase().trim();
+    // Common mappings for Places365
+    final map = {
+      'server room': 'phòng máy chủ / thiết bị công nghệ',
+      'berth': 'phòng ngủ nhỏ / bến tàu',
+      'elevator shaft': 'buồng thang máy / kiến trúc đứng',
+      'street': 'đường phố / phố phường',
+      'bedroom': 'phòng ngủ',
+      'living room': 'phòng khách',
+      'kitchen': 'phòng bếp',
+      'office': 'văn phòng làm việc',
+      'beach': 'bờ biển / bãi cát',
+      'mountain': 'núi non / phong cảnh',
+      'forest': 'rừng cây / tự nhiên',
+      'garden': 'sân vườn / cây cảnh',
+      'restaurant': 'nhà hàng / quán ăn',
+      'classroom': 'lớp học / phòng học',
+      'corridor': 'hành lang / lối đi',
+      'staircase': 'cầu thang',
+      'lobby': 'sảnh chờ / phòng khách lớn',
+      'highway': 'đường cao tốc / xa lộ',
+      'sky': 'bầu trời',
+      'waterfall': 'thác nước',
+      'sea': 'biển cả',
+      'desert': 'sa mạc',
+      'park': 'công viên / khu vui chơi',
+      'playground': 'sân chơi trẻ em',
+      'athletic field': 'sân thể thao / sân bóng',
+      'general scene': 'cảnh tổng quan',
+      'computer room': 'phòng máy tính / văn phòng công nghệ',
+      'doorway': 'cửa ra vào',
+      'elevator lobby': 'sảnh thang máy',
+      'engine room': 'buồng máy / phòng kỹ thuật',
+      'entrance hall': 'sảnh ra vào / sảnh chính',
+      'office cubicles': 'khoang làm việc / văn phòng',
+      'utility room': 'phòng tiện ích / phòng kho',
+      'waiting room': 'phòng chờ / sảnh đợi',
+    };
+    for (final entry in map.entries) {
+      if (cat.contains(entry.key)) {
+        return entry.value;
+      }
+    }
+    return category; // fallback
   }
 
   @override

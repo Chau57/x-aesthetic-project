@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 
@@ -3473,7 +3472,7 @@ class _XiaomiHorizonIndicator extends StatelessWidget {
         level ? const Color(0xFF00FF66) : Colors.white.withValues(alpha: 0.78);
     return Center(
       child: Transform.rotate(
-        angle: -visualTilt * math.pi / 180,
+        angle: visualTilt * math.pi / 180,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
