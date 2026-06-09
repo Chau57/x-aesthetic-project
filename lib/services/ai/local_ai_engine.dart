@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../core/ai/aesthetic_attributes.dart';
 import '../../core/ai/detection_result.dart';
 import '../../core/camera/camera_frame.dart';
+import '../../core/camera/horizon_math.dart';
 import 'ai_engine.dart';
 
 class LocalAiEngine implements AiEngine {
@@ -317,8 +318,8 @@ class LocalAiEngine implements AiEngine {
         "AI Coach Generator: generateAdvice() called. _llamaParent is null: ${_llamaParent == null}, _isGenerating = $_isGenerating");
     if (_llamaParent == null) {
       print(
-          "AI Coach Generator: Warning - LlamaParent is null! Returning fallback advice.");
-      return "Giữ máy ổn định và căn khung hình cân đối.";
+          "AI Coach Generator: Warning - LlamaParent is null! Returning empty advice.");
+      return "";
     }
 
     final finalContrast = contrast ?? "trung bình";
@@ -372,13 +373,13 @@ class LocalAiEngine implements AiEngine {
     );
 
     // 3. Set a timeout timer to prevent lockups
-    final timeoutTimer = Timer(const Duration(seconds: 10), () {
+    final timeoutTimer = Timer(const Duration(seconds: 15), () {
       if (!completer.isCompleted) {
-        print("AI Coach Generator: Generation timed out after 10 seconds. Forcing completion.");
+        print("AI Coach Generator: Generation timed out after 15 seconds. Forcing completion.");
         final partialText = sb.toString().trim();
         final text = partialText.isNotEmpty 
             ? _cleanResponse(partialText) 
-            : "Giữ máy ổn định và căn khung hình cân đối.";
+            : "";
         completer.complete(text);
         tokenSub.cancel();
         completionSub?.cancel();
@@ -399,22 +400,17 @@ class LocalAiEngine implements AiEngine {
       exposureDesc = "bình thường";
     }
 
-    String tiltDesc = finalTilt.abs() < 1.0 ? "thẳng" : "nghiêng ${finalTilt.toStringAsFixed(1)}°";
+    final levelError = horizonLevelErrorDegrees(finalTilt);
+    final tiltDesc = levelError.abs() < 1.5 ? "thẳng" : "nghiêng ${levelError.toStringAsFixed(1)}°";
 
     try {
       final prompt = "<bos><start_of_turn>user\n"
-          "Bạn là trợ lý chụp ảnh chuyên nghiệp. Hãy xem thông tin bối cảnh bên dưới và đưa ra đúng 1 câu lời khuyên hành động ngắn gọn bằng tiếng Việt (dưới 12 từ) để có bức ảnh đẹp hơn.\n\n"
-          "Bối cảnh: $vietnameseCategory\n"
-          "Ánh sáng: $exposureDesc\n"
-          "Bố cục: chủ thể ở vị trí $finalSubjectPos, đường chân trời $tiltDesc\n"
-          "Độ sắc nét: ${blurVariance < 15.0 ? 'mờ/out nét' : 'rõ nét'}\n\n"
-          "Ví dụ:\n"
-          "- Ánh sáng tối -> 'Tăng sáng một chút để chủ thể nổi bật hơn.'\n"
-          "- Bố cục chủ thể lệch -> 'Đưa chủ thể sang bên phải để bối cảnh cân đối hơn.'\n"
-          "- Bối cảnh rộng -> 'Hạ thấp góc máy để lấy trọn chiều sâu bối cảnh.'\n"
-          "- Chân trời nghiêng -> 'Căn thẳng máy để sửa đường chân trời bị nghiêng.'\n"
-          "- Độ sắc nét mờ -> 'Giữ chắc tay chụp để tránh bị nhòe hình.'\n\n"
-          "Yêu cầu: Chỉ viết đúng 1 câu lời khuyên hành động, không chào hỏi hay giải thích gì thêm.<end_of_turn>\n"
+          "Bạn là trợ lý chụp ảnh. Dựa vào thông số camera dưới đây, hãy viết đúng 1 câu chỉ dẫn hành động ngắn gọn bằng tiếng Việt (dưới 10 từ) để người dùng sửa góc máy, bố cục hoặc ánh sáng. Không khuyên chung chung, không sáo rỗng.\n\n"
+          "Thông số:\n"
+          "- Bối cảnh: $vietnameseCategory\n"
+          "- Ánh sáng: $exposureDesc\n"
+          "- Bố cục: chủ thể ở $finalSubjectPos, chân trời $tiltDesc\n"
+          "- Tiêu cự: ${blurVariance < 15.0 ? 'mờ' : 'rõ'}<end_of_turn>\n"
           "<start_of_turn>model\n";
 
       print(

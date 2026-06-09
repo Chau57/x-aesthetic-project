@@ -53,10 +53,6 @@ class RuleBasedPhotoEvaluator {
         print("Local AI advice failed in evaluator: $e");
       }
 
-      if (suggestions.isEmpty) {
-        suggestions = _contextSuggestions(context, metrics, stats, metadata);
-      }
-
       return PhotoEvaluation(
         score: score,
         verdict: _verdict(score),
@@ -95,7 +91,7 @@ class RuleBasedPhotoEvaluator {
       score: score,
       verdict: _verdict(score),
       metrics: metrics,
-      suggestions: _contextSuggestions(context, metrics, null, metadata),
+      suggestions: const [],
       contextAnalysis: context,
     );
   }
@@ -282,133 +278,6 @@ class RuleBasedPhotoEvaluator {
             ? 0.6
             : 0.3;
     return _clampScore(base + bonus);
-  }
-
-  List<String> _contextSuggestions(
-      ContextAnalysis context,
-      Map<String, double> metrics,
-      _ImageStats? stats,
-      CaptureMetadata? metadata) {
-    final suggestions = <String>[];
-    final lowest = metrics.entries.where((entry) => entry.value > 0).toList()
-      ..sort((a, b) => a.value.compareTo(b.value));
-    final weakest = lowest.isEmpty ? null : lowest.first;
-
-    switch (context.resolvedContext) {
-      case PhotoContext.landscape:
-        if ((metrics['Đường chân trời'] ?? 10) < 8) {
-          suggestions.add(
-              'Đường chân trời chưa thẳng, hãy cân máy hoặc dùng nút hiệu chỉnh 0° trước khi chụp.');
-        }
-        if ((metrics['Dải sáng'] ?? 10) < 7) {
-          suggestions.add(
-              'Cảnh có chênh sáng mạnh, thử HDR Nhẹ/Mạnh để giữ chi tiết trời và vùng tối.');
-        }
-        suggestions.add(
-            'Thử thêm tiền cảnh hoặc đường dẫn để ảnh phong cảnh có chiều sâu hơn.');
-        break;
-      case PhotoContext.architecture:
-        if ((metrics['Đường thẳng'] ?? 10) < 8) {
-          suggestions.add(
-              'Các đường dọc/ngang dễ bị nghiêng, hãy căn máy thẳng và giữ trục giữa rõ hơn.');
-        }
-        suggestions.add(
-            'Tìm trục đối xứng hoặc đường dẫn để tăng cảm giác kiến trúc.');
-        break;
-      case PhotoContext.food:
-        if ((metrics['Màu sắc'] ?? 10) < 7) {
-          suggestions.add(
-              'Màu món ăn chưa nổi bật, thử ánh sáng tự nhiên gần cửa sổ hoặc tăng nhẹ saturation.');
-        }
-        if ((metrics['Nền'] ?? 10) < 7) {
-          suggestions.add(
-              'Nền hơi rối, thử crop gần hơn hoặc dọn bớt chi tiết quanh món ăn.');
-        }
-        break;
-      case PhotoContext.product:
-        if ((metrics['Nền'] ?? 10) < 7) {
-          suggestions.add(
-              'Nền chưa đủ sạch, thử đặt sản phẩm trên nền đơn giản và giảm chi tiết gây nhiễu.');
-        }
-        suggestions.add('Giữ ánh sáng đều hai bên để sản phẩm nổi rõ hơn.');
-        break;
-      case PhotoContext.street:
-        suggestions.add(
-            'Ảnh đường phố sẽ mạnh hơn nếu có đường dẫn hoặc khoảnh khắc hành động rõ.');
-        if ((metrics['Tương phản'] ?? 10) < 7) {
-          suggestions.add(
-              'Tương phản còn thấp, thử chọn hướng sáng xiên hoặc hậu cảnh có mảng sáng/tối rõ.');
-        }
-        break;
-      case PhotoContext.night:
-        suggestions
-            .add('Giữ máy chắc hơn khi chụp đêm và tránh vùng đèn quá cháy.');
-        if ((metrics['Chi tiết tối'] ?? 10) < 7) {
-          suggestions.add(
-              'Vùng tối mất chi tiết, thử HDR Mạnh hoặc tăng bù sáng nhẹ.');
-        }
-        break;
-      case PhotoContext.portrait:
-        suggestions.add(
-            'Giữ chủ thể rõ và tách khỏi hậu cảnh; phần AI sau sẽ tự xác định vị trí chủ thể.');
-        if ((metrics['Hậu cảnh'] ?? 10) < 7) {
-          suggestions
-              .add('Hậu cảnh hơi rối, thử đổi góc hoặc tiến gần chủ thể hơn.');
-        }
-        break;
-      case PhotoContext.macro:
-        suggestions.add(
-            'Với ảnh cận cảnh, hãy giữ chủ thể thật rõ và nền càng đơn giản càng tốt.');
-        break;
-      case PhotoContext.animal:
-        suggestions.add(
-            'Với ảnh động vật, cố gắng giữ mắt/chủ thể rõ và chụp ngang tầm chủ thể.');
-        break;
-      case PhotoContext.auto:
-      case PhotoContext.general:
-        final light = metrics['Ánh sáng'] ?? 0;
-        final contrast = metrics['Tương phản'] ?? 0;
-        final color = metrics['Màu sắc'] ?? 0;
-        final balance = metrics['Cân bằng'] ?? 0;
-        final hdr = metrics['HDR'] ?? 0;
-        if (light < 6.5 && stats != null && stats.meanLuminance < 0.42) {
-          suggestions.add('Ảnh hơi tối, thử tăng bù sáng hoặc dùng HDR Nhẹ.');
-        } else if (light < 6.5 && stats != null && stats.meanLuminance > 0.62) {
-          suggestions
-              .add('Vùng sáng hơi gắt, thử giảm bù sáng hoặc bật HDR Mạnh.');
-        } else if (light < 7.0) {
-          suggestions
-              .add('Ánh sáng chưa đều, thử đổi góc chụp để giảm chênh sáng.');
-        }
-        if (balance < 8.0) {
-          final angle = metadata?.horizonAngle ?? 0;
-          suggestions.add(
-              'Đường chân trời lệch ${angle.toStringAsFixed(1)}°, hãy cân máy lại trước khi chụp.');
-        }
-        if (contrast < 6.8) {
-          suggestions
-              .add('Ảnh hơi phẳng, thử chọn hướng sáng có bóng đổ rõ hơn.');
-        }
-        if (color < 6.8) {
-          suggestions.add(
-              'Màu sắc chưa nổi bật, thử chụp trong ánh sáng tự nhiên hoặc tăng nhẹ saturation.');
-        }
-        if (hdr < 6.8) {
-          suggestions.add(
-              'Ảnh có vùng quá tối/quá sáng, hãy thử HDR Nhẹ hoặc HDR Mạnh.');
-        }
-        break;
-    }
-
-    if (weakest != null && weakest.value < 6.5) {
-      suggestions.insert(0,
-          'Điểm yếu chính hiện tại là ${weakest.key.toLowerCase()} (${weakest.value.toStringAsFixed(1)}/10).');
-    }
-    if (suggestions.isEmpty) {
-      suggestions.add(
-          'Ảnh ổn với hồ sơ ${context.resolvedContext.label}. Bước AI tiếp theo sẽ bổ sung nhận diện chủ thể/ngữ cảnh tự động.');
-    }
-    return suggestions.take(3).toList();
   }
 
   String _verdict(double score) {

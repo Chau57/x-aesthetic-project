@@ -120,7 +120,7 @@ class _CameraScreenState extends State<CameraScreen>
   _XiaomiCameraMode _activeMode = _XiaomiCameraMode.photo;
   final HardwareHdrCameraBridge _hardwareHdrBridge =
       const HardwareHdrCameraBridge();
-  _ProParam _selectedProParam = _ProParam.ev;
+  _ProParam? _selectedProParam = _ProParam.ev;
   String _proWb = 'Auto';
   String _proFocus = 'Auto';
   String _proSpeed = 'Auto';
@@ -337,6 +337,11 @@ class _CameraScreenState extends State<CameraScreen>
     CameraUserSettings settings, {
     required int sessionId,
   }) async {
+    if (camera.lensDirection == CameraLensDirection.front &&
+        _activeMode == _XiaomiCameraMode.pro) {
+      _activeMode = _XiaomiCameraMode.photo;
+    }
+
     await _detachAndDisposeCamera(
       showInitializing: true,
       invalidateSession: false,
@@ -1166,6 +1171,17 @@ class _CameraScreenState extends State<CameraScreen>
     );
     final settings = XAestheticScope.of(context).settings;
 
+    if (next.lensDirection == CameraLensDirection.front &&
+        _activeMode == _XiaomiCameraMode.pro) {
+      setState(() {
+        _activeMode = _XiaomiCameraMode.photo;
+      });
+      AppSnack.show(
+        context,
+        'Chuyển về chế độ thường do camera trước không hỗ trợ chuyên nghiệp.',
+      );
+    }
+
     try {
       final sessionId = ++_cameraSessionId;
       setState(() => _initializing = true);
@@ -1329,6 +1345,16 @@ class _CameraScreenState extends State<CameraScreen>
       evDialOpen: _showExposureDial,
       onExposureToggle: _toggleExposureDial,
       onZoomChanged: (value) => unawaited(_setZoomLevel(value)),
+      showSuggestionFrame: app.settings.showSuggestionFrame,
+      onSuggestionFrameToggle: () {
+        final nextVal = !app.settings.showSuggestionFrame;
+        app.updateSettings(
+          app.settings.copyWith(showSuggestionFrame: nextVal),
+        );
+        if (nextVal) {
+          unawaited(_runAiCoachAnalysis());
+        }
+      },
     );
   }
 
@@ -1421,7 +1447,13 @@ class _CameraScreenState extends State<CameraScreen>
       proFocus: _proFocus,
       proSpeed: _proSpeed,
       proIso: _proIso,
-      onProParamChanged: (param) => setState(() => _selectedProParam = param),
+      onProParamChanged: (param) => setState(() {
+        if (_selectedProParam == param) {
+          _selectedProParam = null;
+        } else {
+          _selectedProParam = param;
+        }
+      }),
       onProWbChanged: (val) => setState(() => _proWb = val),
       onProFocusChanged: (val) async {
         final wasAuto = _proFocus == 'Auto';
@@ -1452,8 +1484,16 @@ class _CameraScreenState extends State<CameraScreen>
       onExposureChanged: _updateExposureOffset,
       onExposureReset: () => _updateExposureOffset(0),
       onModeChanged: (mode) async {
-        setState(() => _activeMode = mode);
         final controller = _cameraController;
+        if (mode == _XiaomiCameraMode.pro &&
+            controller?.description.lensDirection == CameraLensDirection.front) {
+          AppSnack.show(
+            context,
+            'Không hỗ trợ chế độ chuyên nghiệp cho camera trước.',
+          );
+          return;
+        }
+        setState(() => _activeMode = mode);
         if (controller != null && controller.value.isInitialized) {
           try {
             if (mode == _XiaomiCameraMode.pro && _proFocus != 'Auto') {
@@ -1641,8 +1681,6 @@ class _XiaomiTopControlBar extends StatelessWidget {
                           onThemeModeChanged: onThemeModeChanged,
                           onGridChanged: onGridChanged,
                           onHorizonChanged: onHorizonChanged,
-                          onSubjectOutlineChanged: onSubjectOutlineChanged,
-                          onSuggestionFrameChanged: onSuggestionFrameChanged,
                         ),
                       ),
                     ),
@@ -1670,8 +1708,6 @@ class _XiaomiSettingsPanel extends StatelessWidget {
   final ValueChanged<ThemeMode> onThemeModeChanged;
   final ValueChanged<bool> onGridChanged;
   final ValueChanged<bool> onHorizonChanged;
-  final ValueChanged<bool> onSubjectOutlineChanged;
-  final ValueChanged<bool> onSuggestionFrameChanged;
 
   const _XiaomiSettingsPanel({
     required this.settings,
@@ -1684,8 +1720,6 @@ class _XiaomiSettingsPanel extends StatelessWidget {
     required this.onThemeModeChanged,
     required this.onGridChanged,
     required this.onHorizonChanged,
-    required this.onSubjectOutlineChanged,
-    required this.onSuggestionFrameChanged,
   });
 
   bool get _isDark => settings.themeMode != ThemeMode.light;
@@ -1833,26 +1867,6 @@ class _XiaomiSettingsPanel extends StatelessWidget {
                 onTap: () => onHorizonChanged(!settings.showHorizon),
               ),
             ),
-            Expanded(
-              child: _XiaomiGridOption(
-                icon: Icons.filter_center_focus_rounded,
-                label: 'Viền chủ thể',
-                active: settings.showSubjectOutline,
-                isDark: _isDark,
-                onTap: () =>
-                    onSubjectOutlineChanged(!settings.showSubjectOutline),
-              ),
-            ),
-            Expanded(
-              child: _XiaomiGridOption(
-                icon: Icons.assistant_rounded,
-                label: 'Gợi ý AI',
-                active: settings.showSuggestionFrame,
-                isDark: _isDark,
-                onTap: () =>
-                    onSuggestionFrameChanged(!settings.showSuggestionFrame),
-              ),
-            ),
           ],
         ),
       ],
@@ -1979,19 +1993,15 @@ class _XiaomiCameraViewport extends StatelessWidget {
                     final railLeft = focus == null
                         ? 0.0
                         : (focusX > size.width - 96
-                            ? focusX - 70
-                            : focusX + 38);
+                            ? focusX - 82
+                            : focusX + 48);
                     final railTop = focus == null
                         ? 0.0
                         : _safeClampDouble(
-                            focusY - 54, 10.0, size.height - 118);
+                            focusY - 74, 10.0, size.height - 158);
 
-                    final isDeviceShaking = isShaking;
-                    final currentWarning = isDeviceShaking
-                        ? 'Cảnh báo: Thiết bị đang rung lắc'
-                        : (fastStats != null && fastStats!.hasWarnings
-                            ? fastStats!.warningMessage
-                            : null);
+                    // Rule-based warning banner is disabled (relying purely on AI models)
+                    const String? currentWarning = null;
 
                     return ClipRect(
                       child: Stack(
@@ -2022,7 +2032,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
                             child: CustomPaint(
                               painter: _XiaomiOverlayPainter(
                                 showGrid: settings.showGrid,
-                                showSubjectOutline: settings.showSubjectOutline,
+                                showSubjectOutline: false,
                                 subjectPosition: fastStats?.subjectPosition,
                               ),
                             ),
@@ -2233,7 +2243,7 @@ class _XiaomiBottomDeck extends StatelessWidget {
   final double exposureMax;
   final int countdownRemaining;
   final String? latestPath;
-  final _ProParam selectedProParam;
+  final _ProParam? selectedProParam;
   final String proWb;
   final String proFocus;
   final String proSpeed;
@@ -2351,7 +2361,10 @@ class _XiaomiBottomDeck extends StatelessWidget {
   }
 
   Widget _buildProDial(BuildContext context, bool isDark) {
-    switch (selectedProParam) {
+    if (selectedProParam == null) {
+      return const SizedBox(width: double.infinity, height: 0);
+    }
+    switch (selectedProParam!) {
       case _ProParam.ev:
         return _XiaomiExposureDial(
           value: exposureValue,
@@ -2931,6 +2944,8 @@ class _XiaomiViewportControls extends StatelessWidget {
   final bool evDialOpen;
   final VoidCallback onExposureToggle;
   final ValueChanged<double> onZoomChanged;
+  final bool showSuggestionFrame;
+  final VoidCallback onSuggestionFrameToggle;
 
   const _XiaomiViewportControls({
     required this.currentZoom,
@@ -2939,6 +2954,8 @@ class _XiaomiViewportControls extends StatelessWidget {
     required this.evDialOpen,
     required this.onExposureToggle,
     required this.onZoomChanged,
+    required this.showSuggestionFrame,
+    required this.onSuggestionFrameToggle,
   });
 
   @override
@@ -2963,21 +2980,21 @@ class _XiaomiViewportControls extends StatelessWidget {
     );
 
     final filterButton = GestureDetector(
-      onTap: () => ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-        const SnackBar(
-          content: Text('Bộ lọc sẽ được nối vào pipeline AI ở bước sau.'),
-          duration: Duration(milliseconds: 650),
-        ),
-      ),
+      onTap: onSuggestionFrameToggle,
       child: Container(
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.52),
+          color: showSuggestionFrame
+              ? const Color(0xFFFFCC00).withValues(alpha: 0.95)
+              : Colors.black.withValues(alpha: 0.52),
           shape: BoxShape.circle,
         ),
-        child: const Icon(Icons.auto_awesome_rounded,
-            color: Colors.white, size: 16),
+        child: Icon(
+          Icons.assistant_rounded,
+          color: showSuggestionFrame ? Colors.black : Colors.white,
+          size: 16,
+        ),
       ),
     );
 
@@ -4331,7 +4348,7 @@ class _MockPortraitPainter extends CustomPainter {
 }
 
 class _XiaomiProParamRow extends StatelessWidget {
-  final _ProParam selectedParam;
+  final _ProParam? selectedParam;
   final String proWb;
   final String proFocus;
   final String proSpeed;
