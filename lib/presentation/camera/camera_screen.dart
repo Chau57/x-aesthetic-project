@@ -135,6 +135,7 @@ class _CameraScreenState extends State<CameraScreen>
   img.Image? _lastFrameImage;
   double _shakeScore = 0.0;
   AccelerometerEvent? _lastAccelerometerEvent;
+  bool _lastShowSuggestionFrame = false;
 
   @override
   void initState() {
@@ -367,6 +368,11 @@ class _CameraScreenState extends State<CameraScreen>
         _initializing = false;
         _errorMessage = null;
       });
+      // Pre-initialize AI engine in the background after camera is ready
+      unawaited(LocalAiEngine.instance.init());
+      if (settings.showSuggestionFrame) {
+        unawaited(_runAiCoachAnalysis());
+      }
       if (_activeMode == _XiaomiCameraMode.pro) {
         if (_proFocus != 'Auto') {
           controller.setFocusMode(FocusMode.locked).then((_) {
@@ -775,9 +781,11 @@ class _CameraScreenState extends State<CameraScreen>
 
   void _startAiCoachTimer() {
     _aiCoachTimer?.cancel();
-    _aiCoachTimer = Timer.periodic(const Duration(milliseconds: 1800), (timer) {
+    _aiCoachTimer = Timer.periodic(const Duration(milliseconds: 4500), (timer) {
       unawaited(_runAiCoachAnalysis());
     });
+    // Trigger initial analysis cycle immediately
+    unawaited(_runAiCoachAnalysis());
   }
 
   void _stopAiCoachTimer() {
@@ -796,8 +804,14 @@ class _CameraScreenState extends State<CameraScreen>
       try {
         final settings = XAestheticScope.of(context).settings;
         if (settings.showSuggestionFrame) {
-          print(
-              "AI Coach Timer: Skipped analysis cycle. Reason: controllerIsNull=${controller == null}, isInitialized=${controller?.value.isInitialized == true}, capturing=$_capturing, initializing=$_initializing, disposed=$_disposed, isAiCoachAnalyzing=$_isAiCoachAnalyzing");
+          String reason = "unknown";
+          if (controller == null) reason = "controllerIsNull";
+          else if (!controller.value.isInitialized) reason = "controllerNotInitialized";
+          else if (_capturing) reason = "capturing";
+          else if (_initializing) reason = "initializing";
+          else if (_disposed) reason = "disposed";
+          else if (_isAiCoachAnalyzing) reason = "isAiCoachAnalyzing";
+          print("AI Coach Timer: Skipped analysis cycle. Reason: $reason");
         }
       } catch (_) {}
       return;
@@ -888,6 +902,10 @@ class _CameraScreenState extends State<CameraScreen>
         category,
         stats.brightness,
         stats.blurVariance,
+        contrast: stats.contrast,
+        colorTemp: stats.colorTemp,
+        subjectPosition: stats.subjectPosition,
+        tiltDegrees: stats.tiltDegrees,
       );
       print("AI Coach Timer: Generated advice: '$advice'");
 
@@ -1173,7 +1191,17 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return XScopeBuilder(
       builder: (context, app) {
-        final isFull = app.settings.aspectRatio == CaptureAspectRatio.full;
+        final settings = app.settings;
+        if (settings.showSuggestionFrame && !_lastShowSuggestionFrame) {
+          _lastShowSuggestionFrame = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            unawaited(_runAiCoachAnalysis());
+          });
+        } else if (!settings.showSuggestionFrame && _lastShowSuggestionFrame) {
+          _lastShowSuggestionFrame = false;
+        }
+
+        final isFull = settings.aspectRatio == CaptureAspectRatio.full;
         return ColoredBox(
           color: Colors.black,
           child: SafeArea(

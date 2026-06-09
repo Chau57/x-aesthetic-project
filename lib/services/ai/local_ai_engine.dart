@@ -168,10 +168,14 @@ class LocalAiEngine implements AiEngine {
       modelParams.nGpuLayers = 0;
       modelParams.mainGpu = -1; // CPU only execution
 
+      final contextParams = ContextParams();
+      contextParams.nCtx = 2048;
+      contextParams.autoTrimContext = true;
+
       final loadCommand = LlamaLoad(
         path: gemmaPath,
         modelParams: modelParams,
-        contextParams: ContextParams(),
+        contextParams: contextParams,
         samplingParams: SamplerParams(),
       );
       print(
@@ -282,7 +286,14 @@ class LocalAiEngine implements AiEngine {
 
   /// Sends a prompt to the Gemma model and awaits the complete generated suggestion.
   Future<String> generateAdvice(
-      String category, double brightness, double blurVariance) async {
+    String category,
+    double brightness,
+    double blurVariance, {
+    String? contrast,
+    String? colorTemp,
+    String? subjectPosition,
+    double? tiltDegrees,
+  }) async {
     print(
         "AI Coach Generator: generateAdvice() called. _llamaParent is null: ${_llamaParent == null}, _isGenerating = $_isGenerating");
     if (_llamaParent == null) {
@@ -290,14 +301,14 @@ class LocalAiEngine implements AiEngine {
           "AI Coach Generator: Warning - LlamaParent is null! Returning fallback advice.");
       return "Giữ máy ổn định và căn khung hình cân đối.";
     }
-    if (_isGenerating) {
-      print(
-          "AI Coach Generator: Warning - Generation is already in progress. Ignoring request.");
-      return ""; // Ignore concurrent requests
-    }
+
+    final finalContrast = contrast ?? "trung bình";
+    final finalColorTemp = colorTemp ?? "trung tính";
+    final finalSubjectPos = subjectPosition ?? "giữa-giữa";
+    final finalTilt = tiltDegrees ?? 0.0;
 
     print(
-        "AI Coach Generator: Starting generation for: category=$category, brightness=${brightness.toStringAsFixed(2)}, blurVariance=${blurVariance.toStringAsFixed(0)}");
+        "AI Coach Generator: Starting generation for: category=$category, brightness=${brightness.toStringAsFixed(2)}, blurVariance=${blurVariance.toStringAsFixed(0)}, contrast=$finalContrast, colorTemp=$finalColorTemp, subjectPos=$finalSubjectPos, tilt=${finalTilt.toStringAsFixed(1)}");
     _isGenerating = true;
     final completer = Completer<String>();
     final sb = StringBuffer();
@@ -341,38 +352,52 @@ class LocalAiEngine implements AiEngine {
       cancelOnError: true,
     );
 
+    // 3. Set a timeout timer to prevent lockups
+    final timeoutTimer = Timer(const Duration(seconds: 10), () {
+      if (!completer.isCompleted) {
+        print("AI Coach Generator: Generation timed out after 10 seconds. Forcing completion.");
+        final partialText = sb.toString().trim();
+        final text = partialText.isNotEmpty 
+            ? _cleanResponse(partialText) 
+            : "Giữ máy ổn định và căn khung hình cân đối.";
+        completer.complete(text);
+        tokenSub.cancel();
+        completionSub?.cancel();
+        _isGenerating = false;
+      }
+    });
+
     final cleanCategory = category.replaceAll('_', ' ').replaceAll('/', ' ');
     final vietnameseCategory = _translateCategoryToVietnamese(cleanCategory);
 
     // Interpret brightness
-    String brightnessDesc;
-    if (brightness < 0.35) {
-      brightnessDesc = "Khung cảnh bị thiếu sáng, hơi tối. Hãy khuyên người dùng nên tìm góc sáng hơn, tăng độ sáng (bù sáng EV) hoặc giữ máy chắc hơn để tránh nhòe hình.";
-    } else if (brightness > 0.65) {
-      brightnessDesc = "Khung cảnh bị thừa sáng, hơi chói. Hãy khuyên người dùng giảm độ sáng (bù sáng EV) hoặc xoay góc chụp để tránh ánh nắng chiếu trực diện.";
+    String exposureDesc;
+    if (brightness < 0.235) {
+      exposureDesc = "tối/thiếu sáng";
+    } else if (brightness > 0.745) {
+      exposureDesc = "quá sáng/cháy sáng";
     } else {
-      brightnessDesc = "Ánh sáng đã rất tốt và hài hòa. Hãy hướng dẫn người dùng tập trung vào các kỹ thuật bố cục nghệ thuật.";
+      exposureDesc = "cân bằng";
     }
 
-    // Interpret blur/sharpness
-    String blurDesc;
-    if (blurVariance < 15.0) {
-      blurDesc = "Ảnh bị mờ hoặc lấy nét sai (out focus). Hãy khuyên người dùng giữ chắc tay khi bấm chụp hoặc chạm vào màn hình để lấy nét lại vào chủ thể.";
-    } else {
-      blurDesc = "Ảnh có độ chi tiết và sắc nét rất tốt.";
-    }
+    String tiltDesc = finalTilt.abs() < 1.0 ? "thẳng" : "nghiêng ${finalTilt.toStringAsFixed(1)}°";
+
+    // Format rich context prompt
+    final contextPrompt = 
+        "- Bối cảnh/Chủ thể: $vietnameseCategory\n"
+        "- Ánh sáng: $exposureDesc, nhiệt độ màu: $finalColorTemp, tương phản: $finalContrast\n"
+        "- Bố cục: chủ thể ở vị trí $finalSubjectPos, đường chân trời: $tiltDesc\n"
+        "- Độ sắc nét: ${blurVariance < 15.0 ? 'bị mờ/out nét' : 'rất rõ nét'}";
 
     try {
       final prompt = "<bos><start_of_turn>user\n"
-          "Bạn là trợ lý nhiếp ảnh AI thông minh. Hãy đưa ra duy nhất 1 câu lời khuyên nhiếp ảnh cực kỳ thực tế, cụ thể và hữu ích (dưới 15 từ) bằng tiếng Việt cho người đang cầm máy chụp hình trong bối cảnh sau:\n"
-          "- Chủ thể/Bối cảnh: $vietnameseCategory\n"
-          "- Trạng thái ánh sáng: $brightnessDesc\n"
-          "- Trạng thái tiêu cự/độ nét: $blurDesc\n\n"
-          "Yêu cầu:\n"
-          "1. Lời khuyên phải mang tính hành động rõ ràng (ví dụ: 'Tăng bù sáng để chủ thể nổi bật hơn', 'Đưa chủ thể sang bên phải theo quy tắc một phần ba', 'Hạ thấp góc máy để lấy trọn chiều sâu bối cảnh', 'Giữ chắc tay để tránh nhòe hình', v.v.).\n"
-          "2. TUYỆT ĐỐI KHÔNG lặp lại các thông số kỹ thuật khô khan như 'độ sáng', 'độ nét', 'chỉ số', hoặc các con số lẻ tẻ vào câu lời khuyên.\n"
-          "3. Lời khuyên phải tự nhiên, chuyên nghiệp như một nhiếp ảnh gia thực thụ chỉ bảo.\n"
-          "4. Trả lời trực tiếp bằng đúng 1 câu lời khuyên, không chào hỏi, không thêm tiêu đề, không in đậm.<end_of_turn>\n"
+          "Bạn là một huấn luyện viên nhiếp ảnh chuyên nghiệp chuyên cung cấp lời khuyên ngắn gọn bằng tiếng Việt.\n"
+          "Dựa trên bối cảnh camera bên dưới, hãy đưa ra DUY NHẤT 1 lời khuyên cụ thể, thực tế và có thể thực hiện ngay lập tức để cải thiện bức ảnh.\n\n"
+          "$contextPrompt\n\n"
+          "Quy tắc quan trọng:\n"
+          "1. Lời khuyên phải cực kỳ ngắn gọn (dưới 15 từ) và mang tính hành động rõ ràng (ví dụ: 'Hãy hạ thấp góc máy để lấy trọn chiều sâu bối cảnh', 'Căn thẳng máy để sửa đường chân trời bị nghiêng', 'Tăng sáng một chút để chủ thể nổi bật hơn', 'Giữ chắc tay chụp để tránh bị nhòe hình', 'Đưa chủ thể sang bên phải để bối cảnh cân đối hơn').\n"
+          "2. Chỉ trả lời trực tiếp đúng 1 câu lời khuyên bằng tiếng Việt. KHÔNG chào hỏi, KHÔNG có từ dẫn dắt (như 'Lời khuyên:', 'Mẹo:'), KHÔNG giải thích thêm, KHÔNG đánh số, KHÔNG gạch đầu dòng.\n"
+          "3. Đóng vai một nhiếp ảnh gia thực thụ nói chuyện tự nhiên và chuyên nghiệp, tránh các cụm từ máy móc hay các thông số kỹ thuật khô khan.<end_of_turn>\n"
           "<start_of_turn>model\n";
 
       print(
@@ -388,6 +413,9 @@ class LocalAiEngine implements AiEngine {
       completionSub.cancel();
       _isGenerating = false;
     }
+
+    // Cancel the timeout timer if the completer finishes normally
+    completer.future.then((_) => timeoutTimer.cancel()).catchError((_) => timeoutTimer.cancel());
 
     return completer.future;
   }

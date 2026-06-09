@@ -7,12 +7,18 @@ class FastVisionStats {
   final double blurVariance;     // Laplacian variance of grayscale pixels (0 to 1000+)
   final double motionDifference; // Mean absolute difference between frames (0.0 to 255.0)
   final double tiltDegrees;      // Horizon tilt angle (from accelerometer)
+  final String contrast;        // "thấp/phẳng", "trung bình", "cao"
+  final String colorTemp;       // "lạnh (thiên xanh)", "ấm (thiên vàng/cam)", "trung tính"
+  final String subjectPosition;  // "row-col" (e.g. "trên-trái", "giữa-giữa", "dưới-phải")
   
   const FastVisionStats({
     required this.brightness,
     required this.blurVariance,
     required this.motionDifference,
     required this.tiltDegrees,
+    required this.contrast,
+    required this.colorTemp,
+    required this.subjectPosition,
   });
 
   bool get isTooDark => brightness < 0.22;
@@ -47,6 +53,10 @@ class FastVisionProcessor {
     // 2. Convert to grayscale array
     final grays = Uint8List(width * height);
     double luminanceSum = 0.0;
+    double sumGray = 0.0;
+    double sumGraySquared = 0.0;
+    int sumR = 0;
+    int sumB = 0;
     
     for (var y = 0; y < height; y++) {
       for (var x = 0; x < width; x++) {
@@ -58,14 +68,42 @@ class FastVisionProcessor {
         final gray = (0.299 * r + 0.587 * g + 0.114 * b).round().clamp(0, 255);
         grays[x + y * width] = gray;
         luminanceSum += gray / 255.0;
+
+        sumGray += gray;
+        sumGraySquared += gray * gray;
+        sumR += r;
+        sumB += b;
       }
     }
     final brightness = luminanceSum / (width * height);
 
-    // 3. Compute Laplacian variance (Blur Check)
+    // Contrast calculation (std of gray)
+    final meanGray = sumGray / (width * height);
+    final meanGraySquared = sumGraySquared / (width * height);
+    final varianceGray = meanGraySquared - (meanGray * meanGray);
+    final stdDevGray = math.sqrt(math.max(0.0, varianceGray));
+    String contrast = "trung bình";
+    if (stdDevGray < 35) {
+      contrast = "thấp/phẳng";
+    } else if (stdDevGray > 80) {
+      contrast = "cao";
+    }
+
+    // Color temperature calculation (average R vs B channel difference)
+    final avgR = sumR / (width * height);
+    final avgB = sumB / (width * height);
+    String colorTemp = "trung tính";
+    if (avgB > avgR + 20) {
+      colorTemp = "lạnh (thiên xanh)";
+    } else if (avgR > avgB + 20) {
+      colorTemp = "ấm (thiên vàng/cam)";
+    }
+
+    // 3. Compute Laplacian variance (Blur Check) & 3x3 Grid Edge Density
     double laplacianSum = 0.0;
     double laplacianSquaredSum = 0.0;
     int count = 0;
+    final cellDensities = List.generate(3, (_) => List.filled(3, 0.0));
 
     for (var y = 1; y < height - 1; y++) {
       for (var x = 1; x < width - 1; x++) {
@@ -81,6 +119,11 @@ class FastVisionProcessor {
         laplacianSum += lap;
         laplacianSquaredSum += lap * lap;
         count++;
+
+        // 3x3 density grid accumulation
+        final rowIdx = (y * 3) ~/ height;
+        final colIdx = (x * 3) ~/ width;
+        cellDensities[rowIdx.clamp(0, 2)][colIdx.clamp(0, 2)] += lap.abs();
       }
     }
 
@@ -90,6 +133,23 @@ class FastVisionProcessor {
       final variance = (laplacianSquaredSum / count) - mean * mean;
       blurVariance = math.max(0.0, variance);
     }
+
+    // Find the cell with maximum density for subject position
+    int maxRow = 1;
+    int maxCol = 1;
+    double maxDensity = -1.0;
+    for (var r = 0; r < 3; r++) {
+      for (var c = 0; c < 3; c++) {
+        if (cellDensities[r][c] > maxDensity) {
+          maxDensity = cellDensities[r][c];
+          maxRow = r;
+          maxCol = c;
+        }
+      }
+    }
+    final rowNames = ["trên", "giữa", "dưới"];
+    final colNames = ["trái", "giữa", "phải"];
+    final subjectPosition = "${rowNames[maxRow]}-${colNames[maxCol]}";
 
     // 4. Compute frame difference (Motion Check)
     double motionDifference = 0.0;
@@ -126,6 +186,9 @@ class FastVisionProcessor {
       blurVariance: blurVariance,
       motionDifference: motionDifference,
       tiltDegrees: tiltDegrees,
+      contrast: contrast,
+      colorTemp: colorTemp,
+      subjectPosition: subjectPosition,
     );
   }
 }

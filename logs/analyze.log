@@ -1,31 +1,37 @@
 Analyzing merged...                                             
 
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:799:11 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:810:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:822:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:826:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:830:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:834:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:840:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:845:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:858:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:866:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:875:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:878:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:883:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:885:7 • avoid_print
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:808:35 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:809:53 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:810:32 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:811:35 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:812:31 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • lib/presentation/camera/camera_screen.dart:813:41 • curly_braces_in_flow_control_structures
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:814:11 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:824:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:836:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:840:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:844:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:848:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:854:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:859:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:872:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:880:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:889:7 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:892:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:896:11 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:902:11 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:907:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:908:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:1890:5 • avoid_print
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2076:27 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2079:37 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2082:33 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2118:33 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2121:35 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2130:50 • deprecated_member_use
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:897:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:899:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:910:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:914:11 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:920:11 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:925:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:926:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:1918:5 • avoid_print
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2104:27 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2107:37 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2110:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2146:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2149:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2158:50 • deprecated_member_use
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:40:11 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:45:9 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:52:9 • avoid_print
@@ -44,34 +50,34 @@ Analyzing merged...
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:150:9 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:158:9 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:161:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:177:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:180:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:183:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:186:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:181:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:184:7 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:187:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:194:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:200:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:203:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:190:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:191:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:198:7 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:204:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:208:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:263:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:278:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:286:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:289:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:294:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:299:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:307:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:310:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:313:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:315:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:319:5 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:325:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:327:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:335:9 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:378:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:381:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:384:7 • avoid_print
-   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:385:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:207:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:208:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:212:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:267:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:282:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:297:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:300:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:310:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:318:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:321:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:324:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:326:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:330:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:336:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:338:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:346:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:358:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:403:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:406:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:409:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:410:7 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/analysis/rule_based_photo_evaluator.dart:53:9 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:10:5 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:13:5 • avoid_print
@@ -89,4 +95,4 @@ Analyzing merged...
    info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:19:7 • avoid_print
    info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:22:7 • avoid_print
 
-88 issues found. (ran in 1.6s)
+94 issues found. (ran in 1.6s)
