@@ -368,8 +368,6 @@ class _CameraScreenState extends State<CameraScreen>
         _initializing = false;
         _errorMessage = null;
       });
-      // Pre-initialize AI engine in the background after camera is ready
-      unawaited(LocalAiEngine.instance.init());
       if (settings.showSuggestionFrame) {
         unawaited(_runAiCoachAnalysis());
       }
@@ -2025,6 +2023,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
                               painter: _XiaomiOverlayPainter(
                                 showGrid: settings.showGrid,
                                 showSubjectOutline: settings.showSubjectOutline,
+                                subjectPosition: fastStats?.subjectPosition,
                               ),
                             ),
                           ),
@@ -2083,6 +2082,16 @@ class _XiaomiCameraViewport extends StatelessWidget {
                               left: 16,
                               right: 16,
                               child: _buildAdviceCard(aiAdvice!),
+                            )
+                          else if (settings.showSuggestionFrame)
+                            Positioned(
+                              bottom: 16,
+                              left: 16,
+                              right: 16,
+                              child: _buildAdviceCard(
+                                'Đang khởi tạo huấn luyện viên AI...',
+                                isLoading: true,
+                              ),
                             ),
                         ],
                       ),
@@ -2135,7 +2144,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
     );
   }
 
-  Widget _buildAdviceCard(String advice) {
+  Widget _buildAdviceCard(String advice, {bool isLoading = false}) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: BackdropFilter(
@@ -2158,11 +2167,20 @@ class _XiaomiCameraViewport extends StatelessWidget {
                   color: const Color(0xFFFFCC00).withOpacity(0.22),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.assistant_rounded,
-                  color: Color(0xFFFFCC00),
-                  size: 20,
-                ),
+                child: isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Color(0xFFFFCC00),
+                          strokeWidth: 2.0,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.assistant_rounded,
+                        color: Color(0xFFFFCC00),
+                        size: 20,
+                      ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -3443,10 +3461,12 @@ class _XiaomiGridOption extends StatelessWidget {
 class _XiaomiOverlayPainter extends CustomPainter {
   final bool showGrid;
   final bool showSubjectOutline;
+  final String? subjectPosition;
 
   const _XiaomiOverlayPainter({
     required this.showGrid,
     required this.showSubjectOutline,
+    this.subjectPosition,
   });
 
   @override
@@ -3469,21 +3489,55 @@ class _XiaomiOverlayPainter extends CustomPainter {
         ..color = const Color(0xFFFFCC00).withValues(alpha: 0.38)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2;
+
+      // Parse subjectPosition, e.g. "trên-trái", "giữa-giữa", "dưới-phải"
+      final pos = subjectPosition ?? "giữa-giữa";
+      final parts = pos.split('-');
+      
+      String row = "giữa";
+      String col = "giữa";
+      if (parts.length >= 2) {
+        row = parts[0];
+        col = parts[1];
+      }
+
+      double cellWidth = size.width / 3;
+      double cellHeight = size.height / 3;
+
+      double colCenter = size.width / 2;
+      if (col == "trái") {
+        colCenter = cellWidth / 2;
+      } else if (col == "phải") {
+        colCenter = size.width - (cellWidth / 2);
+      }
+
+      double rowCenter = size.height / 2;
+      if (row == "trên") {
+        rowCenter = cellHeight / 2;
+      } else if (row == "dưới") {
+        rowCenter = size.height - (cellHeight / 2);
+      }
+
+      // Draw outline centered on the cell
+      final outlineWidth = size.width * 0.30;
+      final outlineHeight = size.height * 0.30;
       final subject = Rect.fromLTWH(
-        size.width * 0.50,
-        size.height * 0.18,
-        size.width * 0.30,
-        size.height * 0.58,
+        colCenter - outlineWidth / 2,
+        rowCenter - outlineHeight / 2,
+        outlineWidth,
+        outlineHeight,
       );
+
       canvas.drawRRect(
-          RRect.fromRectAndRadius(subject, const Radius.circular(36)), paint);
+          RRect.fromRectAndRadius(subject, const Radius.circular(24)), paint);
     }
   }
 
   @override
   bool shouldRepaint(covariant _XiaomiOverlayPainter oldDelegate) =>
       oldDelegate.showGrid != showGrid ||
-      oldDelegate.showSubjectOutline != showSubjectOutline;
+      oldDelegate.showSubjectOutline != showSubjectOutline ||
+      oldDelegate.subjectPosition != subjectPosition;
 }
 
 class _XiaomiHorizonIndicator extends StatelessWidget {

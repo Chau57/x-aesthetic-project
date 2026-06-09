@@ -4,12 +4,12 @@
 00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math measures error from the nearest level hold orientation
 00:00 +3: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math rotates display line to match device roll
 00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:03 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
+00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
 Initializing OrtEnv...
 Loading session options...
-00:03 +4 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:03 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:03 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model [E]
+00:02 +5: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model [E]
   Invalid argument(s): Failed to load dynamic library 'libonnxruntime.so.1.22.0': libonnxruntime.so.1.22.0: cannot open shared object file: No such file or directory
   dart:ffi                                                 new DynamicLibrary.open
   package:onnxruntime_v2/src/bindings/bindings.dart 23:27  _dylib.<fn>
@@ -25,11 +25,11 @@ Loading session options...
   package:onnxruntime_v2/src/ort_session.dart 510:5        new OrtSessionOptions
   test/onnx_test.dart 12:28                                main.<fn>
   
-00:03 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 AI Coach Viewport: Rendering layout. aiAdvice = 'null', showSuggestionFrame = false
-00:03 +6 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:03 +7 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:03 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +6 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +7 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 00:03 +9 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 00:03 +9 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 Initializing LocalAiEngine...
@@ -91,10 +91,10 @@ package:llama_cpp_dart/src/isolate_parent.dart 79:36             LlamaParent.ini
 ===== asynchronous gap ===========================
 dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
 package:llama_cpp_dart/src/isolate_parent.dart 78:5              LlamaParent.init
-package:x_aesthetic_app/services/ai/local_ai_engine.dart 185:20  LocalAiEngine.init
+package:x_aesthetic_app/services/ai/local_ai_engine.dart 198:22  LocalAiEngine.init
 ===== asynchronous gap ===========================
 dart:async/zone.dart 754:19                                      _CustomZone.registerUnaryCallback
-package:x_aesthetic_app/services/ai/local_ai_engine.dart 79:28   LocalAiEngine.init
+package:x_aesthetic_app/services/ai/local_ai_engine.dart 86:30   LocalAiEngine.init
 test/local_ai_engine_test.dart 11:14                             main.<fn>
 package:test_api/src/backend/declarer.dart 253:25                Declarer.test.<fn>.<fn>
 ===== asynchronous gap ===========================
@@ -225,7 +225,7 @@ AI Coach Loader: Stack trace:
 #10     OrtEnv.instance (package:onnxruntime_v2/src/ort_env.dart:13:33)
 #11     OrtSessionOptions._create (package:onnxruntime_v2/src/ort_session.dart:515:30)
 #12     new OrtSessionOptions (package:onnxruntime_v2/src/ort_session.dart:510:5)
-#13     LocalAiEngine.init (package:x_aesthetic_app/services/ai/local_ai_engine.dart:197:30)
+#13     LocalAiEngine.init (package:x_aesthetic_app/services/ai/local_ai_engine.dart:210:32)
 <asynchronous suspension>
 #14     main.<anonymous closure> (file:///home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart:11:5)
 <asynchronous suspension>
