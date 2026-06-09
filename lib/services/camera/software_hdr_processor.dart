@@ -68,6 +68,16 @@ class SoftwareHdrProcessor {
   }
 }
 
+double _applySCurve(double value, double contrast) {
+  var norm = value / 255.0;
+  if (norm < 0.5) {
+    norm = 0.5 * math.pow(norm * 2.0, contrast);
+  } else {
+    norm = 1.0 - 0.5 * math.pow((1.0 - norm) * 2.0, contrast);
+  }
+  return norm * 255.0;
+}
+
 String _processHdrInIsolate(Map<String, Object> args) {
   final sourcePath = args['sourcePath']! as String;
   final targetPath = args['targetPath']! as String;
@@ -80,43 +90,71 @@ String _processHdrInIsolate(Map<String, Object> args) {
       return sourcePath;
     }
 
-    // Limit post-processing size to avoid long stalls and OOM on ultra-high
-    // captures. This keeps the current MVP smooth; native/ML paths can preserve
-    // full resolution later when needed.
     final source = img.bakeOrientation(decoded);
     final image = _resizeIfNeeded(source, maxSide: 1920);
 
     for (var y = 0; y < image.height; y++) {
       for (var x = 0; x < image.width; x++) {
         final pixel = image.getPixel(x, y);
-        final r = pixel.r.toDouble();
-        final g = pixel.g.toDouble();
-        final b = pixel.b.toDouble();
+        var r = pixel.r.toDouble();
+        var g = pixel.g.toDouble();
+        var b = pixel.b.toDouble();
         final a = pixel.a.toInt();
 
-        final luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0;
-        final shadowLift = (1.0 - luminance) * 18.0 * strength;
-        final highlightProtect =
-            luminance > 0.72 ? (luminance - 0.72) * 42.0 * strength : 0.0;
+        // Calculate luminance in 0.0 - 1.0 range
+        final luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0;
 
-        final nr = _toneMapChannel(r + shadowLift - highlightProtect, strength);
-        final ng = _toneMapChannel(g + shadowLift - highlightProtect, strength);
-        final nb = _toneMapChannel(b + shadowLift - highlightProtect, strength);
+        // 1. Non-linear Shadow Lift (curves shadows up, preserves black point)
+        final shadowLift = math.pow(1.0 - luma, 2.5) * 0.75 * strength;
 
-        final avg = (nr + ng + nb) / 3.0;
-        final saturationBoost = 1.0 + 0.06 * strength;
+        // 2. Highlight Compression (soft compression of bright areas)
+        final highlightCompress = math.pow(luma, 2.0) * 0.28 * strength;
+
+        // Calculate overall scaling factor
+        final factor = (1.0 + shadowLift) * (1.0 - highlightCompress);
+
+        r *= factor;
+        g *= factor;
+        b *= factor;
+
+        // 3. Local S-Curve Contrast adjustment on each channel
+        r = _applySCurve(r, 1.05 + 0.12 * strength);
+        g = _applySCurve(g, 1.05 + 0.12 * strength);
+        b = _applySCurve(b, 1.05 + 0.12 * strength);
+
+        // 4. Smart Vibrance (boost less-saturated colors more to keep natural look)
+        final maxVal = math.max(r, math.max(g, b));
+        final minVal = math.min(r, math.min(g, b));
+        final sat = maxVal > 0.0 ? (maxVal - minVal) / maxVal : 0.0;
+        final vibranceBoost = (1.0 - sat) * 0.22 * strength;
+        
+        final lumaNew = (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        r = lumaNew + (r - lumaNew) * (1.0 + vibranceBoost);
+        g = lumaNew + (g - lumaNew) * (1.0 + vibranceBoost);
+        b = lumaNew + (b - lumaNew) * (1.0 + vibranceBoost);
+
         image.setPixelRgba(
           x,
           y,
-          _clamp(avg + (nr - avg) * saturationBoost),
-          _clamp(avg + (ng - avg) * saturationBoost),
-          _clamp(avg + (nb - avg) * saturationBoost),
+          _clamp(r),
+          _clamp(g),
+          _clamp(b),
           a,
         );
       }
     }
 
-    File(targetPath).writeAsBytesSync(img.encodeJpg(image, quality: 92));
+    // Apply high-quality convolution sharpening to enhance crispness and fine details
+    final sharpAmount = 0.38 * strength;
+    final center = 1.0 + 4.0 * sharpAmount;
+    final kernel = [
+       0.0, -sharpAmount, 0.0,
+      -sharpAmount, center, -sharpAmount,
+       0.0, -sharpAmount, 0.0,
+    ];
+    final sharpenedImage = img.convolution(image, filter: kernel);
+
+    File(targetPath).writeAsBytesSync(img.encodeJpg(sharpenedImage, quality: 95));
     return targetPath;
   } catch (error, stackTrace) {
     debugPrint('Software HDR isolate failed: $error\n$stackTrace');
@@ -182,15 +220,6 @@ img.Image _resizeIfNeeded(img.Image source, {required int maxSide}) {
     height: maxSide,
     interpolation: img.Interpolation.linear,
   );
-}
-
-int _toneMapChannel(double value, double strength) {
-  final normalized = (value / 255.0).clamp(0.0, 1.0);
-  final contrastAmount = 1.0 + 0.08 * strength;
-  final gammaAmount = 1.0 - 0.04 * strength;
-  final contrast = ((normalized - 0.5) * contrastAmount + 0.5).clamp(0.0, 1.0);
-  final gamma = math.pow(contrast, gammaAmount).toDouble();
-  return _clamp(gamma * 255.0);
 }
 
 int _clamp(double value) => value.clamp(0, 255).round();

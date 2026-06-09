@@ -400,6 +400,7 @@ class _CameraScreenState extends State<CameraScreen>
       return;
     }
 
+    final media = MediaQuery.sizeOf(context);
     final app = XAestheticScope.of(context);
     final settings = app.settings.copyWith(
       resolutionPreset: ResolutionPreset.max,
@@ -444,7 +445,7 @@ class _CameraScreenState extends State<CameraScreen>
           settings,
           sessionId: captureSessionId,
         );
-      } else if (settings.hdrMode == HdrMode.hardware) {
+      } else if (_hardwareHdrAvailable && settings.hdrMode != HdrMode.off) {
         imagePath = await _captureHardwareHdr(
           lensDirection,
           settings,
@@ -474,9 +475,16 @@ class _CameraScreenState extends State<CameraScreen>
         }
       }
 
+      final isFull = settings.aspectRatio == CaptureAspectRatio.full;
+      final viewRatio = isFull
+          ? media.width / media.height
+          : settings.aspectRatio.widthOverHeight;
+
       imagePath = await AspectRatioProcessor.crop(
         imagePath,
         settings.aspectRatio,
+        previewSize: controller.value.previewSize,
+        viewRatio: viewRatio,
       );
 
       if (!_isActiveSession(captureSessionId)) {
@@ -1138,6 +1146,7 @@ class _CameraScreenState extends State<CameraScreen>
     return _XiaomiCameraViewport(
       controller: _cameraController,
       initializing: _initializing,
+      capturing: _capturing,
       errorMessage: _errorMessage,
       settings: app.settings,
       isFull: isFull,
@@ -1640,6 +1649,7 @@ class _XiaomiSettingsPanel extends StatelessWidget {
 class _XiaomiCameraViewport extends StatelessWidget {
   final CameraController? controller;
   final bool initializing;
+  final bool capturing;
   final String? errorMessage;
   final CameraUserSettings settings;
   final bool isFull;
@@ -1661,6 +1671,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
   const _XiaomiCameraViewport({
     required this.controller,
     required this.initializing,
+    required this.capturing,
     required this.errorMessage,
     required this.settings,
     required this.isFull,
@@ -1766,6 +1777,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
                               : _CameraFallback(
                                   errorMessage: errorMessage,
                                   initializing: initializing,
+                                  capturing: capturing,
                                   onRetry: onRetry,
                                 ),
                           Positioned.fill(
@@ -3396,22 +3408,123 @@ class _FocusExposureRail extends StatelessWidget {
 class _CameraFallback extends StatelessWidget {
   final String? errorMessage;
   final bool initializing;
+  final bool capturing;
   final VoidCallback onRetry;
 
   const _CameraFallback({
     required this.errorMessage,
     required this.initializing,
+    required this.capturing,
     required this.onRetry,
   });
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.x;
+
+    if (capturing) {
+      // Sleek professional shutter backdrop
+      return Container(
+        color: const Color(0xFF070707),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Beautiful animated camera aperture or lens ring icon
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: const Duration(milliseconds: 600),
+                curve: Curves.easeOutBack,
+                builder: (context, value, child) {
+                  return Transform.scale(
+                    scale: 0.85 + 0.15 * value,
+                    child: Opacity(
+                      opacity: (0.4 + 0.6 * value).clamp(0.0, 1.0),
+                      child: child,
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFFFFCC00).withValues(alpha: 0.8),
+                      width: 2.0,
+                    ),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.camera,
+                      color: Color(0xFFFFCC00),
+                      size: 44,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'ĐANG CHỤP',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.6),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (initializing) {
+      // Beautiful premium camera initialization screen
+      return Container(
+        color: const Color(0xFF0F0F0F),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Pulsing camera icon with continuous scale transitions
+              const _PulsingCameraIcon(),
+              const SizedBox(height: 22),
+              // Subtle circular loader and elegant loading text
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.8,
+                      color: const Color(0xFFFFCC00).withValues(alpha: 0.85),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Đang mở camera...',
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.72),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Stack(
       fit: StackFit.expand,
       children: [
         CustomPaint(painter: _MockPortraitPainter(isDark: tokens.isDark)),
-        if (initializing || errorMessage != null)
+        if (errorMessage != null)
           Container(
             color: Colors.black.withValues(alpha: tokens.isDark ? 0.18 : 0.05),
             alignment: Alignment.center,
@@ -3423,21 +3536,11 @@ class _CameraFallback extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (initializing)
-                        SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.4,
-                            color: tokens.primary,
-                          ),
-                        )
-                      else
-                        Icon(Icons.camera_alt_outlined, color: tokens.primary),
+                      Icon(Icons.error_outline_rounded, color: tokens.error),
                       const SizedBox(width: 12),
                       Flexible(
                         child: Text(
-                          initializing ? 'Đang mở camera...' : errorMessage!,
+                          errorMessage!,
                           style: TextStyle(
                             color: tokens.text,
                             fontWeight: FontWeight.w700,
@@ -3447,19 +3550,71 @@ class _CameraFallback extends StatelessWidget {
                       ),
                     ],
                   ),
-                  if (!initializing) ...[
-                    const SizedBox(height: 12),
-                    SecondaryButton(
-                      label: 'Thử lại',
-                      icon: Icons.refresh_rounded,
-                      onPressed: onRetry,
-                    ),
-                  ],
+                  const SizedBox(height: 12),
+                  SecondaryButton(
+                    label: 'Thử lại',
+                    icon: Icons.refresh_rounded,
+                    onPressed: onRetry,
+                  ),
                 ],
               ),
             ),
           ),
       ],
+    );
+  }
+}
+
+class _PulsingCameraIcon extends StatefulWidget {
+  const _PulsingCameraIcon();
+
+  @override
+  State<_PulsingCameraIcon> createState() => _PulsingCameraIconState();
+}
+
+class _PulsingCameraIconState extends State<_PulsingCameraIcon> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: Tween<double>(begin: 0.92, end: 1.02).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine),
+      ),
+      child: Container(
+        width: 84,
+        height: 84,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: const Color(0xFF333333),
+            width: 1.5,
+          ),
+          color: const Color(0xFF161616),
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.photo_camera_rounded,
+            color: Color(0xFFFFCC00),
+            size: 38,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -3776,10 +3931,6 @@ class _XiaomiTextDialState extends State<_XiaomiTextDial> {
     final majorColor = widget.isDark
         ? Colors.white.withValues(alpha: 0.55)
         : Colors.black.withValues(alpha: 0.55);
-    final minorColor = widget.isDark
-        ? Colors.white.withValues(alpha: 0.22)
-        : Colors.black.withValues(alpha: 0.22);
-    final labelColor = widget.isDark ? Colors.white70 : Colors.black87;
 
     return Container(
       height: 80,
@@ -3864,7 +4015,6 @@ class _XiaomiTextDialState extends State<_XiaomiTextDial> {
                       padding: EdgeInsets.symmetric(horizontal: centerPadding),
                       itemCount: widget.options.length,
                       itemBuilder: (context, index) {
-                        final optionVal = widget.options[index];
                         final isSelected = index == _localSelectedIndex;
                         return SizedBox(
                           width: _itemWidth,

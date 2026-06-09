@@ -145,7 +145,7 @@ class _PhotoReviewScreenState extends State<PhotoReviewScreen> {
         children: [
           Image.file(
             File(widget.imagePath),
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             errorBuilder: (_, __, ___) => const ColoredBox(
               color: Colors.black,
               child: Center(

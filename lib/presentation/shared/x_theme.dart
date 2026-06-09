@@ -42,6 +42,7 @@ class XThemeTokens {
   Color get primarySoft => primary.withValues(alpha: isDark ? 0.16 : 0.10);
   Color get positive => isDark ? XColors.greenBright : XColors.green;
   Color get warning => XColors.amber;
+  Color get error => XColors.orange;
   Color get shadow => isDark
       ? Colors.black.withValues(alpha: 0.40)
       : Colors.black.withValues(alpha: 0.08);

@@ -1,7 +1,2 @@
 Analyzing merged...                                             
-
-warning • The value of the local variable 'minorColor' isn't used. Try removing the variable or using it • lib/presentation/camera/camera_screen.dart:3779:11 • unused_local_variable
-warning • The value of the local variable 'labelColor' isn't used. Try removing the variable or using it • lib/presentation/camera/camera_screen.dart:3782:11 • unused_local_variable
-warning • The value of the local variable 'optionVal' isn't used. Try removing the variable or using it • lib/presentation/camera/camera_screen.dart:3867:31 • unused_local_variable
-
-3 issues found. (ran in 1.7s)
+No issues found! (ran in 1.3s)
