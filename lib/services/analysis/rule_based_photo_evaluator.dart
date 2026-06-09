@@ -5,6 +5,7 @@ import 'package:image/image.dart' as img;
 
 import '../../domain/entities/captured_photo.dart';
 import '../../domain/entities/photo_context.dart';
+import '../ai/local_ai_engine.dart';
 
 class RuleBasedPhotoEvaluator {
   const RuleBasedPhotoEvaluator();
@@ -34,11 +35,31 @@ class RuleBasedPhotoEvaluator {
           _contextMetrics(context.resolvedContext, base, stats, metadata);
       final score = _contextWeightedScore(context.resolvedContext, metrics);
 
+      List<String> suggestions = [];
+      try {
+        await LocalAiEngine.instance.init();
+        final category = await LocalAiEngine.instance.classifyImagePath(imagePath);
+        final aiAdvice = await LocalAiEngine.instance.generateAdvice(
+          category,
+          stats.meanLuminance,
+          stats.luminanceStdDev * 1000.0, // Scale variance to typical 0-1000 range
+        );
+        if (aiAdvice.isNotEmpty) {
+          suggestions.add(aiAdvice);
+        }
+      } catch (e) {
+        print("Local AI advice failed in evaluator: $e");
+      }
+
+      if (suggestions.isEmpty) {
+        suggestions = _contextSuggestions(context, metrics, stats, metadata);
+      }
+
       return PhotoEvaluation(
         score: score,
         verdict: _verdict(score),
         metrics: metrics,
-        suggestions: _contextSuggestions(context, metrics, stats, metadata),
+        suggestions: suggestions,
         contextAnalysis: context,
       );
     } catch (_) {

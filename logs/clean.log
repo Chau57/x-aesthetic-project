@@ -1,5 +1,5 @@
-Deleting build...                                                  328ms
-Deleting .dart_tool...                                              13ms
+Deleting build...                                                  319ms
+Deleting .dart_tool...                                               6ms
 Deleting ephemeral...                                                0ms
 Deleting Generated.xcconfig...                                       0ms
 Deleting flutter_export_environment.sh...                            0ms

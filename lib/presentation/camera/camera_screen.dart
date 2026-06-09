@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,9 @@ import '../../services/camera/pro_camera_bridge.dart';
 import '../../services/camera/software_hdr_processor.dart';
 import '../shared/x_theme.dart';
 import '../shared/x_widgets.dart';
+import 'package:image/image.dart' as img;
+import '../../services/ai/local_ai_engine.dart';
+import '../../services/analysis/fast_vision_processor.dart';
 
 enum _XiaomiCameraMode { pro, photo }
 
@@ -124,6 +129,13 @@ class _CameraScreenState extends State<CameraScreen>
   final ProCameraBridge _proCameraBridge = const ProCameraBridge();
   bool _isApplyingExposure = false;
   double? _pendingExposureValue;
+  Timer? _aiCoachTimer;
+  bool _isAiCoachAnalyzing = false;
+  String? _aiAdvice;
+  FastVisionStats? _fastStats;
+  img.Image? _lastFrameImage;
+  double _shakeScore = 0.0;
+  AccelerometerEvent? _lastAccelerometerEvent;
 
   @override
   void initState() {
@@ -131,6 +143,7 @@ class _CameraScreenState extends State<CameraScreen>
     WidgetsBinding.instance.addObserver(this);
     if (widget.isActive) {
       _startHorizonSensor();
+      _startAiCoachTimer();
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && widget.isActive) {
@@ -147,6 +160,7 @@ class _CameraScreenState extends State<CameraScreen>
     _accelerometerSubscription?.cancel();
     _focusPointTimer?.cancel();
     _countdownTimer?.cancel();
+    _stopAiCoachTimer();
     final controller = _cameraController;
     _cameraController = null;
     unawaited(controller?.dispose());
@@ -162,12 +176,14 @@ class _CameraScreenState extends State<CameraScreen>
 
     if (widget.isActive) {
       _startHorizonSensor();
+      _startAiCoachTimer();
       unawaited(
         _initializeCamera(
           preferredLensDirection: _cameraController?.description.lensDirection,
         ),
       );
     } else {
+      _stopAiCoachTimer();
       unawaited(_accelerometerSubscription?.cancel());
       _accelerometerSubscription = null;
       unawaited(_detachAndDisposeCamera());
@@ -182,6 +198,7 @@ class _CameraScreenState extends State<CameraScreen>
 
     if (!widget.isActive) {
       if (state != AppLifecycleState.resumed) {
+        _stopAiCoachTimer();
         unawaited(_detachAndDisposeCamera());
       }
       return;
@@ -190,6 +207,7 @@ class _CameraScreenState extends State<CameraScreen>
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
+      _stopAiCoachTimer();
       unawaited(_accelerometerSubscription?.cancel());
       _accelerometerSubscription = null;
       unawaited(_detachAndDisposeCamera());
@@ -198,6 +216,7 @@ class _CameraScreenState extends State<CameraScreen>
 
     if (state == AppLifecycleState.resumed && !_capturing) {
       _startHorizonSensor();
+      _startAiCoachTimer();
       unawaited(
         _initializeCamera(
           preferredLensDirection: _cameraController?.description.lensDirection,
@@ -717,6 +736,17 @@ class _CameraScreenState extends State<CameraScreen>
     _accelerometerSubscription?.cancel();
     _accelerometerSubscription = accelerometerEventStream().listen(
       (event) {
+        final last = _lastAccelerometerEvent;
+        if (last != null) {
+          final dx = (event.x - last.x).abs();
+          final dy = (event.y - last.y).abs();
+          final dz = (event.z - last.z).abs();
+          final diff = dx + dy + dz;
+          // Exponential moving average to smooth shake detection
+          _shakeScore = _shakeScore * 0.9 + diff * 0.1;
+        }
+        _lastAccelerometerEvent = event;
+
         final now = DateTime.now().millisecondsSinceEpoch;
         if (now - _lastTiltUpdateMs < 66) {
           return;
@@ -742,6 +772,118 @@ class _CameraScreenState extends State<CameraScreen>
         // Khi đó chỉ giữ giá trị 0° để UI vẫn chạy được.
       },
     );
+  }
+
+  void _startAiCoachTimer() {
+    _aiCoachTimer?.cancel();
+    _aiCoachTimer = Timer.periodic(const Duration(milliseconds: 1800), (timer) {
+      unawaited(_runAiCoachAnalysis());
+    });
+  }
+
+  void _stopAiCoachTimer() {
+    _aiCoachTimer?.cancel();
+    _aiCoachTimer = null;
+  }
+
+  Future<void> _runAiCoachAnalysis() async {
+    final controller = _cameraController;
+    if (controller == null ||
+        !controller.value.isInitialized ||
+        _capturing ||
+        _initializing ||
+        _disposed ||
+        _isAiCoachAnalyzing) {
+      return;
+    }
+
+    final app = XAestheticScope.of(context);
+    final settings = app.settings;
+    if (!settings.showSuggestionFrame) {
+      if (_aiAdvice != null || _fastStats != null) {
+        if (mounted) {
+          setState(() {
+            _aiAdvice = null;
+            _fastStats = null;
+          });
+        }
+      }
+      return;
+    }
+
+    print("AI Coach Timer: Starting analysis cycle. showSuggestionFrame = true, isAiCoachAnalyzing = true");
+    _isAiCoachAnalyzing = true;
+    try {
+      print("AI Coach Timer: Capturing viewfinder frame...");
+      final file = await controller.takePicture();
+      if (_disposed || !mounted) {
+        unawaited(File(file.path).delete().catchError((_) => File(file.path)));
+        print("AI Coach Timer: Aborted - Widget disposed or not mounted.");
+        return;
+      }
+
+      print("AI Coach Timer: Frame saved at: ${file.path}. Reading bytes...");
+      final bytes = await File(file.path).readAsBytes();
+      unawaited(File(file.path).delete().catchError((_) => File(file.path)));
+
+      if (_disposed || !mounted) {
+        print("AI Coach Timer: Aborted after readAsBytes - Widget disposed or not mounted.");
+        return;
+      }
+
+      print("AI Coach Timer: Offloading JPEG decoding and downscaling to background Isolate...");
+      // Offload JPEG decoding, downsampling, and fast vision processing to a background Isolate
+      final result = await compute(
+        decodeAndAnalyzeImage,
+        ImageDecodeInput(
+          bytes: bytes,
+          previousSmallImage: _lastFrameImage,
+          tiltDegrees: _tiltDegrees,
+        ),
+      );
+
+      if (_disposed || !mounted) {
+        print("AI Coach Timer: Aborted after compute Isolate - Widget disposed or not mounted.");
+        return;
+      }
+
+      final stats = result.stats;
+      _lastFrameImage = result.smallImage; // Store the 160x120 image instead of the huge full-res image!
+      print("AI Coach Timer: Isolate processing finished. brightness = ${stats.brightness.toStringAsFixed(2)}, blurVariance = ${stats.blurVariance.toStringAsFixed(0)}");
+
+      if (mounted) {
+        setState(() {
+          _fastStats = stats;
+        });
+      }
+
+      print("AI Coach Timer: Initializing LocalAiEngine...");
+      await LocalAiEngine.instance.init();
+      
+      print("AI Coach Timer: Classifying scene with ResNet18 Places365...");
+      // Pass the pre-resized 224x224 image directly to avoid main-thread resizing
+      final category = await LocalAiEngine.instance.classifyImage(result.resized224);
+      print("AI Coach Timer: Scene classified as: '$category'");
+      
+      print("AI Coach Timer: Generating Vietnamese advice with Local Gemma-3...");
+      final advice = await LocalAiEngine.instance.generateAdvice(
+        category,
+        stats.brightness,
+        stats.blurVariance,
+      );
+      print("AI Coach Timer: Generated advice: '$advice'");
+
+      if (mounted && advice.isNotEmpty) {
+        print("AI Coach Timer: Setting suggestions UI state to: '$advice'");
+        setState(() {
+          _aiAdvice = advice;
+        });
+      }
+    } catch (e) {
+      debugPrint("AI Coach analysis error: $e");
+    } finally {
+      _isAiCoachAnalyzing = false;
+    }
   }
 
   Future<void> _applyCameraCapabilities(
@@ -1164,6 +1306,9 @@ class _CameraScreenState extends State<CameraScreen>
       proFocus: _proFocus,
       proSpeed: _proSpeed,
       proIso: _proIso,
+      fastStats: _fastStats,
+      aiAdvice: _aiAdvice,
+      isShaking: _shakeScore > 1.8,
     );
   }
 
@@ -1197,6 +1342,9 @@ class _CameraScreenState extends State<CameraScreen>
       ),
       onSubjectOutlineChanged: (value) => app.updateSettings(
         app.settings.copyWith(showSubjectOutline: value),
+      ),
+      onSuggestionFrameChanged: (value) => app.updateSettings(
+        app.settings.copyWith(showSuggestionFrame: value),
       ),
     );
   }
@@ -1325,6 +1473,7 @@ class _XiaomiTopControlBar extends StatelessWidget {
   final ValueChanged<bool> onGridChanged;
   final ValueChanged<bool> onHorizonChanged;
   final ValueChanged<bool> onSubjectOutlineChanged;
+  final ValueChanged<bool> onSuggestionFrameChanged;
 
   const _XiaomiTopControlBar({
     required this.settings,
@@ -1345,6 +1494,7 @@ class _XiaomiTopControlBar extends StatelessWidget {
     required this.onGridChanged,
     required this.onHorizonChanged,
     required this.onSubjectOutlineChanged,
+    required this.onSuggestionFrameChanged,
   });
 
   bool get _isDark => settings.themeMode != ThemeMode.light || overlay;
@@ -1441,6 +1591,7 @@ class _XiaomiTopControlBar extends StatelessWidget {
                           onGridChanged: onGridChanged,
                           onHorizonChanged: onHorizonChanged,
                           onSubjectOutlineChanged: onSubjectOutlineChanged,
+                          onSuggestionFrameChanged: onSuggestionFrameChanged,
                         ),
                       ),
                     ),
@@ -1469,6 +1620,7 @@ class _XiaomiSettingsPanel extends StatelessWidget {
   final ValueChanged<bool> onGridChanged;
   final ValueChanged<bool> onHorizonChanged;
   final ValueChanged<bool> onSubjectOutlineChanged;
+  final ValueChanged<bool> onSuggestionFrameChanged;
 
   const _XiaomiSettingsPanel({
     required this.settings,
@@ -1482,6 +1634,7 @@ class _XiaomiSettingsPanel extends StatelessWidget {
     required this.onGridChanged,
     required this.onHorizonChanged,
     required this.onSubjectOutlineChanged,
+    required this.onSuggestionFrameChanged,
   });
 
   bool get _isDark => settings.themeMode != ThemeMode.light;
@@ -1639,6 +1792,16 @@ class _XiaomiSettingsPanel extends StatelessWidget {
                     onSubjectOutlineChanged(!settings.showSubjectOutline),
               ),
             ),
+            Expanded(
+              child: _XiaomiGridOption(
+                icon: Icons.assistant_rounded,
+                label: 'Gợi ý AI',
+                active: settings.showSuggestionFrame,
+                isDark: _isDark,
+                onTap: () =>
+                    onSuggestionFrameChanged(!settings.showSuggestionFrame),
+              ),
+            ),
           ],
         ),
       ],
@@ -1667,6 +1830,9 @@ class _XiaomiCameraViewport extends StatelessWidget {
   final String proFocus;
   final String proSpeed;
   final String proIso;
+  final FastVisionStats? fastStats;
+  final String? aiAdvice;
+  final bool isShaking;
 
   const _XiaomiCameraViewport({
     required this.controller,
@@ -1689,6 +1855,9 @@ class _XiaomiCameraViewport extends StatelessWidget {
     required this.proFocus,
     required this.proSpeed,
     required this.proIso,
+    required this.isShaking,
+    this.fastStats,
+    this.aiAdvice,
   });
 
   @override
@@ -1761,6 +1930,12 @@ class _XiaomiCameraViewport extends StatelessWidget {
                     final railTop = focus == null
                         ? 0.0
                         : _safeClampDouble(focusY - 54, 10.0, size.height - 118);
+
+                    final isDeviceShaking = isShaking;
+                    final currentWarning = isDeviceShaking
+                        ? 'Cảnh báo: Thiết bị đang rung lắc'
+                        : (fastStats != null && fastStats!.hasWarnings ? fastStats!.warningMessage : null);
+
                     return ClipRect(
                       child: Stack(
                         fit: StackFit.expand,
@@ -1834,6 +2009,20 @@ class _XiaomiCameraViewport extends StatelessWidget {
                                 ),
                               ),
                             ),
+                          if (currentWarning != null)
+                            Positioned(
+                              top: 16,
+                              left: 16,
+                              right: 16,
+                              child: _buildWarningBanner(currentWarning),
+                            ),
+                          if (aiAdvice != null && aiAdvice!.isNotEmpty)
+                            Positioned(
+                              bottom: 16,
+                              left: 16,
+                              right: 16,
+                              child: _buildAdviceCard(aiAdvice!),
+                            ),
                         ],
                       ),
                     );
@@ -1844,6 +2033,90 @@ class _XiaomiCameraViewport extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildWarningBanner(String message) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0.78),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.redAccent.withOpacity(0.8), width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.35),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          )
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.warning_amber_rounded, color: Colors.white, size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAdviceCard(String advice) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: BackdropFilter(
+        filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.42),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.18),
+              width: 1.2,
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFCC00).withOpacity(0.22),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.assistant_rounded,
+                  color: Color(0xFFFFCC00),
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  advice,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    height: 1.35,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -4079,3 +4352,51 @@ class _XiaomiTextDialState extends State<_XiaomiTextDial> {
     );
   }
 }
+
+class ImageDecodeInput {
+  final Uint8List bytes;
+  final img.Image? previousSmallImage;
+  final double tiltDegrees;
+
+  ImageDecodeInput({
+    required this.bytes,
+    this.previousSmallImage,
+    required this.tiltDegrees,
+  });
+}
+
+class ImageDecodeOutput {
+  final FastVisionStats stats;
+  final img.Image smallImage;
+  final img.Image resized224;
+
+  ImageDecodeOutput({
+    required this.stats,
+    required this.smallImage,
+    required this.resized224,
+  });
+}
+
+ImageDecodeOutput decodeAndAnalyzeImage(ImageDecodeInput input) {
+  final decoded = img.decodeImage(input.bytes);
+  if (decoded == null) {
+    throw Exception("Could not decode image");
+  }
+
+  // 1. Resize to small (160x120) for stats
+  final small = img.copyResize(decoded, width: 160, height: 120);
+
+  // 2. Resize to 224x224 for ONNX classification
+  final resized224 = img.copyResize(decoded, width: 224, height: 224);
+
+  // 3. Run FastVisionProcessor stats analysis using the pre-resized small image
+  const processor = FastVisionProcessor();
+  final stats = processor.analyze(small, input.previousSmallImage, input.tiltDegrees);
+
+  return ImageDecodeOutput(
+    stats: stats,
+    smallImage: small,
+    resized224: resized224,
+  );
+}
+

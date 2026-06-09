@@ -1,2 +1,247 @@
 Analyzing merged...                                             
-No issues found! (ran in 1.3s)
+
+  error • The setter 'autoTrimContext' isn't defined for the type 'ContextParams'. Try importing the library that defines 'autoTrimContext', correcting the name to the name of an existing setter, or defining a setter or field named 'autoTrimContext' • build_llama/example/auto_trim.dart:18:7 • undefined_setter
+  error • The setter 'trimKeepTokens' isn't defined for the type 'ContextParams'. Try importing the library that defines 'trimKeepTokens', correcting the name to the name of an existing setter, or defining a setter or field named 'trimKeepTokens' • build_llama/example/auto_trim.dart:19:7 • undefined_setter
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:12:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:37:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:38:3 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/bench_service.dart:40:7 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:43:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:49:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:53:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:55:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:56:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:57:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:59:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:68:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:80:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:81:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:82:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:83:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:84:3 • avoid_print
+  error • Undefined class 'LlamaService'. Try changing the name to the name of an existing class, or creating a class with the name 'LlamaService' • build_llama/example/bench_service.dart:98:5 • undefined_class
+   info • The 'if' statement could be replaced by a null-aware assignment. Try using the '??=' operator to conditionally assign a value • build_llama/example/bench_service.dart:107:5 • prefer_conditional_assignment
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/bench_service.dart:139:5 • avoid_print
+  error • Target of URI doesn't exist: 'package:intl/intl.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • build_llama/example/mcp_server.dart:5:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: 'package:http/http.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • build_llama/example/mcp_server.dart:6:8 • uri_does_not_exist
+  error • The method 'DateFormat' isn't defined for the type 'CurrentTimeTool'. Try correcting the name to the name of an existing method, or defining a method named 'DateFormat' • build_llama/example/mcp_server.dart:24:18 • undefined_method
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:8:5 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/persist_name_session.dart:52:25 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:68:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:71:5 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/persist_name_session.dart:77:25 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:98:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:105:7 • avoid_print
+  error • Undefined class 'LlamaService'. Try changing the name to the name of an existing class, or creating a class with the name 'LlamaService' • build_llama/example/persist_name_session.dart:111:3 • undefined_class
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:143:3 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/persist_name_session.dart:149:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:176:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:177:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:188:3 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/persist_name_session.dart:194:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:210:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:220:3 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/persist_name_session.dart:226:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:253:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/persist_name_session.dart:254:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:7:5 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/simple_concurrent.dart:24:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:26:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:38:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:46:3 • avoid_print
+  error • Undefined class 'LlamaService'. Try changing the name to the name of an existing class, or creating a class with the name 'LlamaService' • build_llama/example/simple_concurrent.dart:51:5 • undefined_class
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:69:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/simple_concurrent.dart:70:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:15:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:16:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:20:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:24:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:28:5 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/test_multimodal_concurrent.dart:42:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:49:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:59:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:60:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:83:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:84:3 • avoid_print
+  error • Undefined class 'LlamaService'. Try changing the name to the name of an existing class, or creating a class with the name 'LlamaService' • build_llama/example/test_multimodal_concurrent.dart:89:3 • undefined_class
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:95:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:108:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_multimodal_concurrent.dart:111:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:8:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:20:3 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/test_parallel.dart:23:7 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:25:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:30:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:63:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:64:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_parallel.dart:65:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_persistence.dart:8:5 • avoid_print
+  error • The function 'LlamaService' isn't defined. Try importing the library that defines 'LlamaService', correcting the name to the name of an existing function, or defining a function named 'LlamaService' • build_llama/example/test_persistence.dart:17:19 • undefined_function
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_persistence.dart:21:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_persistence.dart:27:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_persistence.dart:29:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_persistence.dart:37:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/example/test_vision_chat.dart:45:3 • avoid_print
+  error • Target of URI doesn't exist: 'package:http/http.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • build_llama/example/tool_calling.dart:5:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: 'package:intl/intl.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist • build_llama/example/tool_calling.dart:6:8 • uri_does_not_exist
+  error • The function 'DateFormat' isn't defined. Try importing the library that defines 'DateFormat', correcting the name to the name of an existing function, or defining a function named 'DateFormat' • build_llama/example/tool_calling.dart:16:25 • undefined_function
+   info • The import of 'llama_input.dart' is unnecessary because all of the used elements are also provided by the import of '../llama_cpp_dart.dart'. Try removing the import directive • build_llama/lib/src/chat.dart:4:8 • unnecessary_import
+  error • The argument type 'ModelParams (where ModelParams is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/model_params.dart)' can't be assigned to the parameter type 'ModelParams (where ModelParams is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/model_params.dart)'.  • build_llama/lib/src/isolate_child.dart:29:27 • argument_type_not_assignable
+  error • The argument type 'ContextParams (where ContextParams is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/context_params.dart)' can't be assigned to the parameter type 'ContextParams (where ContextParams is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/context_params.dart)'.  • build_llama/lib/src/isolate_child.dart:29:40 • argument_type_not_assignable
+  error • The argument type 'SamplerParams (where SamplerParams is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/sampler_params.dart)' can't be assigned to the parameter type 'SamplerParams (where SamplerParams is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/sampler_params.dart)'.  • build_llama/lib/src/isolate_child.dart:29:55 • argument_type_not_assignable
+  error • The argument type 'List<LlamaImage>? (where LlamaImage is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_input.dart)' can't be assigned to the parameter type 'List<LlamaImage>? (where LlamaImage is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_input.dart)'.  • build_llama/lib/src/isolate_child.dart:38:41 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:70:45 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:77:36 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:86:49 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:112:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:123:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus' can't be assigned to the parameter type 'LlamaStatus?'.  • build_llama/lib/src/isolate_child.dart:142:17 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:181:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:199:49 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:211:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:216:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' can't be assigned to the parameter type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)'.  • build_llama/lib/src/isolate_child.dart:220:47 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus' can't be assigned to the parameter type 'LlamaStatus?'.  • build_llama/lib/src/isolate_child.dart:248:19 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus' can't be assigned to the parameter type 'LlamaStatus?'.  • build_llama/lib/src/isolate_child.dart:265:21 • argument_type_not_assignable
+  error • The argument type 'LlamaStatus' can't be assigned to the parameter type 'LlamaStatus?'.  • build_llama/lib/src/isolate_child.dart:272:19 • argument_type_not_assignable
+   info • The type of the right operand ('LlamaStatus') isn't a subtype or a supertype of the left operand ('LlamaStatus?'). Try changing one or both of the operands • build_llama/lib/src/isolate_parent.dart:108:21 • unrelated_type_equality_checks
+  error • A value of type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama.dart)' can't be assigned to a variable of type 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)'. Try changing the type of the variable, or casting the right-hand type to 'LlamaStatus (where LlamaStatus is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama.dart)' • build_llama/lib/src/isolate_parent.dart:122:17 • invalid_assignment
+   info • The type of the right operand ('LlamaStatus') isn't a subtype or a supertype of the left operand ('LlamaStatus?'). Try changing one or both of the operands • build_llama/lib/src/isolate_parent.dart:123:23 • unrelated_type_equality_checks
+   info • The type of the right operand ('LlamaStatus') isn't a subtype or a supertype of the left operand ('LlamaStatus?'). Try changing one or both of the operands • build_llama/lib/src/isolate_parent.dart:154:35 • unrelated_type_equality_checks
+  error • The argument type 'LlamaParent (where LlamaParent is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/isolate_parent.dart)' can't be assigned to the parameter type 'LlamaParent (where LlamaParent is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/isolate_parent.dart)'.  • build_llama/lib/src/isolate_parent.dart:334:30 • argument_type_not_assignable
+  error • The argument type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/isolate_scope.dart)' can't be assigned to the parameter type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/isolate_scope.dart)'.  • build_llama/lib/src/isolate_scope.dart:71:36 • argument_type_not_assignable
+  error • The argument type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/isolate_scope.dart)' can't be assigned to the parameter type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/isolate_scope.dart)'.  • build_llama/lib/src/isolate_scope.dart:76:29 • argument_type_not_assignable
+  error • The argument type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/isolate_scope.dart)' can't be assigned to the parameter type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/isolate_scope.dart)'.  • build_llama/lib/src/isolate_scope.dart:81:31 • argument_type_not_assignable
+  error • The argument type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/isolate_scope.dart)' can't be assigned to the parameter type 'LlamaScope (where LlamaScope is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/isolate_scope.dart)'.  • build_llama/lib/src/isolate_scope.dart:89:32 • argument_type_not_assignable
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:342:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:368:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:369:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:370:7 • avoid_print
+   info • Empty catch block. Try adding statements to the block, adding a comment to the block, or removing the 'catch' clause • build_llama/lib/src/llama.dart:500:19 • empty_catches
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:591:21 • avoid_print
+  error • The argument type 'llama_cpp (where llama_cpp is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)' can't be assigned to the parameter type 'llama_cpp (where llama_cpp is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)'.  • build_llama/lib/src/llama.dart:835:37 • argument_type_not_assignable
+  error • A value of type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)' can't be assigned to a variable of type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)'. Try changing the type of the variable, or casting the right-hand type to 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)' • build_llama/lib/src/llama.dart:839:21 • invalid_assignment
+  error • The argument type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)' can't be assigned to the parameter type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)'.  • build_llama/lib/src/llama.dart:979:55 • argument_type_not_assignable
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1048:7 • avoid_print
+   info • Unnecessary braces in a string interpolation. Try removing the braces • build_llama/lib/src/llama.dart:1225:23 • unnecessary_brace_in_string_interps
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1256:9 • avoid_print
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • build_llama/lib/src/llama.dart:1256:9 • curly_braces_in_flow_control_structures
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1275:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1287:21 • avoid_print
+   info • Unnecessary braces in a string interpolation. Try removing the braces • build_llama/lib/src/llama.dart:1294:12 • unnecessary_brace_in_string_interps
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1304:23 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama.dart:1320:9 • avoid_print
+   info • Statements in an if should be enclosed in a block. Try wrapping the statement in a block • build_llama/lib/src/llama.dart:1320:9 • curly_braces_in_flow_control_structures
+warning • The value of the field '_loopTimer' isn't used. Try removing the field, or using it • build_llama/lib/src/llama_service.dart:99:19 • unused_field
+  error • The argument type 'llama_cpp (where llama_cpp is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)' can't be assigned to the parameter type 'llama_cpp (where llama_cpp is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)'.  • build_llama/lib/src/llama_service.dart:532:39 • argument_type_not_assignable
+  error • A value of type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)' can't be assigned to a variable of type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)'. Try changing the type of the variable, or casting the right-hand type to 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)' • build_llama/lib/src/llama_service.dart:537:23 • invalid_assignment
+  error • The argument type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)' can't be assigned to the parameter type 'Pointer<mtmd_bitmap> (where mtmd_bitmap is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)'.  • build_llama/lib/src/llama_service.dart:590:57 • argument_type_not_assignable
+   info • 'elementAt' is deprecated and shouldn't be used. Use operator + instead. Try replacing the use of the deprecated member with the replacement • build_llama/lib/src/llama_service.dart:805:49 • deprecated_member_use
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama_service.dart:1242:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/llama_service.dart:1578:7 • avoid_print
+warning • A value for optional parameter 'embdOffsetTokens' isn't ever given. Try removing the unused parameter • build_llama/lib/src/llama_service.dart:1628:59 • unused_element_parameter
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/mcp/mcp_client.dart:25:23 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • build_llama/lib/src/mcp/mcp_client.dart:26:21 • avoid_print
+  error • A value of type 'llama_model_params (where llama_model_params is defined in /home/ntdpkg/.pub-cache/hosted/pub.dev/llama_cpp_dart-0.2.2/lib/src/llama_cpp.dart)' can't be returned from the method 'get' because it has a return type of 'llama_model_params (where llama_model_params is defined in /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/build_llama/lib/src/llama_cpp.dart)' • build_llama/lib/src/model_params.dart:85:12 • return_of_invalid_type
+   info • The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart'. Try removing the import directive • lib/presentation/camera/camera_screen.dart:4:8 • unnecessary_import
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:814:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:817:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:821:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:825:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:830:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:834:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:846:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:852:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:860:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:863:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:866:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:868:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:874:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/presentation/camera/camera_screen.dart:877:9 • avoid_print
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2043:27 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2045:52 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2048:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2083:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2086:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement • lib/presentation/camera/camera_screen.dart:2095:50 • deprecated_member_use
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:40:11 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:44:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:50:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:53:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:78:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:79:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:80:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:102:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:105:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:117:11 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:120:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:136:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:139:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:141:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:151:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:153:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:210:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:225:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:233:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:237:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:241:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:256:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:263:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/ai/local_ai_engine.dart:283:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • lib/services/analysis/rule_based_photo_evaluator.dart:51:9 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:5:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:9:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:13:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:16:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:19:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:20:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:21:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • scratch/test_onnx.dart:24:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:9:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:12:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:14:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:21:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:23:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:26:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:28:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/local_ai_engine_test.dart:31:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:7:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:11:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:14:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:17:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:18:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:19:7 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test/onnx_test.dart:22:7 • avoid_print
+   info • The type name 'ggml_backend_dev_count_func' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_ggml_devices.dart:3:9 • camel_case_types
+   info • The type name 'ggml_backend_dev_count_dart' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_ggml_devices.dart:4:9 • camel_case_types
+   info • The type name 'ggml_backend_load_all_func' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_ggml_devices.dart:6:9 • camel_case_types
+   info • The type name 'ggml_backend_load_all_dart' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_ggml_devices.dart:7:9 • camel_case_types
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:12:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:15:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:18:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:24:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:26:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_ggml_devices.dart:29:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:7:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:13:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:16:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:21:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:25:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:37:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:41:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:45:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama.dart:48:3 • avoid_print
+   info • The type name 'ggml_backend_dev_count_func' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_llama_direct.dart:4:9 • camel_case_types
+   info • The type name 'ggml_backend_dev_count_dart' isn't an UpperCamelCase identifier. Try changing the name to follow the UpperCamelCase style • test_llama_direct.dart:5:9 • camel_case_types
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:10:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:14:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:16:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:18:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:20:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:23:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:27:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:31:3 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:43:5 • avoid_print
+   info • Don't invoke 'print' in production code. Try using a logging framework • test_llama_direct.dart:46:5 • avoid_print
+
+243 issues found. (ran in 2.9s)
