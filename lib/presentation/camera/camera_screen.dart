@@ -794,6 +794,13 @@ class _CameraScreenState extends State<CameraScreen>
         _initializing ||
         _disposed ||
         _isAiCoachAnalyzing) {
+      try {
+        final settings = XAestheticScope.of(context).settings;
+        if (settings.showSuggestionFrame) {
+          print(
+              "AI Coach Timer: Skipped analysis cycle. Reason: controllerIsNull=${controller == null}, isInitialized=${controller?.value.isInitialized == true}, capturing=$_capturing, initializing=$_initializing, disposed=$_disposed, isAiCoachAnalyzing=$_isAiCoachAnalyzing");
+        }
+      } catch (_) {}
       return;
     }
 
@@ -801,6 +808,8 @@ class _CameraScreenState extends State<CameraScreen>
     final settings = app.settings;
     if (!settings.showSuggestionFrame) {
       if (_aiAdvice != null || _fastStats != null) {
+        print(
+            "AI Coach Timer: showSuggestionFrame = false, clearing advice state.");
         if (mounted) {
           setState(() {
             _aiAdvice = null;
@@ -811,7 +820,8 @@ class _CameraScreenState extends State<CameraScreen>
       return;
     }
 
-    print("AI Coach Timer: Starting analysis cycle. showSuggestionFrame = true, isAiCoachAnalyzing = true");
+    print(
+        "AI Coach Timer: Starting analysis cycle. showSuggestionFrame = true, isAiCoachAnalyzing = true");
     _isAiCoachAnalyzing = true;
     try {
       print("AI Coach Timer: Capturing viewfinder frame...");
@@ -822,16 +832,19 @@ class _CameraScreenState extends State<CameraScreen>
         return;
       }
 
-      print("AI Coach Timer: Frame saved at: ${file.path}. Reading bytes...");
+      print(
+          "AI Coach Timer: Frame saved at: ${file.path}. Reading bytes...");
       final bytes = await File(file.path).readAsBytes();
       unawaited(File(file.path).delete().catchError((_) => File(file.path)));
 
       if (_disposed || !mounted) {
-        print("AI Coach Timer: Aborted after readAsBytes - Widget disposed or not mounted.");
+        print(
+            "AI Coach Timer: Aborted after readAsBytes - Widget disposed or not mounted.");
         return;
       }
 
-      print("AI Coach Timer: Offloading JPEG decoding and downscaling to background Isolate...");
+      print(
+          "AI Coach Timer: Offloading JPEG decoding and downscaling to background Isolate...");
       // Offload JPEG decoding, downsampling, and fast vision processing to a background Isolate
       final result = await compute(
         decodeAndAnalyzeImage,
@@ -843,13 +856,16 @@ class _CameraScreenState extends State<CameraScreen>
       );
 
       if (_disposed || !mounted) {
-        print("AI Coach Timer: Aborted after compute Isolate - Widget disposed or not mounted.");
+        print(
+            "AI Coach Timer: Aborted after compute Isolate - Widget disposed or not mounted.");
         return;
       }
 
       final stats = result.stats;
-      _lastFrameImage = result.smallImage; // Store the 160x120 image instead of the huge full-res image!
-      print("AI Coach Timer: Isolate processing finished. brightness = ${stats.brightness.toStringAsFixed(2)}, blurVariance = ${stats.blurVariance.toStringAsFixed(0)}");
+      _lastFrameImage = result
+          .smallImage; // Store the 160x120 image instead of the huge full-res image!
+      print(
+          "AI Coach Timer: Isolate processing finished. brightness = ${stats.brightness.toStringAsFixed(2)}, blurVariance = ${stats.blurVariance.toStringAsFixed(0)}");
 
       if (mounted) {
         setState(() {
@@ -859,13 +875,16 @@ class _CameraScreenState extends State<CameraScreen>
 
       print("AI Coach Timer: Initializing LocalAiEngine...");
       await LocalAiEngine.instance.init();
-      
-      print("AI Coach Timer: Classifying scene with ResNet18 Places365...");
+
+      print(
+          "AI Coach Timer: Classifying scene with ResNet18 Places365...");
       // Pass the pre-resized 224x224 image directly to avoid main-thread resizing
-      final category = await LocalAiEngine.instance.classifyImage(result.resized224);
+      final category =
+          await LocalAiEngine.instance.classifyImage(result.resized224);
       print("AI Coach Timer: Scene classified as: '$category'");
-      
-      print("AI Coach Timer: Generating Vietnamese advice with Local Gemma-3...");
+
+      print(
+          "AI Coach Timer: Generating Vietnamese advice with Local Gemma-3...");
       final advice = await LocalAiEngine.instance.generateAdvice(
         category,
         stats.brightness,
@@ -873,14 +892,21 @@ class _CameraScreenState extends State<CameraScreen>
       );
       print("AI Coach Timer: Generated advice: '$advice'");
 
-      if (mounted && advice.isNotEmpty) {
-        print("AI Coach Timer: Setting suggestions UI state to: '$advice'");
-        setState(() {
-          _aiAdvice = advice;
-        });
+      if (mounted) {
+        if (advice.isNotEmpty) {
+          print(
+              "AI Coach Timer: Setting suggestions UI state to: '$advice'");
+          setState(() {
+            _aiAdvice = advice;
+          });
+        } else {
+          print(
+              "AI Coach Timer: Generated advice is empty, keeping old advice: '$_aiAdvice'");
+        }
       }
-    } catch (e) {
-      debugPrint("AI Coach analysis error: $e");
+    } catch (e, stackTrace) {
+      print("AI Coach analysis error: $e");
+      print("AI Coach analysis stack trace:\n$stackTrace");
     } finally {
       _isAiCoachAnalyzing = false;
     }
@@ -1862,6 +1888,7 @@ class _XiaomiCameraViewport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("AI Coach Viewport: Rendering layout. aiAdvice = '$aiAdvice', showSuggestionFrame = ${settings.showSuggestionFrame}");
     return LayoutBuilder(
       builder: (context, constraints) {
         final mediaSize = MediaQuery.sizeOf(context);
@@ -1926,15 +1953,20 @@ class _XiaomiCameraViewport extends StatelessWidget {
                     final focusY = (focus?.dy ?? 0) * size.height;
                     final railLeft = focus == null
                         ? 0.0
-                        : (focusX > size.width - 96 ? focusX - 70 : focusX + 38);
+                        : (focusX > size.width - 96
+                            ? focusX - 70
+                            : focusX + 38);
                     final railTop = focus == null
                         ? 0.0
-                        : _safeClampDouble(focusY - 54, 10.0, size.height - 118);
+                        : _safeClampDouble(
+                            focusY - 54, 10.0, size.height - 118);
 
                     final isDeviceShaking = isShaking;
                     final currentWarning = isDeviceShaking
                         ? 'Cảnh báo: Thiết bị đang rung lắc'
-                        : (fastStats != null && fastStats!.hasWarnings ? fastStats!.warningMessage : null);
+                        : (fastStats != null && fastStats!.hasWarnings
+                            ? fastStats!.warningMessage
+                            : null);
 
                     return ClipRect(
                       child: Stack(
@@ -1971,19 +2003,20 @@ class _XiaomiCameraViewport extends StatelessWidget {
                           ),
                           if (settings.showHorizon)
                             IgnorePointer(
-                              child:
-                                  _XiaomiHorizonIndicator(tiltDegrees: tiltDegrees),
+                              child: _XiaomiHorizonIndicator(
+                                  tiltDegrees: tiltDegrees),
                             ),
                           if (focus != null)
                             Positioned(
                               left: focusX - 40,
                               top: focusY - 40,
-                              child: const IgnorePointer(child: _XiaomiFocusBox()),
+                              child:
+                                  const IgnorePointer(child: _XiaomiFocusBox()),
                             ),
                           if (focus != null)
                             Positioned(
-                              left:
-                                  _safeClampDouble(railLeft, 4.0, size.width - 44),
+                              left: _safeClampDouble(
+                                  railLeft, 4.0, size.width - 44),
                               top: railTop,
                               child: _FocusExposureRail(
                                 color: const Color(0xFFFFCC00),
@@ -2003,7 +2036,8 @@ class _XiaomiCameraViewport extends StatelessWidget {
                                     fontSize: 88,
                                     fontWeight: FontWeight.w900,
                                     shadows: [
-                                      Shadow(color: Colors.black54, blurRadius: 16)
+                                      Shadow(
+                                          color: Colors.black54, blurRadius: 16)
                                     ],
                                   ),
                                 ),
@@ -2042,7 +2076,8 @@ class _XiaomiCameraViewport extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.red.withOpacity(0.78),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.redAccent.withOpacity(0.8), width: 1.2),
+        border: Border.all(
+            color: Colors.redAccent.withOpacity(0.8), width: 1.2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.35),
@@ -2054,7 +2089,8 @@ class _XiaomiCameraViewport extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.warning_amber_rounded, color: Colors.white, size: 20),
+          const Icon(Icons.warning_amber_rounded,
+              color: Colors.white, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -2283,7 +2319,18 @@ class _XiaomiBottomDeck extends StatelessWidget {
         );
       case _ProParam.wb:
         return _XiaomiTextDial(
-          options: const ['Auto', '2300K', '3300K', '4300K', '5300K', '6300K', '7300K', '8300K', '9300K', '10000K'],
+          options: const [
+            'Auto',
+            '2300K',
+            '3300K',
+            '4300K',
+            '5300K',
+            '6300K',
+            '7300K',
+            '8300K',
+            '9300K',
+            '10000K'
+          ],
           value: proWb,
           isDark: isDark,
           overlay: true,
@@ -2293,9 +2340,28 @@ class _XiaomiBottomDeck extends StatelessWidget {
       case _ProParam.focus:
         return _XiaomiTextDial(
           options: const [
-            'Auto', '0.0', '0.05', '0.1', '0.15', '0.2', '0.25', '0.3', '0.35', '0.4',
-            '0.45', '0.5', '0.55', '0.6', '0.65', '0.7', '0.75', '0.8', '0.85', '0.9',
-            '0.95', '1.0'
+            'Auto',
+            '0.0',
+            '0.05',
+            '0.1',
+            '0.15',
+            '0.2',
+            '0.25',
+            '0.3',
+            '0.35',
+            '0.4',
+            '0.45',
+            '0.5',
+            '0.55',
+            '0.6',
+            '0.65',
+            '0.7',
+            '0.75',
+            '0.8',
+            '0.85',
+            '0.9',
+            '0.95',
+            '1.0'
           ],
           value: proFocus,
           isDark: isDark,
@@ -2306,9 +2372,40 @@ class _XiaomiBottomDeck extends StatelessWidget {
       case _ProParam.speed:
         return _XiaomiTextDial(
           options: const [
-            'Auto', '1/12000', '1/8000', '1/6000', '1/4000', '1/3000', '1/2000', '1/1500', '1/1000', '1/750', '1/500',
-            '1/350', '1/250', '1/180', '1/125', '1/90', '1/60', '1/50', '1/45', '1/30', '1/20', '1/15', '1/10', '1/8',
-            '1/6', '1/4', '1/3', '1/2', '1s', '2s', '4s', '8s', '16s', '32s'
+            'Auto',
+            '1/12000',
+            '1/8000',
+            '1/6000',
+            '1/4000',
+            '1/3000',
+            '1/2000',
+            '1/1500',
+            '1/1000',
+            '1/750',
+            '1/500',
+            '1/350',
+            '1/250',
+            '1/180',
+            '1/125',
+            '1/90',
+            '1/60',
+            '1/50',
+            '1/45',
+            '1/30',
+            '1/20',
+            '1/15',
+            '1/10',
+            '1/8',
+            '1/6',
+            '1/4',
+            '1/3',
+            '1/2',
+            '1s',
+            '2s',
+            '4s',
+            '8s',
+            '16s',
+            '32s'
           ],
           value: proSpeed,
           isDark: isDark,
@@ -2319,8 +2416,26 @@ class _XiaomiBottomDeck extends StatelessWidget {
       case _ProParam.iso:
         return _XiaomiTextDial(
           options: const [
-            'Auto', '50', '64', '80', '100', '125', '160', '200', '250', '320', '400',
-            '500', '640', '800', '1000', '1250', '1600', '2000', '2500', '3200'
+            'Auto',
+            '50',
+            '64',
+            '80',
+            '100',
+            '125',
+            '160',
+            '200',
+            '250',
+            '320',
+            '400',
+            '500',
+            '640',
+            '800',
+            '1000',
+            '1250',
+            '1600',
+            '2000',
+            '2500',
+            '3200'
           ],
           value: proIso,
           isDark: isDark,
@@ -3358,7 +3473,7 @@ class _XiaomiHorizonIndicator extends StatelessWidget {
         level ? const Color(0xFF00FF66) : Colors.white.withValues(alpha: 0.78);
     return Center(
       child: Transform.rotate(
-        angle: visualTilt * math.pi / 180,
+        angle: -visualTilt * math.pi / 180,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -3440,10 +3555,26 @@ class _CameraPreviewCover extends StatelessWidget {
 
     // 1. White Balance Matrix
     var baseMatrix = <double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, 1, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     if (proWb.endsWith('K')) {
@@ -3454,47 +3585,129 @@ class _CameraPreviewCover extends StatelessWidget {
       } else {
         t = (kelvin - 5500.0) / (10000.0 - 5500.0); // ranges [0.0, 1.0]
       }
-      final rScale = 1.0 + t * 0.25;  // low kelvin (cool) -> 0.75, high kelvin (warm) -> 1.25
+      final rScale = 1.0 +
+          t * 0.25; // low kelvin (cool) -> 0.75, high kelvin (warm) -> 1.25
       final gScale = 1.0 + t * 0.08;
-      final bScale = 1.0 - t * 0.25;  // low kelvin (cool) -> 1.25, high kelvin (warm) -> 0.75
+      final bScale = 1.0 -
+          t * 0.25; // low kelvin (cool) -> 1.25, high kelvin (warm) -> 0.75
       baseMatrix = [
-        rScale, 0,      0,      0, 0,
-        0,      gScale, 0,      0, 0,
-        0,      0,      bScale, 0, 0,
-        0,      0,      0,      1, 0,
+        rScale,
+        0,
+        0,
+        0,
+        0,
+        0,
+        gScale,
+        0,
+        0,
+        0,
+        0,
+        0,
+        bScale,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
       ];
     } else {
       switch (proWb) {
         case 'Sunny':
           baseMatrix = [
-            1.08, 0,    0,    0, 0,
-            0,    1.02, 0,    0, 0,
-            0,    0,    0.90, 0, 0,
-            0,    0,    0,    1, 0,
+            1.08,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.02,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.90,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
           ];
           break;
         case 'Cloudy':
           baseMatrix = [
-            1.14, 0,    0,    0, 0,
-            0,    1.06, 0,    0, 0,
-            0,    0,    0.85, 0, 0,
-            0,    0,    0,    1, 0,
+            1.14,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.06,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.85,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
           ];
           break;
         case 'Incandescent':
           baseMatrix = [
-            0.82, 0,    0,    0, 0,
-            0,    0.90, 0,    0, 0,
-            0,    0,    1.18, 0, 0,
-            0,    0,    0,    1, 0,
+            0.82,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.90,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.18,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
           ];
           break;
         case 'Fluorescent':
           baseMatrix = [
-            0.90, 0,    0,    0, 0,
-            0,    1.08, 0,    0, 0,
-            0,    0,    1.02, 0, 0,
-            0,    0,    0,    1, 0,
+            0.90,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.08,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1.02,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
           ];
           break;
         default:
@@ -3506,7 +3719,8 @@ class _CameraPreviewCover extends StatelessWidget {
     double isoFactor = 1.0;
     if (proIso != 'Auto') {
       final isoVal = double.tryParse(proIso) ?? 200.0;
-      isoFactor = 0.6 + (math.log(isoVal / 50.0) / math.log(3200.0 / 50.0)) * 0.9;
+      isoFactor =
+          0.6 + (math.log(isoVal / 50.0) / math.log(3200.0 / 50.0)) * 0.9;
     }
 
     // 3. Shutter Speed Factor
@@ -3528,7 +3742,9 @@ class _CameraPreviewCover extends StatelessWidget {
         speedFactor = (seconds / (1.0 / 60.0)).clamp(0.005, 1.0);
       } else {
         // Logarithmic scaling for slow shutter speeds to reflect bright long exposure
-        final t = (math.log(seconds / (1.0 / 60.0)) / math.log(32.0 / (1.0 / 60.0))).clamp(0.0, 1.0);
+        final t =
+            (math.log(seconds / (1.0 / 60.0)) / math.log(32.0 / (1.0 / 60.0)))
+                .clamp(0.0, 1.0);
         speedFactor = 1.0 + t * 2.0;
       }
     }
@@ -3551,11 +3767,11 @@ class _CameraPreviewCover extends StatelessWidget {
       if (focusVal > 1.0) {
         focusVal /= 100.0;
       }
-      
+
       // Calculate opacity values for center (subject) and edge (background) blurs
       double centerOpacity = 0.0;
       double edgeOpacity = 1.0;
-      
+
       if (focusVal < 0.4) {
         centerOpacity = 1.0;
       } else if (focusVal < 0.6) {
@@ -3563,13 +3779,13 @@ class _CameraPreviewCover extends StatelessWidget {
       } else if (focusVal >= 0.85) {
         centerOpacity = ((focusVal - 0.85) / 0.15) * 0.8;
       }
-      
+
       if (focusVal >= 0.8) {
         edgeOpacity = ((1.0 - focusVal) / 0.2).clamp(0.0, 1.0);
       }
-      
+
       final blurAmount = 3.0 + (1.0 - focusVal) * 1.5;
-      
+
       filteredChild = Stack(
         fit: StackFit.passthrough,
         children: [
@@ -3588,7 +3804,8 @@ class _CameraPreviewCover extends StatelessWidget {
             },
             blendMode: BlendMode.dstIn,
             child: ImageFiltered(
-              imageFilter: ui.ImageFilter.blur(sigmaX: blurAmount, sigmaY: blurAmount),
+              imageFilter:
+                  ui.ImageFilter.blur(sigmaX: blurAmount, sigmaY: blurAmount),
               child: filteredChild,
             ),
           ),
@@ -3845,7 +4062,8 @@ class _PulsingCameraIcon extends StatefulWidget {
   State<_PulsingCameraIcon> createState() => _PulsingCameraIconState();
 }
 
-class _PulsingCameraIconState extends State<_PulsingCameraIcon> with SingleTickerProviderStateMixin {
+class _PulsingCameraIconState extends State<_PulsingCameraIcon>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -4069,7 +4287,9 @@ class _XiaomiProParamRow extends StatelessWidget {
               Text(
                 param.label,
                 style: TextStyle(
-                  color: isSelected ? activeColor : textColor.withValues(alpha: 0.55),
+                  color: isSelected
+                      ? activeColor
+                      : textColor.withValues(alpha: 0.55),
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
                 ),
@@ -4307,7 +4527,9 @@ class _XiaomiTextDialState extends State<_XiaomiTextDial> {
                                       child: Container(
                                         width: 1.5,
                                         height: 20,
-                                        color: isSelected ? const Color(0xFFFFCC00) : majorColor,
+                                        color: isSelected
+                                            ? const Color(0xFFFFCC00)
+                                            : majorColor,
                                       ),
                                     ),
                                   ],
@@ -4324,7 +4546,8 @@ class _XiaomiTextDialState extends State<_XiaomiTextDial> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          _localSelectedIndex >= 0 && _localSelectedIndex < widget.options.length
+                          _localSelectedIndex >= 0 &&
+                                  _localSelectedIndex < widget.options.length
                               ? widget.options[_localSelectedIndex]
                               : widget.value,
                           style: const TextStyle(
@@ -4391,7 +4614,8 @@ ImageDecodeOutput decodeAndAnalyzeImage(ImageDecodeInput input) {
 
   // 3. Run FastVisionProcessor stats analysis using the pre-resized small image
   const processor = FastVisionProcessor();
-  final stats = processor.analyze(small, input.previousSmallImage, input.tiltDegrees);
+  final stats =
+      processor.analyze(small, input.previousSmallImage, input.tiltDegrees);
 
   return ImageDecodeOutput(
     stats: stats,
@@ -4399,4 +4623,3 @@ ImageDecodeOutput decodeAndAnalyzeImage(ImageDecodeInput input) {
     resized224: resized224,
   );
 }
-

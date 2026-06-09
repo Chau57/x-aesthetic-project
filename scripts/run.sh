@@ -1,6 +1,10 @@
 echo "[+] Running Flutter commands..."
+
 echo "[+] Cleaning the project..."
 flutter clean > logs/clean.log 2>&1
+
+echo "[+] Create android platform..."
+flutter create --platform=android . > logs/create.log 2>&1
 
 echo "[+] Getting dependencies..."
 flutter pub get > logs/pub_get.log 2>&1

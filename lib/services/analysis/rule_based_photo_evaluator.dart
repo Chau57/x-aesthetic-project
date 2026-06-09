@@ -38,11 +38,13 @@ class RuleBasedPhotoEvaluator {
       List<String> suggestions = [];
       try {
         await LocalAiEngine.instance.init();
-        final category = await LocalAiEngine.instance.classifyImagePath(imagePath);
+        final category =
+            await LocalAiEngine.instance.classifyImagePath(imagePath);
         final aiAdvice = await LocalAiEngine.instance.generateAdvice(
           category,
           stats.meanLuminance,
-          stats.luminanceStdDev * 1000.0, // Scale variance to typical 0-1000 range
+          stats.luminanceStdDev *
+              1000.0, // Scale variance to typical 0-1000 range
         );
         if (aiAdvice.isNotEmpty) {
           suggestions.add(aiAdvice);

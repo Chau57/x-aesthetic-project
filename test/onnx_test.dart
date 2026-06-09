@@ -10,7 +10,7 @@ void main() {
 
     print("Loading session options...");
     final sessionOptions = OrtSessionOptions();
-    
+
     print("Creating OrtSession from file...");
     try {
       final session = OrtSession.fromFile(File(modelPath), sessionOptions);

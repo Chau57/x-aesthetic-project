@@ -3,7 +3,8 @@ import 'package:image/image.dart' as img;
 import 'package:x_aesthetic_app/services/ai/local_ai_engine.dart';
 
 void main() {
-  test('LocalAiEngine end-to-end classification and advice generation', () async {
+  test('LocalAiEngine end-to-end classification and advice generation',
+      () async {
     final ai = LocalAiEngine.instance;
 
     print("Initializing LocalAiEngine...");

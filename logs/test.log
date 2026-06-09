@@ -1,59 +1,85 @@
 00:00 +0: loading /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart
 00:00 +0: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math reads level axes from accelerometer x/y projection
 00:00 +1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
-00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math measures error from the nearest level hold orientation
+00:00 +2: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/plugin/base_plugin_test.dart: PluginManager activates registered plugin by context label
 00:00 +3: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/core/camera/horizon_math_test.dart: horizon math rotates display line to match device roll
-00:01 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 00:02 +4: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
 Initializing OrtEnv...
 Loading session options...
-00:02 +4 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +4 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model [E]
-  Invalid argument(s): Failed to load dynamic library 'libonnxruntime.so.1.22.0': libonnxruntime.so.1.22.0: cannot open shared object file: No such file or directory
-  dart:ffi                                                 new DynamicLibrary.open
-  package:onnxruntime_v2/src/bindings/bindings.dart 23:27  _dylib.<fn>
-  package:onnxruntime_v2/src/bindings/bindings.dart 27:2   _dylib
-  package:onnxruntime_v2/src/bindings/bindings.dart        _dylib
-  package:onnxruntime_v2/src/bindings/bindings.dart 30:48  onnxRuntimeBinding
-  package:onnxruntime_v2/src/bindings/bindings.dart        onnxRuntimeBinding
-  package:onnxruntime_v2/src/ort_env.dart 22:18            new OrtEnv._
-  package:onnxruntime_v2/src/ort_env.dart 11:42            OrtEnv._instance
-  package:onnxruntime_v2/src/ort_env.dart                  OrtEnv._instance
-  package:onnxruntime_v2/src/ort_env.dart 13:33            OrtEnv.instance
-  package:onnxruntime_v2/src/ort_session.dart 515:30       OrtSessionOptions._create
-  package:onnxruntime_v2/src/ort_session.dart 510:5        new OrtSessionOptions
-  test/onnx_test.dart 12:28                                main.<fn>
-  
-00:02 +5 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +6 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +7 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +8 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+00:02 +5: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +5: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
+Creating OrtSession from file...
+00:02 +6: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +7: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +8: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 Initializing LocalAiEngine...
+00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
+OrtSession successfully initialized!
+Inputs: [input]
+Outputs: [output]
+00:02 +9: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+AI Coach Loader: init() called. _initialized = false
 AI Coach Loader: Resolved Categories Path: models/categories_places365.txt (Exists: true)
 AI Coach Loader: Resolved Gemma Path: models/google_gemma-3-1b-it-Q3_K_M.gguf (Exists: true)
 AI Coach Loader: Resolved ResNet Path: models/resnet18_places365.onnx (Exists: true)
+00:02 +10: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +10: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 AI Coach Loader: Loaded 365 category labels successfully.
+AI Coach Loader: Pre-loading libraries on Linux desktop host...
+00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
 AI Coach Loader: Linux FFI paths set to /home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib
-AI Coach Loader: Initializing Gemma-3 LlamaParent...
-00:02 +9 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
-00:02 +10 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
+AI Coach Loader: Initializing Gemma-3 LlamaParent with command: path=models/google_gemma-3-1b-it-Q3_K_M.gguf
+AI Coach Loader: Awaiting parent.init()...
+00:02 +11: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/widget_test.dart: XAestheticApp renders simplified camera UI
 Shell: CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 Shell: modelPath: models/google_gemma-3-1b-it-Q3_K_M.gguf
 Shell: libraryPath: /home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib/libllama.so
-00:02 +11 -1: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
-AI Coach Loader: Gemma-3 initialized successfully.
-Error initializing OrtSession: Invalid argument(s): Failed to load dynamic library 'libonnxruntime.so.1.22.0': libonnxruntime.so.1.22.0: cannot open shared object file: No such file or directory
+00:03 +12: /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/local_ai_engine_test.dart: LocalAiEngine end-to-end classification and advice generation
+AI Coach Loader: Gemma-3 initialized successfully. _llamaParent = Instance of 'LlamaParent'
+AI Coach Loader: Initializing ResNet18 Places365 ONNX from path: models/resnet18_places365.onnx
+AI Coach Loader: ResNet18 Places365 ONNX initialized successfully. _onnxSession = Instance of 'OrtSession'
+AI Coach Loader: init() finished. _initialized = true, _llamaParent is null: false, _onnxSession is null: false
 LocalAiEngine initialized successfully!
 Creating dummy image...
 Classifying image...
-ResNet18 classification output category: general scene
+ResNet18 classification output category: elevator shaft
 Generating advice from Gemma-3...
-AI Coach Generator: Starting generation for: category=general scene, brightness=0.45, blurVariance=250
-AI Coach Generator: Completed successfully. Raw response: 'Chụp ảnh nhanh, sắc nét, ánh sáng dịu, để thể hiện bối cảnh tốt nhất.', Cleaned advice: 'Chụp ảnh nhanh, sắc nét, ánh sáng dịu, để thể hiện bối cảnh tốt nhất.'
-Gemma-3 generated advice: Chụp ảnh nhanh, sắc nét, ánh sáng dịu, để thể hiện bối cảnh tốt nhất.
+AI Coach Generator: generateAdvice() called. _llamaParent is null: false, _isGenerating = false
+AI Coach Generator: Starting generation for: category=elevator shaft, brightness=0.45, blurVariance=250
+AI Coach Generator: Subscribing to LlamaParent stream...
+AI Coach Generator: Subscribing to LlamaParent completions stream...
+AI Coach Generator: Sending prompt to LlamaParent. Prompt size: 390 chars.
+AI Coach Generator: Prompt sent successfully. Assigned Prompt ID: 1781011362147
+AI Coach Generator: Received token #1: 'Hãy'
+AI Coach Generator: Received token #2: ' chụp'
+AI Coach Generator: Received token #3: ' ảnh'
+AI Coach Generator: Received token #4: ' nhanh'
+AI Coach Generator: Received token #5: ','
+AI Coach Generator: Received token #6: ' tinh'
+AI Coach Generator: Received token #7: ' tế'
+AI Coach Generator: Received token #8: ' và'
+AI Coach Generator: Received token #9: ' chuyên'
+AI Coach Generator: Received token #10: ' nghiệp'
+AI Coach Generator: Received token #11: ' trong'
+AI Coach Generator: Received token #12: ' thang'
+AI Coach Generator: Received token #13: ' đo'
+AI Coach Generator: Received token #14: ' sáng'
+AI Coach Generator: Received token #15: ' tối'
+AI Coach Generator: Received token #16: ' để'
+AI Coach Generator: Received token #17: ' tạo'
+AI Coach Generator: Received token #18: ' ra'
+AI Coach Generator: Received token #19: ' một'
+AI Coach Generator: Received token #20: ' bức'
+AI Coach Generator: Received token #21: ' tranh'
+AI Coach Generator: Received token #22: ' ấn'
+AI Coach Generator: Received token #23: ' tượng'
+AI Coach Generator: Received token #24: '.'
+AI Coach Generator: Completed successfully. Prompt ID: 1781011362147, Success: true, ErrorDetails: null
+AI Coach Generator: Raw response: 'Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.', Cleaned advice: 'Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.'
+Gemma-3 generated advice: Hãy chụp ảnh nhanh, tinh tế và chuyên nghiệp trong thang đo sáng tối để tạo ra một bức tranh ấn tượng.
 Disposing LocalAiEngine...
-00:04 +12 -1: Some tests failed.
-
-Failing tests:
-  /home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/test/onnx_test.dart: Load ResNet18 ONNX model
+00:05 +13: All tests passed!

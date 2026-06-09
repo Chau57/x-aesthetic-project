@@ -19,7 +19,7 @@ class LocalAiEngine implements AiEngine {
 
   bool _initialized = false;
   bool _isGenerating = false;
-  
+
   bool get isInitialized => _initialized;
 
   OrtSession? _onnxSession;
@@ -37,20 +37,23 @@ class LocalAiEngine implements AiEngine {
         final localFile = File(localPath);
 
         if (await localFile.exists() && await localFile.length() > 0) {
-          print("Local AI: Model $fileName already exists locally at $localPath");
+          print(
+              "Local AI: Model $fileName already exists locally at $localPath");
           return localPath;
         }
 
         print("Local AI: Copying $fileName from assets to $localPath...");
         await localFile.parent.create(recursive: true);
-        
+
         final data = await rootBundle.load('assets/models/$fileName');
-        final bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+        final bytes =
+            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
         await localFile.writeAsBytes(bytes, flush: true);
         print("Local AI: Copied $fileName successfully. Path: $localPath");
         return localPath;
       } catch (e) {
-        print("Local AI: Asset copying failed for $fileName: $e. Falling back to relative/absolute paths.");
+        print(
+            "Local AI: Asset copying failed for $fileName: $e. Falling back to relative/absolute paths.");
       }
     }
 
@@ -59,7 +62,8 @@ class LocalAiEngine implements AiEngine {
     if (relFile.existsSync()) {
       return relFile.path;
     }
-    final absPath = "/home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/$relativePath";
+    final absPath =
+        "/home/ntdpkg/Documents/hkvi/phan_tich_va_thiet_ke_phan_mem/Dean1/real/merged/$relativePath";
     final absFile = File(absPath);
     if (absFile.existsSync()) {
       return absFile.path;
@@ -69,15 +73,23 @@ class LocalAiEngine implements AiEngine {
 
   /// Pre-loads dynamic libraries and initializes OrtSession & LlamaParent.
   Future<void> init() async {
+    print("AI Coach Loader: init() called. _initialized = $_initialized");
     if (_initialized) return;
 
-    final categoriesPath = await _resolveModelPath("categories_places365.txt", "models/categories_places365.txt");
-    final gemmaPath = await _resolveModelPath("google_gemma-3-1b-it-Q3_K_M.gguf", "models/google_gemma-3-1b-it-Q3_K_M.gguf");
-    final resnetPath = await _resolveModelPath("resnet18_places365.onnx", "models/resnet18_places365.onnx");
+    final categoriesPath = await _resolveModelPath(
+        "categories_places365.txt", "models/categories_places365.txt");
+    final gemmaPath = await _resolveModelPath(
+        "google_gemma-3-1b-it-Q3_K_M.gguf",
+        "models/google_gemma-3-1b-it-Q3_K_M.gguf");
+    final resnetPath = await _resolveModelPath(
+        "resnet18_places365.onnx", "models/resnet18_places365.onnx");
 
-    print("AI Coach Loader: Resolved Categories Path: $categoriesPath (Exists: ${File(categoriesPath).existsSync()})");
-    print("AI Coach Loader: Resolved Gemma Path: $gemmaPath (Exists: ${File(gemmaPath).existsSync()})");
-    print("AI Coach Loader: Resolved ResNet Path: $resnetPath (Exists: ${File(resnetPath).existsSync()})");
+    print(
+        "AI Coach Loader: Resolved Categories Path: $categoriesPath (Exists: ${File(categoriesPath).existsSync()})");
+    print(
+        "AI Coach Loader: Resolved Gemma Path: $gemmaPath (Exists: ${File(gemmaPath).existsSync()})");
+    print(
+        "AI Coach Loader: Resolved ResNet Path: $resnetPath (Exists: ${File(resnetPath).existsSync()})");
 
     // 1. Load categories
     try {
@@ -99,25 +111,52 @@ class LocalAiEngine implements AiEngine {
             }
           }
         }
-        print("AI Coach Loader: Loaded ${_categories.length} category labels successfully.");
+        print(
+            "AI Coach Loader: Loaded ${_categories.length} category labels successfully.");
+      } else {
+        print(
+            "AI Coach Loader: Categories file does not exist at path: $categoriesPath");
       }
     } catch (e) {
-      print("Error loading categories: $e");
+      print("AI Coach Loader: Error loading categories: $e");
     }
 
-    // 2. Pre-load GGML libraries for Llama FFI (only on Linux desktop host)
+    // 2. Pre-load GGML libraries for Llama FFI on Linux desktop host
     if (Platform.isLinux) {
-      final libDir = "/home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib";
+      final libDir =
+          "/home/ntdpkg/Documents/test/model/.env/lib/python3.13/site-packages/llama_cpp/lib";
       if (Directory(libDir).existsSync()) {
         try {
+          print(
+              "AI Coach Loader: Pre-loading libraries on Linux desktop host...");
           DynamicLibrary.open("$libDir/libggml-base.so");
           DynamicLibrary.open("$libDir/libggml-cpu.so");
           DynamicLibrary.open("$libDir/libggml.so");
         } catch (e) {
-          print("GGML pre-load warning: $e");
+          print("AI Coach Loader: GGML pre-load warning: $e");
         }
         Llama.libraryPath = "$libDir/libllama.so";
         print("AI Coach Loader: Linux FFI paths set to $libDir");
+      } else {
+        print("AI Coach Loader: Linux libDir does not exist at $libDir");
+      }
+    }
+
+    // 2b. Pre-load libraries for Android FFI to resolve dependencies transitively
+    if (Platform.isAndroid) {
+      try {
+        print(
+            "AI Coach Loader: Pre-loading libraries on Android to resolve libmtmd.so dependencies...");
+        DynamicLibrary.open("libc++_shared.so");
+        DynamicLibrary.open("libomp.so");
+        DynamicLibrary.open("libggml-base.so");
+        DynamicLibrary.open("libggml-cpu.so");
+        DynamicLibrary.open("libggml.so");
+        DynamicLibrary.open("libmtmd.so");
+        print(
+            "AI Coach Loader: Android libraries pre-loaded successfully.");
+      } catch (e) {
+        print("AI Coach Loader: Android library pre-load error: $e");
       }
     }
 
@@ -126,34 +165,46 @@ class LocalAiEngine implements AiEngine {
       final modelParams = ModelParams();
       modelParams.nGpuLayers = 0;
       modelParams.mainGpu = -1; // CPU only execution
-      
+
       final loadCommand = LlamaLoad(
         path: gemmaPath,
         modelParams: modelParams,
         contextParams: ContextParams(),
         samplingParams: SamplerParams(),
       );
-      print("AI Coach Loader: Initializing Gemma-3 LlamaParent...");
-      _llamaParent = LlamaParent(loadCommand);
-      await _llamaParent!.init();
-      print("AI Coach Loader: Gemma-3 initialized successfully.");
-    } catch (e) {
-      print("Error initializing LlamaParent: $e");
+      print(
+          "AI Coach Loader: Initializing Gemma-3 LlamaParent with command: path=${loadCommand.path}");
+      final parent = LlamaParent(loadCommand);
+      print("AI Coach Loader: Awaiting parent.init()...");
+      await parent.init();
+      _llamaParent = parent;
+      print(
+          "AI Coach Loader: Gemma-3 initialized successfully. _llamaParent = $_llamaParent");
+    } catch (e, stackTrace) {
+      print("AI Coach Loader: Error initializing LlamaParent: $e");
+      print("AI Coach Loader: Stack trace:\n$stackTrace");
+      _llamaParent = null;
     }
 
     // 4. Initialize ONNX Runtime Session
     try {
       final sessionOptions = OrtSessionOptions();
+      print(
+          "AI Coach Loader: Initializing ResNet18 Places365 ONNX from path: $resnetPath");
       _onnxSession = OrtSession.fromFile(
         File(resnetPath),
         sessionOptions,
       );
-      print("AI Coach Loader: ResNet18 Places365 ONNX initialized successfully.");
-    } catch (e) {
-      print("Error initializing OrtSession: $e");
+      print(
+          "AI Coach Loader: ResNet18 Places365 ONNX initialized successfully. _onnxSession = $_onnxSession");
+    } catch (e, stackTrace) {
+      print("AI Coach Loader: Error initializing OrtSession: $e");
+      print("AI Coach Loader: Stack trace:\n$stackTrace");
     }
 
     _initialized = true;
+    print(
+        "AI Coach Loader: init() finished. _initialized = $_initialized, _llamaParent is null: ${_llamaParent == null}, _onnxSession is null: ${_onnxSession == null}");
   }
 
   /// Classifies a raw image into a Places365 category.
@@ -165,7 +216,7 @@ class LocalAiEngine implements AiEngine {
           ? image
           : img.copyResize(image, width: 224, height: 224);
       final floatData = Float32List(1 * 3 * 224 * 224);
-      
+
       for (var y = 0; y < 224; y++) {
         for (var x = 0; x < 224; x++) {
           final pixel = resized.getPixel(x, y);
@@ -228,32 +279,51 @@ class LocalAiEngine implements AiEngine {
   }
 
   /// Sends a prompt to the Gemma model and awaits the complete generated suggestion.
-  Future<String> generateAdvice(String category, double brightness, double blurVariance) async {
+  Future<String> generateAdvice(
+      String category, double brightness, double blurVariance) async {
+    print(
+        "AI Coach Generator: generateAdvice() called. _llamaParent is null: ${_llamaParent == null}, _isGenerating = $_isGenerating");
     if (_llamaParent == null) {
-      print("AI Coach Generator: Warning - LlamaParent is null! Returning fallback advice.");
+      print(
+          "AI Coach Generator: Warning - LlamaParent is null! Returning fallback advice.");
       return "Giữ máy ổn định và căn khung hình cân đối.";
     }
     if (_isGenerating) {
-      print("AI Coach Generator: Warning - Generation is already in progress. Ignoring request.");
+      print(
+          "AI Coach Generator: Warning - Generation is already in progress. Ignoring request.");
       return ""; // Ignore concurrent requests
     }
 
-    print("AI Coach Generator: Starting generation for: category=$category, brightness=${brightness.toStringAsFixed(2)}, blurVariance=${blurVariance.toStringAsFixed(0)}");
+    print(
+        "AI Coach Generator: Starting generation for: category=$category, brightness=${brightness.toStringAsFixed(2)}, blurVariance=${blurVariance.toStringAsFixed(0)}");
     _isGenerating = true;
     final completer = Completer<String>();
     final sb = StringBuffer();
+    int tokenCount = 0;
 
     // 1. Listen to tokens generated
+    print("AI Coach Generator: Subscribing to LlamaParent stream...");
     final tokenSub = _llamaParent!.stream.listen((token) {
+      tokenCount++;
+      print("AI Coach Generator: Received token #$tokenCount: '$token'");
       sb.write(token);
+    }, onError: (e) {
+      print("AI Coach Generator: Error in LlamaParent token stream: $e");
+    }, onDone: () {
+      print("AI Coach Generator: LlamaParent token stream done.");
     });
 
     // 2. Listen to completions stream to know when it finishes
+    print(
+        "AI Coach Generator: Subscribing to LlamaParent completions stream...");
     StreamSubscription<CompletionEvent>? completionSub;
     completionSub = _llamaParent!.completions.listen(
       (event) {
         final text = _cleanResponse(sb.toString());
-        print("AI Coach Generator: Completed successfully. Raw response: '${sb.toString()}', Cleaned advice: '$text'");
+        print(
+            "AI Coach Generator: Completed successfully. Prompt ID: ${event.promptId}, Success: ${event.success}, ErrorDetails: ${event.errorDetails}");
+        print(
+            "AI Coach Generator: Raw response: '${sb.toString()}', Cleaned advice: '$text'");
         if (!completer.isCompleted) completer.complete(text);
         tokenSub.cancel();
         completionSub?.cancel();
@@ -278,12 +348,17 @@ class LocalAiEngine implements AiEngine {
           "Yêu cầu: Không tiêu đề, không chào hỏi, không định dạng viết đậm, trả lời trực tiếp lời khuyên trong 1 câu ngắn gọn.<end_of_turn>\n"
           "<start_of_turn>model\n";
 
-      await _llamaParent!.sendPrompt(prompt);
-    } catch (e) {
+      print(
+          "AI Coach Generator: Sending prompt to LlamaParent. Prompt size: ${prompt.length} chars.");
+      final promptId = await _llamaParent!.sendPrompt(prompt);
+      print(
+          "AI Coach Generator: Prompt sent successfully. Assigned Prompt ID: $promptId");
+    } catch (e, stackTrace) {
       print("AI Coach Generator: Error sending prompt: $e");
+      print("AI Coach Generator: Stack trace:\n$stackTrace");
       if (!completer.isCompleted) completer.completeError(e);
       tokenSub.cancel();
-      completionSub.cancel();
+      if (completionSub != null) completionSub.cancel();
       _isGenerating = false;
     }
 
@@ -306,7 +381,8 @@ class LocalAiEngine implements AiEngine {
       }
     }
     cleaned = cleaned.replaceFirst(RegExp(r'^(\d+\.\s*|-\s*)'), '');
-    cleaned = cleaned.replaceAll('**', '').replaceAll('*', '').replaceAll('"', '');
+    cleaned =
+        cleaned.replaceAll('**', '').replaceAll('*', '').replaceAll('"', '');
     return cleaned;
   }
 
